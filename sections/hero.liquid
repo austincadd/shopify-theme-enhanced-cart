@@ -1,0 +1,132 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+        <!-- Announcement Bar -->
+        <div class="announcement-bar">
+          <div class="announcement-content">
+            <div class="announcement-text">
+              <span>Liquify Vocals OUT NOW!</span>
+              <span>Liquify Vocals OUT NOW!</span>
+              <span>Liquify Vocals OUT NOW!</span>
+              <span>Liquify Vocals OUT NOW!</span>
+              <span>Liquify Vocals OUT NOW!</span>
+              <span>Liquify Vocals OUT NOW!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-section section" id="hero">
+          <div class="hero-background">
+            <div class="hero-gradient"></div>
+            
+            <!-- Floating Orbs -->
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="orb orb-4"></div>
+            <div class="orb orb-5"></div>
+            <div class="orb orb-6"></div>
+            <div class="orb orb-7"></div>
+            <div class="orb orb-8"></div>
+          </div>
+  
+  <div class="page-width">
+    <div class="hero-content">
+      <!-- Clean Typography Focus -->
+      <div class="hero-text">
+        <div class="product-badge">Featured Pack</div>
+        
+        <h1 class="hero-title">
+          <span class="title-line-1">Liquify</span>
+          <span class="title-line-2">Vocals</span>
+        </h1>
+        
+        <div class="price-section">
+          <span class="current-price">$29.99</span>
+        </div>
+        
+        <p class="hero-description">
+          <span class="description-highlight">Punchy, Hypnotic and Floor-Filling</span><br>
+          <span class="description-subtitle">240 vocal samples crafted for the modern tech house movement.</span><br>
+          
+          Dive into the fluid world of Liquify, a vocal sample pack designed for modern producers seeking lush, smooth, and expressive vocal textures. Loaded with professionally recorded phrases, one-shots, and melodic chops, this pack gives your tracks a vocal edge that glides effortlessly over any production.
+        </p>
+        
+        <div class="cta-section">
+          <button class="primary-cta">ADD TO CART · $29.99</button>
+        </div>
+      </div>
+      
+      <!-- Subtle Product Preview -->
+      <div class="product-preview">
+        <div class="preview-container">
+          <img 
+            src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/liquifyX.png?v=1758300196"
+            alt="Liquify Vocals" 
+            class="preview-image"
+            loading="lazy"
+            width="400"
+            height="400"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Professional Music Production Tools"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Elevate your sound with premium sample packs, cutting-edge plugins, and exclusive producer resources."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Primary CTA Text",
+      "default": "Explore Products"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Primary CTA URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary CTA Text"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary CTA URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

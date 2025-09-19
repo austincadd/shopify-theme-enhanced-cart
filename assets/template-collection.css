@@ -1,0 +1,146 @@
+/* Hide "Products" heading on collection pages - Very aggressive approach */
+.collection .collection-hero__title + *,
+.collection .page-width h1:first-child,
+.collection .page-width h2:first-child,
+.collection .facets__heading,
+.collection .facets__label,
+.collection .title-wrapper h2,
+.collection .title-wrapper h1,
+.collection h1,
+.collection h2,
+.collection h3,
+.collection .title,
+.collection .heading,
+.collection .section-header,
+.collection .collection-header,
+.collection .page-header,
+.collection .main-collection-product-grid h1,
+.collection .main-collection-product-grid h2,
+.collection .main-collection-product-grid h3,
+.collection .main-collection-product-grid .title,
+.collection .main-collection-product-grid .heading,
+.collection .collection-hero__title,
+.collection .collection-hero h1,
+.collection .collection-hero h2,
+.collection .collection-hero h3 {
+  display: none !important;
+}
+
+/* Hide any text that might be showing "Products" */
+.collection .page-width > *:first-child:not(.collection-hero):not(.product-grid-container) {
+  display: none !important;
+}
+
+/* More aggressive hiding of any heading that might show "Products" */
+.collection .main-collection-product-grid .page-width h1,
+.collection .main-collection-product-grid .page-width h2,
+.collection .main-collection-product-grid .page-width h3,
+.collection .main-collection-product-grid .page-width .title,
+.collection .main-collection-product-grid .page-width .heading {
+  display: none !important;
+}
+
+/* Hide any element that might contain "Products" text */
+.collection .page-width > *:not(.collection-hero):not(.product-grid-container):not(.facets-wrapper) {
+  display: none !important;
+}
+
+@media screen and (max-width: 749px) {
+  .collection .grid__item:only-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider.slider--tablet {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.collection .loading-overlay {
+  position: absolute;
+  z-index: 1;
+  width: 1.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .collection .loading-overlay {
+    top: 0;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    left: 0;
+  }
+}
+
+.collection .loading-overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  padding: 0 1.5rem;
+  opacity: 0.7;
+}
+
+@media screen and (min-width: 750px) {
+  .collection .loading-overlay {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.collection.loading .loading-overlay {
+  display: block;
+}
+
+.collection--empty .title-wrapper {
+  margin-top: 10rem;
+  margin-bottom: 15rem;
+}
+
+@media screen and (max-width: 989px) {
+  .collection .slider--tablet.product-grid {
+    scroll-padding-left: 1.5rem;
+  }
+}
+
+.collection__description > * {
+  margin: 0;
+}
+
+.collection__title.title-wrapper {
+  margin-bottom: 2.5rem;
+}
+
+.collection__title .title:not(:only-child) {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .collection__title--desktop-slider .title {
+    margin-bottom: 2.5rem;
+  }
+
+  .collection__title.title-wrapper--self-padded-tablet-down {
+    padding: 0 5rem;
+  }
+
+  .collection slider-component:not(.page-width-desktop) {
+    padding: 0;
+  }
+
+  .collection--full-width slider-component:not(.slider-component-desktop) {
+    padding: 0 1.5rem;
+    max-width: none;
+  }
+}
+
+.collection__view-all a:not(.link) {
+  margin-top: 1rem;
+}

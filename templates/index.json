@@ -1,0 +1,87 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Your Sound, Upgraded—Pro Sounds at Your Fingertips.",
+        "subheading": "Explore premium sample packs and VST presets built for modern producers.",
+        "cta_text": "Shop Now",
+        "cta_url": "#shop",
+        "secondary_cta_text": "Discover Plugins",
+        "secondary_cta_url": "#plugins"
+      }
+    },
+    "featured_products": {
+      "type": "featured-products-v2",
+      "settings": {
+        "heading": "Full Collection",
+        "subheading": "Discover our premium sample packs and sound collections",
+        "collection": "all",
+        "products_to_show": 6,
+        "show_view_all": true,
+        "view_all_text": "View All Products"
+      }
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {
+        "heading": "Built by Producers, for Producers",
+        "description": "Every sound in our collection is crafted by industry veterans who understand what producers need to create their next hit. We're not just selling samples and plugins – we're sharing the tools that helped us build our own careers in music."
+      }
+    },
+    "featured_packs": {
+      "type": "featured-packs",
+      "settings": {
+        "title": "Explore the Sound",
+        "subtitle": "Experience our premium sound collections with interactive demos",
+        "pack1_name": "Euphoria",
+        "pack1_genre": "Progressive House",
+        "pack2_name": "Paradox",
+        "pack2_genre": "Tech House",
+        "pack3_name": "One",
+        "pack3_genre": "Deep House"
+      }
+    },
+    "trusted_artists": {
+      "type": "trusted-artists",
+      "settings": {
+        "heading": "Trusted by Top Artists",
+        "subheading": "Fueling the tracks of world-class producers."
+      }
+    },
+    "email_capture": {
+      "type": "email-capture",
+      "settings": {
+        "heading": "Stay in the Lab",
+        "subtext": "Exclusive sounds, presets, and early access to plugins — free for our members.",
+        "button_text": "Unlock Free Sounds",
+        "disclaimer": "Instant access to free sounds. No spam, unsubscribe anytime."
+      }
+    },
+    "footer_contact": {
+      "type": "footer-contact",
+      "settings": {
+        "headline": "Let's build something together.",
+        "subtext": "Questions about our packs or plugins?"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_products",
+    "brand_story",
+    "featured_packs",
+    "trusted_artists",
+    "email_capture",
+    "footer_contact"
+  ]
+}

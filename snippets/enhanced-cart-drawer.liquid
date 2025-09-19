@@ -1,0 +1,901 @@
+{% comment %}
+  Enhanced Cart Drawer with sliding animation, upsell bundles, and improved UX
+{% endcomment %}
+
+{{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  /* Enhanced Cart Drawer Styles */
+  .enhanced-cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    z-index: 99999999 !important;
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .enhanced-cart-drawer.open {
+    right: 0;
+  }
+
+  .enhanced-cart-drawer__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 99999998 !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Page tint when cart drawer is open */
+  html body.cart-drawer-open {
+    overflow: hidden !important;
+  }
+
+  /* Page tint overlay - only covers main content, not cart drawer */
+  .page-tint-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    z-index: 10000 !important;
+    pointer-events: none !important;
+    transition: all 0.3s ease !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  .page-tint-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .enhanced-cart-drawer__overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .enhanced-cart-drawer__header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(102, 255, 204, 0.2);
+    background: rgba(13, 15, 13, 0.8);
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .enhanced-cart-drawer__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(102, 255, 204, 0.3);
+  }
+
+  .enhanced-cart-drawer__close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-drawer__close:hover {
+    background: rgba(102, 255, 204, 0.1);
+    transform: scale(1.1);
+  }
+
+  .enhanced-cart-drawer__content {
+    padding: 1.5rem;
+    min-height: calc(100vh - 200px);
+  }
+
+  .enhanced-cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(13, 15, 13, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 255, 204, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-item:hover {
+    border-color: rgba(102, 255, 204, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 255, 204, 0.1);
+  }
+
+  .enhanced-cart-item__image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .enhanced-cart-item__details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .enhanced-cart-item__name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+  }
+
+  .enhanced-cart-item__price {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .enhanced-cart-item__quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .enhanced-cart-item__quantity-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(102, 255, 204, 0.3);
+    background: rgba(102, 255, 204, 0.1);
+    color: var(--text-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-item__quantity-btn:hover {
+    background: rgba(102, 255, 204, 0.2);
+    border-color: rgba(102, 255, 204, 0.5);
+  }
+
+  .enhanced-cart-item__quantity-input {
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid rgba(102, 255, 204, 0.3);
+    background: rgba(13, 15, 13, 0.8);
+    color: var(--text-primary);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    /* Hide the default number input spinner arrows */
+    -moz-appearance: textfield;
+  }
+
+  .enhanced-cart-item__quantity-input::-webkit-outer-spin-button,
+  .enhanced-cart-item__quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .enhanced-cart-item__remove {
+    background: none;
+    border: none;
+    color: #ff4757;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-item__remove:hover {
+    background: rgba(255, 71, 87, 0.1);
+    transform: scale(1.1);
+  }
+
+  .enhanced-cart-drawer__empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .enhanced-cart-drawer__empty-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    opacity: 0.5;
+  }
+
+  .enhanced-cart-drawer__empty-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .enhanced-cart-drawer__continue-btn {
+    background: linear-gradient(135deg, #ff2d95, #00d4ff);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-drawer__continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 45, 149, 0.4);
+  }
+
+  /* Upsell Bundles */
+  .enhanced-cart-drawer__upsells {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(102, 255, 204, 0.2);
+  }
+
+  .enhanced-cart-drawer__upsells-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .enhanced-cart-drawer__upsell-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(13, 15, 13, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 255, 204, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .enhanced-cart-drawer__upsell-item:hover {
+    border-color: rgba(102, 255, 204, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 255, 204, 0.1);
+  }
+
+  .enhanced-cart-drawer__upsell-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .enhanced-cart-drawer__upsell-details {
+    flex: 1;
+  }
+
+  .enhanced-cart-drawer__upsell-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .enhanced-cart-drawer__upsell-price {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .enhanced-cart-drawer__upsell-btn {
+    background: rgba(102, 255, 204, 0.1);
+    border: 1px solid rgba(102, 255, 204, 0.3);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .enhanced-cart-drawer__upsell-btn:hover {
+    background: rgba(102, 255, 204, 0.2);
+    border-color: rgba(102, 255, 204, 0.5);
+  }
+
+  /* Footer */
+  .enhanced-cart-drawer__footer {
+    position: sticky;
+    bottom: 0;
+    background: rgba(13, 15, 13, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem;
+    border-top: 1px solid rgba(102, 255, 204, 0.2);
+  }
+
+  .enhanced-cart-drawer__subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(102, 255, 204, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(102, 255, 204, 0.1);
+  }
+
+  .enhanced-cart-drawer__subtotal-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .enhanced-cart-drawer__subtotal-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .enhanced-cart-drawer__checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ff2d95, #00d4ff);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .enhanced-cart-drawer__checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 45, 149, 0.4);
+  }
+
+  .enhanced-cart-drawer__checkout-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 768px) {
+    .enhanced-cart-drawer {
+      max-width: 100%;
+    }
+  }
+
+  /* Animation for cart icon */
+  .cart-icon-bounce {
+    animation: cartBounce 0.6s ease-in-out;
+  }
+
+  @keyframes cartBounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+</style>
+
+<!-- Page Tint Overlay -->
+<div class="page-tint-overlay" id="page-tint-overlay"></div>
+
+<!-- Enhanced Cart Drawer -->
+<div id="enhanced-cart-drawer" class="enhanced-cart-drawer">
+  <div class="enhanced-cart-drawer__overlay" id="cart-drawer-overlay"></div>
+  
+  <div class="enhanced-cart-drawer__header">
+    <h2 class="enhanced-cart-drawer__title">Cart</h2>
+    <button class="enhanced-cart-drawer__close" id="cart-drawer-close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="enhanced-cart-drawer__content" id="cart-drawer-content">
+    <!-- Cart items will be populated here -->
+  </div>
+
+  <div class="enhanced-cart-drawer__footer" id="cart-drawer-footer">
+    <!-- Footer content will be populated here -->
+  </div>
+</div>
+
+<script>
+class EnhancedCartDrawer {
+  constructor() {
+    this.drawer = document.getElementById('enhanced-cart-drawer');
+    this.overlay = document.getElementById('cart-drawer-overlay');
+    this.pageTint = document.getElementById('page-tint-overlay');
+    this.closeBtn = document.getElementById('cart-drawer-close');
+    this.content = document.getElementById('cart-drawer-content');
+    this.footer = document.getElementById('cart-drawer-footer');
+    
+    console.log('Page tint element found:', !!this.pageTint);
+    if (this.pageTint) {
+      console.log('Page tint element:', this.pageTint);
+    }
+    
+    this.init();
+  }
+
+  init() {
+    // Event listeners
+    this.closeBtn.addEventListener('click', () => this.close());
+    this.overlay.addEventListener('click', () => this.close());
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen()) {
+        this.close();
+      }
+    });
+
+    // Listen for cart updates
+    document.addEventListener('cart:updated', () => this.updateCart());
+    
+    // Prevent scroll when drawer is open
+    this.preventScroll = (e) => {
+      if (this.isOpen()) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    };
+    
+    // Initial cart load
+    this.updateCart();
+  }
+
+  open() {
+    console.log('Opening cart drawer...');
+    
+    // Store current scroll position BEFORE any changes
+    this.scrollPosition = window.pageYOffset;
+    console.log('Stored scroll position:', this.scrollPosition);
+    
+    // Create a wrapper to maintain scroll position
+    if (!document.getElementById('scroll-lock-wrapper')) {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'scroll-lock-wrapper';
+      wrapper.style.cssText = `
+        position: fixed;
+        top: -${this.scrollPosition}px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+      `;
+      document.body.appendChild(wrapper);
+    }
+    
+    // Apply scroll lock
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('cart-drawer-open');
+    
+    // Create the proper dark tint overlay with very low z-index
+    const darkTint = document.createElement('div');
+    darkTint.id = 'dark-tint-overlay';
+    darkTint.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    `;
+    
+    // Add it to the body
+    document.body.appendChild(darkTint);
+    this.pageTint = darkTint;
+    
+    console.log('Dark tint overlay created with z-index: 1');
+    console.log('Dark tint element:', darkTint);
+    
+    // Open the cart drawer (which has much higher z-index)
+    this.drawer.classList.add('open');
+    this.overlay.classList.add('open');
+    
+    // Force the cart drawer to be on top with even higher z-index
+    this.drawer.style.zIndex = '99999999';
+    this.overlay.style.zIndex = '99999998';
+    console.log('Cart drawer z-index set to:', this.drawer.style.zIndex);
+    console.log('Cart overlay z-index set to:', this.overlay.style.zIndex);
+    
+    // Add scroll prevention
+    document.addEventListener('wheel', this.preventScroll, { passive: false });
+    document.addEventListener('touchmove', this.preventScroll, { passive: false });
+    document.addEventListener('keydown', this.preventScroll, { passive: false });
+    
+    console.log('Body classes after open:', document.body.className);
+    console.log('Page tint active:', this.pageTint ? this.pageTint.classList.contains('active') : 'No tint element');
+    console.log('Page tint element:', this.pageTint);
+    if (this.pageTint) {
+      console.log('Page tint opacity:', window.getComputedStyle(this.pageTint).opacity);
+    }
+    this.updateCart();
+  }
+
+  close() {
+    console.log('Closing cart drawer...');
+    this.drawer.classList.remove('open');
+    this.overlay.classList.remove('open');
+    
+    // Remove the dark tint overlay
+    if (this.pageTint) {
+      this.pageTint.remove();
+      console.log('Dark tint overlay removed');
+    }
+    
+    // Also remove any other tint elements
+    const allTints = document.querySelectorAll('#dark-tint-overlay, #test-tint-overlay, #dark-overlay, #page-tint-overlay, #fallback-page-tint, #aggressive-page-tint, #simple-tint-overlay');
+    allTints.forEach(element => {
+      element.remove();
+      console.log('Removed element:', element.id);
+    });
+    
+    document.body.classList.remove('cart-drawer-open');
+    
+    // Remove scroll prevention
+    document.removeEventListener('wheel', this.preventScroll);
+    document.removeEventListener('touchmove', this.preventScroll);
+    document.removeEventListener('keydown', this.preventScroll);
+    
+    // Remove wrapper and restore scrolling
+    const wrapper = document.getElementById('scroll-lock-wrapper');
+    if (wrapper) {
+      wrapper.remove();
+    }
+    
+    document.body.style.overflow = '';
+    
+    // Restore scroll position
+    if (this.scrollPosition !== undefined) {
+      window.scrollTo(0, this.scrollPosition);
+      console.log('Restored scroll position to:', this.scrollPosition);
+    }
+    
+    console.log('Body classes after close:', document.body.className);
+  }
+
+  isOpen() {
+    return this.drawer.classList.contains('open');
+  }
+
+  async updateCart() {
+    try {
+      const response = await fetch('/cart.js');
+      const cart = await response.json();
+      
+      this.renderCartItems(cart);
+      this.renderFooter(cart);
+      this.updateCartIcon(cart);
+    } catch (error) {
+      console.error('Error updating cart:', error);
+    }
+  }
+
+  renderCartItems(cart) {
+    if (cart.items.length === 0) {
+      this.content.innerHTML = `
+        <div class="enhanced-cart-drawer__empty">
+          <svg class="enhanced-cart-drawer__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="m1 1 4 4 13 13 4-4-13-13z"></path>
+          </svg>
+          <p class="enhanced-cart-drawer__empty-text">Your cart is empty</p>
+           <button class="enhanced-cart-drawer__continue-btn" onclick="window.enhancedCartDrawer.close()">
+             Continue Shopping
+           </button>
+        </div>
+      `;
+      return;
+    }
+
+    const itemsHtml = cart.items.map(item => `
+      <div class="enhanced-cart-item" data-variant-id="${item.variant_id}">
+        <img src="${item.image}" alt="${item.title}" class="enhanced-cart-item__image">
+        <div class="enhanced-cart-item__details">
+          <h3 class="enhanced-cart-item__name">${item.product_title}</h3>
+          <p class="enhanced-cart-item__price">${this.formatMoney(item.price)}</p>
+            <div class="enhanced-cart-item__quantity">
+             <button class="enhanced-cart-item__quantity-btn" onclick="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, ${item.quantity - 1})">-</button>
+             <input type="number" class="enhanced-cart-item__quantity-input" value="${item.quantity}" min="1" onchange="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, this.value)">
+             <button class="enhanced-cart-item__quantity-btn" onclick="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, ${item.quantity + 1})">+</button>
+            </div>
+        </div>
+        <button class="enhanced-cart-item__remove" onclick="window.enhancedCartDrawer.removeItem(${item.variant_id})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3,6 5,6 21,6"></polyline>
+            <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+
+    this.content.innerHTML = itemsHtml + this.renderUpsells();
+  }
+
+  renderUpsells() {
+    // Sample upsell products - you can customize these
+    const upsells = [
+      {
+        id: 'upsell-1',
+        title: 'Sample Pack Bundle',
+        price: 99.00,
+        image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.59.05PM.png?v=1757973557',
+        variant_id: 'upsell-1'
+      },
+      {
+        id: 'upsell-2',
+        title: 'Premium Sounds',
+        price: 149.00,
+        image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.49.13PM.png?v=1757973190',
+        variant_id: 'upsell-2'
+      }
+    ];
+
+    return `
+      <div class="enhanced-cart-drawer__upsells">
+        <h3 class="enhanced-cart-drawer__upsells-title">You might also like</h3>
+        ${upsells.map(upsell => `
+          <div class="enhanced-cart-drawer__upsell-item" onclick="this.addUpsell('${upsell.variant_id}')">
+            <img src="${upsell.image}" alt="${upsell.title}" class="enhanced-cart-drawer__upsell-image">
+            <div class="enhanced-cart-drawer__upsell-details">
+              <h4 class="enhanced-cart-drawer__upsell-name">${upsell.title}</h4>
+              <p class="enhanced-cart-drawer__upsell-price">${this.formatMoney(upsell.price * 100)}</p>
+              <button class="enhanced-cart-drawer__upsell-btn">Add to Cart</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  renderFooter(cart) {
+    this.footer.innerHTML = `
+      <div class="enhanced-cart-drawer__subtotal">
+        <span class="enhanced-cart-drawer__subtotal-label">Subtotal</span>
+        <span class="enhanced-cart-drawer__subtotal-value">${this.formatMoney(cart.total_price)}</span>
+      </div>
+      <button class="enhanced-cart-drawer__checkout-btn" ${cart.items.length === 0 ? 'disabled' : ''} onclick="window.location.href='/checkout'">
+        Checkout
+      </button>
+    `;
+  }
+
+  updateCartIcon(cart) {
+    const cartIcon = document.querySelector('.cart-count-bubble');
+    if (cartIcon) {
+      cartIcon.textContent = cart.item_count;
+      cartIcon.parentElement.classList.add('cart-icon-bounce');
+      setTimeout(() => {
+        cartIcon.parentElement.classList.remove('cart-icon-bounce');
+      }, 600);
+    }
+  }
+
+  async updateQuantity(variantId, quantity) {
+    try {
+      // Ensure quantity is at least 1
+      const newQuantity = Math.max(1, parseInt(quantity) || 1);
+      
+      const response = await fetch('/cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          updates: {
+            [variantId]: newQuantity
+          }
+        })
+      });
+
+      if (response.ok) {
+        this.updateCart();
+      }
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+    }
+  }
+
+  async removeItem(variantId) {
+    try {
+      const response = await fetch('/cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          updates: {
+            [variantId]: 0
+          }
+        })
+      });
+
+      if (response.ok) {
+        this.updateCart();
+      }
+    } catch (error) {
+      console.error('Error removing item:', error);
+    }
+  }
+
+  async addUpsell(variantId) {
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
+      });
+
+      if (response.ok) {
+        this.updateCart();
+      }
+    } catch (error) {
+      console.error('Error adding upsell:', error);
+    }
+  }
+
+  formatMoney(cents) {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(cents / 100);
+  }
+
+  async refreshCart() {
+    await this.updateCart();
+  }
+}
+
+// Initialize the cart drawer when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Initializing Enhanced Cart Drawer...');
+  window.enhancedCartDrawer = new EnhancedCartDrawer();
+  console.log('Enhanced Cart Drawer initialized:', !!window.enhancedCartDrawer);
+  
+  // Prevent any cart icon clicks from navigating to cart page
+  const cartIcons = document.querySelectorAll('#cart-icon-bubble, .header__icon--cart, .cart-link, a[href*="cart"]');
+  cartIcons.forEach(icon => {
+    // Remove any existing href attributes
+    if (icon.tagName === 'A') {
+      icon.removeAttribute('href');
+    }
+    
+    icon.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      console.log('Cart icon clicked, preventing navigation');
+      if (window.enhancedCartDrawer) {
+        window.enhancedCartDrawer.open();
+      }
+      return false;
+    }, true); // Use capture phase
+    
+    // Also prevent any parent click handlers
+    icon.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    });
+  });
+  
+  // Override any existing cart click handlers
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#cart-icon-bubble, .header__icon--cart, .cart-link')) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      console.log('Cart area clicked, preventing navigation');
+      if (window.enhancedCartDrawer) {
+        window.enhancedCartDrawer.open();
+      }
+      return false;
+    }
+  }, true);
+});
+
+// Global functions for cart interactions
+window.openCartDrawer = () => {
+  console.log('openCartDrawer called');
+  if (window.enhancedCartDrawer) {
+    console.log('Opening cart drawer...');
+    window.enhancedCartDrawer.open();
+  } else {
+    console.error('Enhanced cart drawer not initialized');
+  }
+};
+
+window.closeCartDrawer = () => {
+  if (window.enhancedCartDrawer) {
+    window.enhancedCartDrawer.close();
+  }
+};
+
+// Function to add product to cart and open drawer
+window.addToCartAndOpenDrawer = async (form, variantId) => {
+  console.log('Adding to cart and opening drawer for variant:', variantId);
+  
+  try {
+    const formData = new FormData(form);
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    });
+    
+    if (response.ok) {
+      console.log('Product added to cart successfully');
+      // Refresh cart data
+      if (window.enhancedCartDrawer) {
+        await window.enhancedCartDrawer.refreshCart();
+        window.enhancedCartDrawer.open();
+      }
+    } else {
+      console.error('Failed to add product to cart');
+      const errorData = await response.json();
+      console.error('Error:', errorData);
+    }
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+  }
+};
+</script>

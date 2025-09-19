@@ -1,0 +1,223 @@
+{% comment %}
+  Trusted Artists Section - Artist images with rotating testimonials
+{% endcomment %}
+
+{{ 'section-trusted-artists.css' | asset_url | stylesheet_tag }}
+
+<div class="trusted-artists-section section" id="testimonials">
+  <div class="page-width">
+    <div class="trusted-artists-heading" style="text-align: center; margin-bottom: 0;">
+      <h2 style="color: var(--text-primary); font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif;">
+        {{ section.settings.heading | default: "Trusted by Top Artists" }}
+      </h2>
+      <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+        {{ section.settings.subheading | default: "Fueling the tracks of world-class producers." }}
+      </p>
+    </div>
+
+    <div class="artists-showcase">
+      <div class="artist-card">
+        <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/cloonee.jpg?v=1757992680" alt="Cloonee" class="artist-image">
+        <div class="artist-name">Cloonee</div>
+        <div class="artist-title">House Music Producer</div>
+      </div>
+      
+      <div class="artist-card">
+        <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/dom.jpg?v=1757992681" alt="Dom Dolla" class="artist-image">
+        <div class="artist-name">Dom Dolla</div>
+        <div class="artist-title">Electronic Music Producer</div>
+      </div>
+      
+      <div class="artist-card">
+        <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/maup.jpg?v=1757992680" alt="Maup" class="artist-image">
+        <div class="artist-name">Maup</div>
+        <div class="artist-title">Beatmaker & Producer</div>
+      </div>
+      
+      <div class="artist-card">
+        <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/max.jpg?v=1757992680" alt="Max Styler" class="artist-image">
+        <div class="artist-name">Max Styler</div>
+        <div class="artist-title">Music Producer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+.artists-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.artist-card {
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  width: 120px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.artist-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(74, 158, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.artist-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.artist-name {
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.artist-title {
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .artists-showcase {
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+  
+  .artist-card {
+    width: 100px;
+    height: 140px;
+    padding: 0.5rem;
+  }
+  
+  .artist-image {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .artist-name {
+    font-size: 0.7rem;
+  }
+  
+  .artist-title {
+    font-size: 0.6rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trusted Artists",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by Top Artists"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Fueling the tracks of world-class producers."
+    }
+  ],
+  "blocks": [
+        {
+          "type": "artist",
+          "name": "Artist",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "artist_image",
+              "label": "Artist Image",
+              "info": "Upload the artist's photo here"
+            },
+            {
+              "type": "text",
+              "id": "artist_name",
+              "label": "Artist Name",
+              "default": "Artist Name"
+            },
+            {
+              "type": "text",
+              "id": "artist_title",
+              "label": "Artist Title/Description",
+              "default": "Music Producer"
+            },
+            {
+              "type": "textarea",
+              "id": "testimonial",
+              "label": "Testimonial",
+              "default": "These presets completely transformed my tracks!"
+            }
+          ]
+        }
+  ],
+  "presets": [
+    {
+      "name": "Trusted Artists",
+      "blocks": [
+        {
+          "type": "artist",
+          "settings": {
+            "artist_name": "Cloonee",
+            "artist_title": "House Music Producer",
+            "testimonial": "These presets completely transformed my tracks! The quality is unmatched and the workflow is incredible."
+          }
+        },
+        {
+          "type": "artist",
+          "settings": {
+            "artist_name": "Dom Dolla",
+            "artist_title": "Electronic Music Producer",
+            "testimonial": "The VST plugins are next-level! Incredible sounds, super professional. These tools are game-changers."
+          }
+        },
+        {
+          "type": "artist",
+          "settings": {
+            "artist_name": "Maup",
+            "artist_title": "Beatmaker & Producer",
+            "testimonial": "My productions have never sounded this good! These samples and presets are absolutely incredible."
+          }
+        },
+        {
+          "type": "artist",
+          "settings": {
+            "artist_name": "Max",
+            "artist_title": "Music Producer",
+            "testimonial": "Finally, samples that actually inspire creativity. The quality and variety are unmatched in the industry."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
