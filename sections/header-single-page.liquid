@@ -156,16 +156,6 @@
     width: 100%;
   }
 
-  /* Account and Cart link styling - match other nav links */
-  .single-page-nav .nav-account-link,
-  .single-page-nav .nav-cart-link {
-    /* Use same styling as other nav links */
-  }
-
-  .single-page-nav .nav-account-link::after,
-  .single-page-nav .nav-cart-link::after {
-    /* Keep the underline effect like other nav links */
-  }
 
   .header-right {
     display: flex;
@@ -401,8 +391,8 @@
       <nav class="single-page-nav" id="nav-menu">
         <a href="{{ routes.root_url }}#shop">Sample Packs</a>
         <a href="{{ routes.root_url }}#free">Free Downloads</a>
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="nav-account-link">Account</a>
-        <a href="#" onclick="event.preventDefault(); event.stopPropagation(); openCartDrawer(); return false;" class="nav-cart-link">Cart</a>
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">Account</a>
+        <a href="#" onclick="event.preventDefault(); event.stopPropagation(); openCartDrawer(); return false;">Cart</a>
       </nav>
 
       <div class="header-actions">
