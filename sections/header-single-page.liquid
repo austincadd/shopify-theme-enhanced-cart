@@ -169,6 +169,86 @@
     display: none !important;
   }
 
+  /* Account Dropdown Styling */
+  .nav-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-dropdown-toggle {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+  }
+
+  .nav-dropdown-toggle:hover {
+    color: var(--accent-blue);
+  }
+
+  .nav-dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-blue);
+    transition: width 0.3s ease;
+  }
+
+  .nav-dropdown-toggle:hover::after {
+    width: 100%;
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .nav-dropdown-menu a:hover {
+    color: var(--accent-blue);
+    background: rgba(102, 255, 204, 0.1);
+  }
+
   .header-actions {
     display: flex;
     flex-direction: row;
@@ -307,6 +387,26 @@
       display: none;
     }
 
+    /* Mobile dropdown styling */
+    .nav-dropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin-top: 0.5rem;
+    }
+
+    .nav-dropdown-menu a {
+      padding: 1rem 0;
+      font-size: 1rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
     .header-actions {
       gap: 0.75rem;
     }
@@ -398,7 +498,13 @@
         <a href="{{ routes.root_url }}#shop">Sample Packs</a>
         <a href="{{ routes.root_url }}#free">Free Downloads</a>
         <a href="{{ routes.root_url }}#contact">Connect</a>
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">Account</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle">Account</a>
+          <div class="nav-dropdown-menu">
+            <a href="{{ routes.account_login_url }}">Log In</a>
+            <a href="{{ routes.account_register_url }}">Create Account</a>
+          </div>
+        </div>
         <a href="#" onclick="event.preventDefault(); event.stopPropagation(); openCartDrawer(); return false;">Cart</a>
       </nav>
 
