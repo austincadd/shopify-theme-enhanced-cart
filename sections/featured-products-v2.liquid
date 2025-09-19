@@ -427,7 +427,7 @@ html body::before {
         <p style="color: white; text-align: center; margin: 1rem 0;">Found {{ products.size }} products</p>
         {% for product in products limit: products_to_show %}
           <div class="sample-pack-card">
-            <a href="{{ product.url }}" class="product-card-link" style="text-decoration: none; color: inherit; display: block; width: 100%;" onclick="console.log('Product link clicked:', '{{ product.url }}');">
+            <a href="{{ product.url | default: '#' }}" class="product-card-link" style="text-decoration: none; color: inherit; display: block; width: 100%; cursor: pointer;" onclick="console.log('Product link clicked:', '{{ product.url }}', 'Product title:', '{{ product.title }}'); alert('Clicked on: {{ product.title }}');">
               <div class="product-image-container">
                 {% if product.featured_media %}
                   <img src="{{ product.featured_media | image_url: width: 300 }}" 
