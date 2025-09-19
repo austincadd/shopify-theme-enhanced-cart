@@ -42,6 +42,7 @@
   transform: translateX(0) translateY(-5px) !important;
   box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3) !important;
   background: rgba(255, 255, 255, 0.05) !important;
+  cursor: pointer !important;
 }
 
 @keyframes glow-pulse {
@@ -203,6 +204,30 @@ html body::before {
   font-size: 2rem !important;
   color: white !important;
   font-weight: bold !important;
+}
+
+/* Product Card Link */
+.featured-products-section .product-card-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.featured-products-section .product-card-link:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Buy Now Container */
+.featured-products-section .buy-now-container {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
 }
 
 /* Product Info */
@@ -401,71 +426,81 @@ html body::before {
       {% if products.size > 0 %}
         {% for product in products limit: products_to_show %}
           <div class="sample-pack-card">
-          
-          <div class="product-image-container">
-            {% if product.featured_media %}
-              <img src="{{ product.featured_media | image_url: width: 300 }}" 
-                   alt="{{ product.featured_media.alt | escape }}"
-                   loading="lazy"
-                   class="product-image">
-            {% else %}
-              <div class="product-placeholder">
-                <div class="placeholder-icon">MUSIC</div>
-              </div>
-            {% endif %}
-          </div>
-          
-          <div class="product-info">
-            <div class="product-title-price-row">
-            <h3 class="product-title">{{ product.title | default: 'Sample Pack' }}</h3>
-              <span class="price-separator">|</span>
-            <div class="product-price">
-              <div class="price-container">
-                <span class="current-price">
-                  {% if product.price %}{{ product.price | money }}{% else %}$29.99{% endif %}
-                </span>
-                {% if product.compare_at_price > product.price %}
-                  <span class="original-price">{{ product.compare_at_price | money }}</span>
+            <a href="{{ product.url }}" class="product-card-link" style="text-decoration: none; color: inherit; display: block; width: 100%;">
+              <div class="product-image-container">
+                {% if product.featured_media %}
+                  <img src="{{ product.featured_media | image_url: width: 300 }}" 
+                       alt="{{ product.featured_media.alt | escape }}"
+                       loading="lazy"
+                       class="product-image">
+                {% else %}
+                  <div class="product-placeholder">
+                    <div class="placeholder-icon">MUSIC</div>
+                  </div>
                 {% endif %}
               </div>
-            </div>
-              <span class="price-separator">|</span>
-            
-            {% if product.available %}
-                <div class="add-btn-container">
-                  <div class="add-btn-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
-                    </svg>
+              
+              <div class="product-info">
+                <div class="product-title-price-row">
+                <h3 class="product-title">{{ product.title | default: 'Sample Pack' }}</h3>
+                  <span class="price-separator">|</span>
+                <div class="product-price">
+                  <div class="price-container">
+                    <span class="current-price">
+                      {% if product.price %}{{ product.price | money }}{% else %}$29.99{% endif %}
+                    </span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="original-price">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
                   </div>
-              <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form" onsubmit="event.preventDefault(); addToCartAndOpenDrawer(this, '{{ product.selected_or_first_available_variant.id }}'); return false;">
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                    <button type="submit" class="add-btn-hover" title="Add to Cart">
-                      <span>BUY NOW</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
-                      </svg>
-                    </button>
-              </form>
                 </div>
-            {% else %}
-                <div class="add-btn-container">
-                  <div class="add-btn-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
-                    </svg>
-                  </div>
-                  <button class="add-btn-hover" disabled title="Sold Out">
+                  <span class="price-separator">|</span>
+                
+                {% if product.available %}
+                    <div class="add-btn-container">
+                      <div class="add-btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
+                        </svg>
+                      </div>
+                    </div>
+                {% else %}
+                    <div class="add-btn-container">
+                      <div class="add-btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
+                        </svg>
+                      </div>
+                    </div>
+                {% endif %}
+                </div>
+              </div>
+            </a>
+            
+            <!-- Buy Now Button - Outside the link to prevent navigation -->
+            {% if product.available %}
+              <div class="buy-now-container" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form" onsubmit="event.preventDefault(); addToCartAndOpenDrawer(this, '{{ product.selected_or_first_available_variant.id }}'); return false;">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="add-btn-hover" title="Add to Cart">
                     <span>BUY NOW</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
                     </svg>
                   </button>
-                </div>
+                </form>
+              </div>
+            {% else %}
+              <div class="buy-now-container" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                <button class="add-btn-hover" disabled title="Sold Out">
+                  <span>BUY NOW</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 7H16V6C16 3.79 14.21 2 12 2S8 3.79 8 6V7H5C3.9 7 3 7.9 3 9V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V9C21 7.9 20.1 7 19 7ZM10 6C10 4.9 10.9 4 12 4S14 4.9 14 6V7H10V6ZM19 19H5V9H19V19Z" fill="#ffffff"/>
+                  </svg>
+                </button>
+              </div>
             {% endif %}
-            </div>
           </div>
-        </div>
         {% endfor %}
       {% else %}
         <div class="no-products-message">
@@ -508,6 +543,34 @@ function initProductsAnimation() {
       }
     });
   }, observerOptions);
+
+  // Add click handlers for product cards
+  const productCards = document.querySelectorAll('.featured-products-section .sample-pack-card');
+  productCards.forEach(card => {
+    const buyButton = card.querySelector('.buy-now-container');
+    const productLink = card.querySelector('.product-card-link');
+    
+    // Handle clicks on the card (but not on buy button)
+    card.addEventListener('click', function(e) {
+      // Don't navigate if clicking on buy button or its children
+      if (buyButton && buyButton.contains(e.target)) {
+        e.stopPropagation();
+        return;
+      }
+      
+      // Navigate to product page
+      if (productLink) {
+        window.location.href = productLink.href;
+      }
+    });
+    
+    // Prevent buy button from triggering card click
+    if (buyButton) {
+      buyButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+  });
 
   // Observe the featured products section
   const featuredSection = document.querySelector('.featured-products-section');
