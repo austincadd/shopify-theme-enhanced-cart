@@ -22,7 +22,7 @@
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
-                {%- unless link.title == 'Home' or link.title == 'HOME' or link.title == 'home' or link.title == 'Homepage' or link.title == 'HOMEPAGE' -%}
+                {%- unless link.title == 'Home' or link.title == 'HOME' or link.title == 'home' or link.title == 'Homepage' or link.title == 'HOMEPAGE' or link.title == 'Full Collection' or link.title == 'FULL COLLECTION' or link.title == 'full collection' -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
