@@ -8,7 +8,7 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
-      {%- unless link.title == 'Home' -%}
+      {%- unless link.title == 'Home' or link.title == 'HOME' or link.title == 'home' or link.title == 'Homepage' or link.title == 'HOMEPAGE' -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
