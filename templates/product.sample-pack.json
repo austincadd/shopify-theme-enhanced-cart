@@ -65,19 +65,19 @@
         "subtext": "Questions about our packs or plugins?"
       }
     },
-    "175839121912890f3c": {
+    "1758391566fb049bc3": {
       "type": "apps",
       "blocks": {
-        "mvn_waveviz_waveviz_TKNbxc": {
+        "mvn_waveviz_waveviz_VzbFtn": {
           "type": "shopify://apps/mvn-waveviz/blocks/waveviz/c13b3339-386a-4906-9c68-724347db7025",
           "settings": {}
         }
       },
       "block_order": [
-        "mvn_waveviz_waveviz_TKNbxc"
+        "mvn_waveviz_waveviz_VzbFtn"
       ],
       "settings": {
-        "include_margins": false
+        "include_margins": true
       }
     }
   },
@@ -87,6 +87,6 @@
     "instant_download",
     "product_description",
     "footer_contact",
-    "175839121912890f3c"
+    "1758391566fb049bc3"
   ]
 }
