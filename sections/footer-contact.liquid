@@ -27,36 +27,46 @@
       </div>
       
       <div class="contact-form-container" style="max-width: 600px; margin: 0 auto;">
-        <form id="footer-contact-form" class="footer-contact-form" onsubmit="submitFooterContact(event)" style="display: flex; gap: 0.75rem; align-items: stretch; position: relative;">
+        {% form 'contact', id: 'footer-contact-form', class: 'footer-contact-form' %}
+          {% if form.posted_successfully? %}
+            <div class="footer-success" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem;">
+              <div class="success-check" style="font-size: 1.5rem; color: var(--neon-green);">✓</div>
+              <span style="color: var(--text-primary); font-size: 0.9rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">Message sent!</span>
+            </div>
+          {% else %}
           <input 
             type="email" 
             id="footer-email" 
-            name="email" 
+            name="contact[email]" 
             placeholder="Your email" 
             required
             class="email-input"
+            value="{{ form.email }}"
             style="flex: 1; padding: 0.4rem; background: rgba(13, 15, 13, 0.6); border: 1px solid rgba(102, 255, 204, 0.3); border-radius: 6px; color: var(--text-primary); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease; backdrop-filter: blur(10px); height: 32px; box-sizing: border-box;"
           >
           <textarea 
             id="footer-message" 
-            name="message" 
+            name="contact[body]" 
             placeholder="Your message" 
             rows="1" 
             required
             class="message-input"
             style="flex: 2; padding: 0.4rem; background: rgba(13, 15, 13, 0.6); border: 1px solid rgba(102, 255, 204, 0.3); border-radius: 6px; color: var(--text-primary); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease; resize: none; height: 32px; backdrop-filter: blur(10px); box-sizing: border-box;"
-          ></textarea>
+          >{{ form.body }}</textarea>
           <button type="submit" class="send-btn" style="background: linear-gradient(135deg, var(--accent-blue), #4a9eff); color: var(--cyber-bg); padding: 0.4rem 0.8rem; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Space Grotesk', sans-serif; white-space: nowrap; height: 32px; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(74, 158, 255, 0.3); flex-shrink: 0;">
             <span class="btn-text">Send</span>
             <div class="btn-shine"></div>
           </button>
-        </form>
-        
-        <!-- Success Message -->
-        <div id="footer-success" class="footer-success" style="display: none; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem;">
-          <div class="success-check" style="font-size: 1.5rem; color: var(--neon-green);">✓</div>
-          <span style="color: var(--text-primary); font-size: 0.9rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">Message sent!</span>
-        </div>
+          
+          {% if form.errors %}
+            <div class="form-errors" style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 6px; color: #ff6b6b; font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">
+              {% for field in form.errors %}
+                <p>{{ field }}: {{ form.errors[field] }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% endif %}
+        {% endform %}
       </div>
     </div>
   </div>
@@ -292,68 +302,6 @@
 </style>
 
 <script>
-function submitFooterContact(event) {
-  event.preventDefault();
-  
-  const form = document.getElementById('footer-contact-form');
-  const successMessage = document.getElementById('footer-success');
-  const sendBtn = form.querySelector('.send-btn');
-  const emailInput = document.getElementById('footer-email');
-  const messageInput = document.getElementById('footer-message');
-  
-  // Validate inputs
-  if (!emailInput.value || !messageInput.value) {
-    alert('Please fill in both email and message fields.');
-    return;
-  }
-  
-  // Add loading state
-  sendBtn.classList.add('loading');
-  sendBtn.querySelector('.btn-text').textContent = 'Sending...';
-  
-  // Create URL-encoded form data for Shopify contact form
-  const formData = new URLSearchParams();
-  formData.append('form_type', 'contact');
-  formData.append('utf8', '✓');
-  formData.append('contact[email]', emailInput.value);
-  formData.append('contact[body]', messageInput.value);
-  
-  // Submit to Shopify contact form endpoint
-  fetch('/contact', {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Requested-With': 'XMLHttpRequest'
-    }
-  })
-  .then(response => {
-    // Check if response is ok or if it's a redirect (which is normal for contact forms)
-    if (response.ok || response.status === 302 || response.redirected) {
-      // Show success message
-      form.style.display = 'none';
-      successMessage.style.display = 'flex';
-      
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        form.style.display = 'flex';
-        successMessage.style.display = 'none';
-        form.reset();
-        sendBtn.classList.remove('loading');
-        sendBtn.querySelector('.btn-text').textContent = 'Send';
-      }, 3000);
-    } else {
-      throw new Error('Form submission failed');
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('Sorry, there was an error sending your message. Please try again.');
-    sendBtn.classList.remove('loading');
-    sendBtn.querySelector('.btn-text').textContent = 'Send';
-  });
-}
-
 // Auto-resize textarea
 document.addEventListener('DOMContentLoaded', function() {
   const textarea = document.getElementById('footer-message');
