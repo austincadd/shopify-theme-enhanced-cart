@@ -91,10 +91,26 @@
         "headline": "Let's build something together.",
         "subtext": "Questions about our packs or plugins?"
       }
+    },
+    "17584002886da93a84": {
+      "type": "apps",
+      "blocks": {
+        "mvn_waveviz_waveviz_4C7WE7": {
+          "type": "shopify://apps/mvn-waveviz/blocks/waveviz/c13b3339-386a-4906-9c68-724347db7025",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "mvn_waveviz_waveviz_4C7WE7"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "main",
+    "17584002886da93a84",
     "footer_contact"
   ]
 }
