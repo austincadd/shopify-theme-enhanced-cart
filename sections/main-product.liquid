@@ -74,11 +74,6 @@
       max-width: 100%;
     }
     
-    .upsell-section,
-    .demo-section,
-    .related-section {
-      padding: 2rem 3.5rem;
-    }
   }
 
   .product-image {
@@ -167,7 +162,7 @@
     color: #000;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
-    font-weight: 600;
+      font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -180,7 +175,7 @@
 
   .product-description {
     color: #d1d5db;
-    line-height: 1.6;
+      line-height: 1.6;
   }
 
 
@@ -249,139 +244,79 @@
   }
 
 
-  /* Bundle Upsell Section */
-  .upsell-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 5.5rem;
+
+
+  /* MVN Waveviz Section Styling */
+  .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] {
+    background: linear-gradient(135deg, #0c0b1a 0%, #1a1330 100%);
+    border-radius: 12px;
+    padding: 0 1.5rem;
+    margin: 1rem 0 2rem 0;
+    position: relative;
+    overflow: hidden;
+    order: 1;
+    max-width: 600px;
+      width: 100%;
   }
 
-  .upsell-card {
-    background: #1f2937;
-    border-radius: 12px;
-    padding: 1.5rem;
+  /* Visual Grouping - Side by Side Layout */
+  .product-info {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    align-items: center;
-      text-align: center;
+  }
+
+  .features-mvn-container {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-top: 1.5rem;
+  }
+
+  .features-dropdown {
+    flex: 1;
+    order: 0;
+  }
+
+  .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] {
+    flex: 1;
+    order: 1;
+    margin: 0;
+  }
+
+  /* MVN section positioning */
+  .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] {
+    margin-bottom: 2rem;
+  }
+
+
+  /* Responsive - Stack on mobile */
+  @media (max-width: 768px) {
+    .features-mvn-container {
+      flex-direction: column;
     }
-
-  @media (min-width: 768px) {
-    .upsell-card {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: left;
+    
+    .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] {
+      max-width: 100%;
     }
   }
 
-  .upsell-title {
-    font-size: 1.5rem;
-      font-weight: 700;
-    margin-bottom: 0.5rem;
+  .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 59, 47, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 127, 50, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(122, 60, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
   }
 
-  .upsell-description {
-    color: #d1d5db;
-  }
-
-  .upsell-btn {
-    background: #fbbf24;
-    color: #000;
-    padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .upsell-btn:hover {
-    background: #f59e0b;
-  }
-
-  /* Free Demo Section */
-  .demo-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 5.5rem;
-    text-align: center;
-  }
-
-  .demo-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .demo-description {
-    color: #d1d5db;
-      margin-bottom: 1rem;
-    }
-
-  .demo-btn {
-    background: #fbbf24;
-    color: #000;
-      padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .demo-btn:hover {
-    background: #f59e0b;
-  }
-
-  /* Related Products Section */
-  .related-section {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 3rem 5.5rem;
-  }
-
-  .related-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-  }
-
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .related-card {
-    background: #1f2937;
-    border-radius: 8px;
-        padding: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .related-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  .related-image {
-    border-radius: 6px;
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 0.5rem;
-  }
-
-  .related-name {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-
-  .related-price {
-    color: #fbbf24;
-    font-weight: 600;
+  .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Override page-width constraint */
@@ -401,9 +336,9 @@
       {% else %}
         <div class="product-image" style="background: #374151; height: 400px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
           No Image
-        </div>
+                </div>
   {% endif %}
-    </div>
+                </div>
     
     <!-- Right: Product Info -->
     <div class="product-info">
@@ -419,11 +354,11 @@
       
       <div class="pro-crafted">
         <span class="pro-crafted-text">Pro Crafted</span>
-      </div>
+                  </div>
       
       <div class="product-price">
         {%- render 'price', product: product, price_class: 'price--large' -%}
-                </div>
+                  </div>
       
       <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
@@ -436,69 +371,29 @@
         <p class="product-description">{{ product.description }}</p>
                         {% endif %}
       
-      <!-- Features Dropdown -->
-      <div class="features-dropdown">
-        <div class="features-header" onclick="toggleFeatures()">
-          <h2 class="features-title">What Does the Pack Include?</h2>
-          <span class="features-toggle" id="featuresToggle">▼</span>
+      <!-- Features and MVN Container -->
+      <div class="features-mvn-container">
+        <!-- Features Dropdown -->
+        <div class="features-dropdown">
+          <div class="features-header" onclick="toggleFeatures()">
+            <h2 class="features-title">What Does the Pack Include?</h2>
+            <span class="features-toggle" id="featuresToggle">▼</span>
                           </div>
-        <div class="features-content" id="featuresContent">
-          <ul class="features-list">
-            <li>100+ Vocal Phrases</li>
-            <li>Vocal Chops for instant groove</li>
-            <li>Shouts & one-shots for drops</li>
-            <li>Syllables for layering and FX</li>
-            <li>High-quality WAV files</li>
-            <li>Ready-to-use in any DAW</li>
-          </ul>
+          <div class="features-content" id="featuresContent">
+            <ul class="features-list">
+              <li>100+ Vocal Phrases</li>
+              <li>Vocal Chops for instant groove</li>
+              <li>Shouts & one-shots for drops</li>
+              <li>Syllables for layering and FX</li>
+              <li>High-quality WAV files</li>
+              <li>Ready-to-use in any DAW</li>
+            </ul>
                           </div>
                   </div>
                   </div>
+      </div>
   </section>
 
-
-  <!-- Bundle Upsell Section -->
-  <section class="upsell-section">
-    <div class="upsell-card">
-      <div>
-        <h2 class="upsell-title">Buy Bundle & Save</h2>
-        <p class="upsell-description">Get {{ product.title }} + 2 more packs for one discounted price.</p>
-                </div>
-      <button class="upsell-btn">View Bundle</button>
-    </div>
-  </section>
-
-  <!-- Free Demo Download Section -->
-  <section class="demo-section">
-    <h2 class="demo-title">Free Demo Download</h2>
-    <p class="demo-description">Try before you buy with a free demo version of {{ product.title }}.</p>
-    <button class="demo-btn">Download Free Demo</button>
-  </section>
-
-  <!-- Related Products Section -->
-  <section class="related-section">
-    <h2 class="related-title">Related Products</h2>
-    <div class="related-grid">
-      {% for related_product in collections.all.products limit: 4 %}
-        {% if related_product.id != product.id %}
-          <div class="related-card">
-            {% if related_product.featured_image %}
-              <img src="{{ related_product.featured_image | image_url: width: 300 }}" alt="{{ related_product.title | escape }}" class="related-image" />
-            {% else %}
-              <div class="related-image" style="background: #374151; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
-                No Image
-                    </div>
-            {% endif %}
-            <h3 class="related-name">{{ related_product.title | escape }}</h3>
-            <p class="related-price">
-              {%- render 'price', product: related_product, price_class: '' -%}
-                    </p>
-                  </div>
-                      {% endif %}
-      {% endfor %}
-                        </div>
-        </section>
-    </div>
 
 <script type="application/ld+json">
   {{ product | structured_data }}
