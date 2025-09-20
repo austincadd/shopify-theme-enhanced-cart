@@ -256,81 +256,6 @@
     box-shadow: 0 8px 25px rgba(255, 45, 149, 0.4);
   }
 
-  /* Upsell Bundles */
-  .enhanced-cart-drawer__upsells {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(102, 255, 204, 0.2);
-  }
-
-  .enhanced-cart-drawer__upsells-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .enhanced-cart-drawer__upsell-item {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: rgba(13, 15, 13, 0.4);
-    border-radius: 12px;
-    border: 1px solid rgba(102, 255, 204, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .enhanced-cart-drawer__upsell-item:hover {
-    border-color: rgba(102, 255, 204, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 255, 204, 0.1);
-  }
-
-  .enhanced-cart-drawer__upsell-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-
-  .enhanced-cart-drawer__upsell-details {
-    flex: 1;
-  }
-
-  .enhanced-cart-drawer__upsell-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 0.25rem 0;
-  }
-
-  .enhanced-cart-drawer__upsell-price {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-  }
-
-  .enhanced-cart-drawer__upsell-btn {
-    background: rgba(102, 255, 204, 0.1);
-    border: 1px solid rgba(102, 255, 204, 0.3);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .enhanced-cart-drawer__upsell-btn:hover {
-    background: rgba(102, 255, 204, 0.2);
-    border-color: rgba(102, 255, 204, 0.5);
-  }
 
   /* Footer */
   .enhanced-cart-drawer__footer {
@@ -699,44 +624,9 @@ class EnhancedCartDrawer {
       </div>
     `).join('');
 
-    this.content.innerHTML = itemsHtml + this.renderUpsells();
+    this.content.innerHTML = itemsHtml;
   }
 
-  renderUpsells() {
-    // Sample upsell products - you can customize these
-    const upsells = [
-      {
-        id: 'upsell-1',
-        title: 'Sample Pack Bundle',
-        price: 99.00,
-        image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.59.05PM.png?v=1757973557',
-        variant_id: 'upsell-1'
-      },
-      {
-        id: 'upsell-2',
-        title: 'Premium Sounds',
-        price: 149.00,
-        image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.49.13PM.png?v=1757973190',
-        variant_id: 'upsell-2'
-      }
-    ];
-
-    return `
-      <div class="enhanced-cart-drawer__upsells">
-        <h3 class="enhanced-cart-drawer__upsells-title">You might also like</h3>
-        ${upsells.map(upsell => `
-          <div class="enhanced-cart-drawer__upsell-item" onclick="this.addUpsell('${upsell.variant_id}')">
-            <img src="${upsell.image}" alt="${upsell.title}" class="enhanced-cart-drawer__upsell-image">
-            <div class="enhanced-cart-drawer__upsell-details">
-              <h4 class="enhanced-cart-drawer__upsell-name">${upsell.title}</h4>
-              <p class="enhanced-cart-drawer__upsell-price">${this.formatMoney(upsell.price * 100)}</p>
-              <button class="enhanced-cart-drawer__upsell-btn">Add to Cart</button>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
 
   renderFooter(cart) {
     this.footer.innerHTML = `
@@ -808,26 +698,6 @@ class EnhancedCartDrawer {
     }
   }
 
-  async addUpsell(variantId) {
-    try {
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: variantId,
-          quantity: 1
-        })
-      });
-
-      if (response.ok) {
-        this.updateCart();
-      }
-    } catch (error) {
-      console.error('Error adding upsell:', error);
-    }
-  }
 
   formatMoney(cents) {
     return new Intl.NumberFormat('en-US', {
