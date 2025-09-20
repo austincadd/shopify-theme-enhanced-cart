@@ -40,12 +40,17 @@
       </p>
     </div>
 
-    <div class="packs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+    <div class="packs-grid" style="display: flex; flex-direction: row; gap: 2rem; max-width: 100%; width: 100%; margin: 0 auto; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 0 2rem;">
       
-      <!-- New Pack Card 1 -->
-      <div class="pack-card" data-awp-product-id="{{ section.settings.pack1_product_id | default: 'pack1' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- Pack Card 1 -->
+      {% assign card_product_1 = all_products[section.settings.pack1_product_id] %}
+      {% if card_product_1 == blank %}
+        {% assign card_product_1 = collections.all.products.first %}
+      {% endif %}
+      
+      <div class="pack-card" data-awp-product-id="{{ card_product_1.id }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px); flex: 1; min-width: 350px; max-width: 450px; display: flex; flex-direction: column;">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack1_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.59.05PM.png?v=1757973557' }}" alt="Pack 1" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
+          <img src="{{ section.settings.pack1_image | default: card_product_1.featured_image | image_url: width: 300 }}" alt="{{ section.settings.pack1_name | default: card_product_1.title | default: 'Sample Pack 1' }}" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -53,20 +58,17 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack1_name | default: "Sample Pack 1" }}
+            {{ section.settings.pack1_name | default: card_product_1.title | default: "Sample Pack 1" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
             {{ section.settings.pack1_genre | default: "Electronic" }}
           </p>
         </div>
 
-        <!-- Wav Form Display -->
-        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
-            <!-- AWPlayer will populate this with the actual wav form -->
-            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
-              Wav Form Loading...
-            </div>
+        <!-- AWPlayer Inline Display -->
+        <div class="awp-player-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="awp-player" data-awp-product-id="{{ card_product_1.id }}" style="width: 100%; height: 80px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will render directly here -->
           </div>
         </div>
 
@@ -81,10 +83,15 @@
         </div>
       </div>
 
-      <!-- New Pack Card 2 -->
-      <div class="pack-card" data-awp-product-id="{{ section.settings.pack2_product_id | default: 'pack2' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- Pack Card 2 -->
+      {% assign card_product_2 = all_products[section.settings.pack2_product_id] %}
+      {% if card_product_2 == blank %}
+        {% assign card_product_2 = collections.all.products.first %}
+      {% endif %}
+      
+      <div class="pack-card" data-awp-product-id="{{ card_product_2.id }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px); flex: 1; min-width: 350px; max-width: 450px; display: flex; flex-direction: column;">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack2_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.49.13PM.png?v=1757973190' }}" alt="Pack 2" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
+          <img src="{{ section.settings.pack2_image | default: card_product_2.featured_image | image_url: width: 300 }}" alt="{{ section.settings.pack2_name | default: card_product_2.title | default: 'Sample Pack 2' }}" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -92,20 +99,17 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack2_name | default: "Sample Pack 2" }}
+            {{ section.settings.pack2_name | default: card_product_2.title | default: "Sample Pack 2" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
             {{ section.settings.pack2_genre | default: "House" }}
           </p>
         </div>
 
-        <!-- Wav Form Display -->
-        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
-            <!-- AWPlayer will populate this with the actual wav form -->
-            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
-              Wav Form Loading...
-            </div>
+        <!-- AWPlayer Inline Display -->
+        <div class="awp-player-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="awp-player" data-awp-product-id="{{ card_product_2.id }}" style="width: 100%; height: 80px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will render directly here -->
           </div>
         </div>
 
@@ -120,10 +124,15 @@
         </div>
       </div>
 
-      <!-- New Pack Card 3 -->
-      <div class="pack-card" data-awp-product-id="{{ section.settings.pack3_product_id | default: 'pack3' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- Pack Card 3 -->
+      {% assign card_product_3 = all_products[section.settings.pack3_product_id] %}
+      {% if card_product_3 == blank %}
+        {% assign card_product_3 = collections.all.products.first %}
+      {% endif %}
+      
+      <div class="pack-card" data-awp-product-id="{{ card_product_3.id }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px); flex: 1; min-width: 350px; max-width: 450px; display: flex; flex-direction: column;">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack3_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.45.28PM.png?v=1757973417' }}" alt="Pack 3" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
+          <img src="{{ section.settings.pack3_image | default: card_product_3.featured_image | image_url: width: 300 }}" alt="{{ section.settings.pack3_name | default: card_product_3.title | default: 'Sample Pack 3' }}" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -131,20 +140,17 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack3_name | default: "Sample Pack 3" }}
+            {{ section.settings.pack3_name | default: card_product_3.title | default: "Sample Pack 3" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
             {{ section.settings.pack3_genre | default: "Techno" }}
           </p>
         </div>
 
-        <!-- Wav Form Display -->
-        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
-            <!-- AWPlayer will populate this with the actual wav form -->
-            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
-              Wav Form Loading...
-            </div>
+        <!-- AWPlayer Inline Display -->
+        <div class="awp-player-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="awp-player" data-awp-product-id="{{ card_product_3.id }}" style="width: 100%; height: 80px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will render directly here -->
           </div>
         </div>
 
@@ -271,36 +277,78 @@
   opacity: 0.5;
 }
 
-/* AWPlayer Wavform Styling */
-.awp-wavform-container {
+/* AWPlayer Inline Styling */
+.awp-player-container {
   position: relative;
+  z-index: 10;
 }
 
-.awp-wavform {
+.awp-player {
   width: 100% !important;
-  height: 60px !important;
+  height: 80px !important;
   background: transparent !important;
   border: none !important;
   border-radius: 4px !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
-.awp-wavform canvas {
+/* Override AWPlayer's default popup behavior */
+.awp-player .awp-popup {
+  display: none !important;
+}
+
+.awp-player .awp-wavform {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 4px !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+.awp-player canvas {
   width: 100% !important;
   height: 100% !important;
   border-radius: 4px !important;
 }
 
-.awp-wavform-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
+/* Ensure AWPlayer controls are visible */
+.awp-player .awp-controls {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  padding: 8px !important;
+  border-radius: 0 0 4px 4px !important;
 }
 
-.awp-wavform:not(:empty) .awp-wavform-placeholder {
-  display: none !important;
+.awp-player .awp-play-button {
+  background: linear-gradient(135deg, #ff2d95, #00d4ff) !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  color: white !important;
+  cursor: pointer !important;
+}
+
+.awp-player .awp-progress-bar {
+  background: rgba(255, 255, 255, 0.3) !important;
+  height: 4px !important;
+  border-radius: 2px !important;
+  margin: 8px 0 !important;
+}
+
+.awp-player .awp-progress-fill {
+  background: linear-gradient(90deg, #ff2d95, #00d4ff) !important;
+  height: 100% !important;
+  border-radius: 2px !important;
 }
 
 /* Button Shine Effect */
@@ -372,18 +420,68 @@ audio::-webkit-media-controls-panel {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const playButtons = document.querySelectorAll('.play-demo-btn');
-  const buyButtons = document.querySelectorAll('.buy-btn');
+  // Initialize AWPlayer inline
+  const awpPlayers = document.querySelectorAll('.awp-player');
+  
+  awpPlayers.forEach(player => {
+    const productId = player.getAttribute('data-awp-product-id');
+    console.log('Initializing AWPlayer for product:', productId);
+    
+    // Initialize AWPlayer with inline mode
+    if (window.AWPlayer) {
+      window.AWPlayer.init({
+        container: player,
+        productId: productId,
+        inline: true,
+        showPopup: false,
+        autoplay: false,
+        width: '100%',
+        height: '80px'
+      });
+    } else {
+      console.log('AWPlayer not loaded yet, retrying...');
+      // Retry after a short delay
+      setTimeout(() => {
+        if (window.AWPlayer) {
+          window.AWPlayer.init({
+            container: player,
+            productId: productId,
+            inline: true,
+            showPopup: false,
+            autoplay: false,
+            width: '100%',
+            height: '80px'
+          });
+        }
+      }, 1000);
+    }
+  });
+  
+  // Override AWPlayer's popup behavior
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.awp-player')) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
   
   // Play Demo button functionality (now handled by AWPlayer)
+  const playButtons = document.querySelectorAll('.play-demo-btn');
   playButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // AWPlayer will handle the audio functionality
-      console.log('Play demo clicked - AWPlayer will handle this');
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const card = this.closest('.pack-card');
+      const awpPlayer = card.querySelector('.awp-player');
+      if (awpPlayer && window.AWPlayer) {
+        // Trigger play on the inline player
+        const productId = awpPlayer.getAttribute('data-awp-product-id');
+        window.AWPlayer.play(productId);
+      }
     });
   });
   
   // Buy Now button functionality
+  const buyButtons = document.querySelectorAll('.buy-btn');
   buyButtons.forEach(button => {
     button.addEventListener('click', function() {
       const card = this.closest('.pack-card');
