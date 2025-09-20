@@ -65,6 +65,12 @@
       padding: 2rem 3.5rem;
     }
     
+    .product-image-container {
+      position: static;
+      top: auto;
+      align-self: auto;
+    }
+    
     .features-section {
       justify-content: center;
       padding: 2rem 3.5rem;
@@ -83,6 +89,13 @@
     height: auto;
   }
 
+  .product-image-container {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    height: fit-content;
+  }
+
   .product-info {
     display: flex;
     flex-direction: column;
@@ -97,31 +110,41 @@
   }
 
   .breadcrumb-link {
-    color: #9ca3af;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1.1rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.4), 0 0 16px rgba(0, 212, 255, 0.2);
   }
 
   .breadcrumb-link:hover {
-    color: #fbbf24;
+    background: linear-gradient(135deg, #ff2d95, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transform: scale(1.05);
+    text-shadow: 0 0 12px rgba(255, 45, 149, 0.6), 0 0 24px rgba(0, 212, 255, 0.4);
   }
 
   .breadcrumb-separator {
-    color: #6b7280;
+    color: #ffffff;
     font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.4), 0 0 16px rgba(0, 212, 255, 0.2);
   }
 
   .breadcrumb-current {
-    color: #d1d5db;
+    color: #ffffff;
     font-size: 1.1rem;
     font-weight: 500;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.4), 0 0 16px rgba(0, 212, 255, 0.2);
   }
 
   .product-title {
     font-size: 3rem;
-    font-weight: 700;
+      font-weight: 700;
     line-height: 1.1;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
   }
 
   .pro-crafted {
@@ -129,7 +152,7 @@
   }
 
   .pro-crafted-text {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    background: linear-gradient(135deg, #ff2d95, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -141,12 +164,14 @@
 
   .product-price {
     font-size: 1.5rem;
-    color: #fbbf24 !important;
-    font-weight: 600;
+    color: #ffffff;
+      font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
   }
   
   .product-price * {
-    color: #fbbf24 !important;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
   }
   
   .product-price .price__regular .visually-hidden {
@@ -158,50 +183,145 @@
   }
 
   .add-to-cart-btn {
-    background: #fbbf24;
-    color: #000;
+    background: linear-gradient(135deg, #ff2d95, #00d4ff);
+    color: #ffffff;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+      border-radius: 8px;
       font-weight: 600;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     width: fit-content;
+    box-shadow: 0 4px 15px rgba(255, 45, 149, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
   }
 
   .add-to-cart-btn:hover {
-    background: #f59e0b;
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 45, 149, 0.5), 0 0 30px rgba(0, 212, 255, 0.3);
+    background: linear-gradient(135deg, #ff1a7a, #00b8e6);
+  }
+
+  .add-to-cart-btn:hover::before {
+    left: 100%;
+  }
+
+  .add-to-cart-btn:active {
+    transform: scale(1.02) translateY(0);
+    transition: all 0.1s ease;
   }
 
   .product-description {
     color: #d1d5db;
-    line-height: 1.6;
+      line-height: 1.6;
     margin-bottom: 0;
     padding-bottom: 0;
   }
 
 
   .features-dropdown {
-    background: #1f2937;
-      border-radius: 6px;
-    border: 1px solid #374151;
+    background: transparent;
+    border-radius: 0;
+    border: none;
     overflow: hidden;
-    max-width: 400px;
+    max-width: 100%;
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 0;
+    position: relative;
+  }
+
+  .features-dropdown:first-child::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 45, 149, 0.2) 15%, 
+      rgba(255, 45, 149, 0.4) 30%, 
+      rgba(255, 45, 149, 0.6) 50%, 
+      rgba(255, 45, 149, 0.4) 70%, 
+      rgba(255, 45, 149, 0.2) 85%, 
+      transparent 100%
+    );
+  }
+
+  .features-dropdown:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(0, 212, 255, 0.2) 15%, 
+      rgba(0, 212, 255, 0.4) 30%, 
+      rgba(0, 212, 255, 0.6) 50%, 
+      rgba(0, 212, 255, 0.4) 70%, 
+      rgba(0, 212, 255, 0.2) 85%, 
+      transparent 100%
+    );
+  }
+
+  .middle-separator {
+    height: 1px !important;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(122, 60, 255, 0.2) 15%, 
+      rgba(122, 60, 255, 0.4) 30%, 
+      rgba(122, 60, 255, 0.6) 50%, 
+      rgba(158, 75, 255, 0.6) 50%, 
+      rgba(158, 75, 255, 0.4) 70%, 
+      rgba(158, 75, 255, 0.2) 85%, 
+      transparent 100%
+    ) !important;
+    margin: 0.75rem 0 !important;
+    width: 100% !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
   }
 
   .features-header {
-    padding: 0.5rem 0.75rem;
+    padding: 1rem 0.75rem;
     cursor: pointer;
-    display: flex;
+      display: flex;
     justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s ease;
+      align-items: center;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    position: relative;
+  }
+
+  .features-header::before,
+  .features-header::after {
+    display: none !important;
+    content: none !important;
   }
 
   .features-header:hover {
-    background: #374151;
+    background: transparent;
+    transform: none;
   }
 
   .features-title {
@@ -209,22 +329,45 @@
     font-weight: 600 !important;
     margin: 0 !important;
     line-height: 1 !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    filter: none !important;
+    position: relative;
+  }
+
+  .features-title::before,
+  .features-title::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .features-title * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   .features-toggle {
-    font-size: 0.75rem;
-    color: #fbbf24;
-    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+    color: #ffffff;
+      transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.4), 0 0 16px rgba(0, 212, 255, 0.2);
   }
 
   .features-toggle.open {
     transform: rotate(180deg);
+    color: #ff2d95;
   }
 
   .features-content {
     max-height: 0;
-    overflow: hidden;
+      overflow: hidden;
     transition: max-height 0.3s ease;
+    background: transparent;
   }
 
   .features-content.open {
@@ -232,17 +375,28 @@
   }
 
   .features-list {
-    list-style: disc;
-    list-style-position: inside;
-    color: #d1d5db;
-    line-height: 1.4;
-    padding: 0 0.75rem 0.5rem 0.75rem;
+    list-style: none;
+    color: #ffffff;
+    line-height: 1.6;
+    padding: 1rem 0.75rem;
     margin: 0;
-    font-size: 0.8rem;
+    font-size: 1.1rem;
   }
 
   .features-list li {
-    margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.3), 0 0 16px rgba(0, 212, 255, 0.2);
+  }
+
+  .features-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #ff2d95;
+    font-size: 0.8rem;
+    text-shadow: 0 0 8px rgba(255, 45, 149, 0.6);
   }
 
 
@@ -250,22 +404,22 @@
 
   /* MVN Waveviz Section Styling */
   .shopify-app-block[data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz"] {
-    background: linear-gradient(135deg, #0c0b1a 0%, #1a1330 100%) !important;
-    border-radius: 12px !important;
-    padding: 0 1.5rem !important;
-    margin: 1rem 0 2rem 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     position: relative !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     order: 1 !important;
-    max-width: 600px !important;
+    max-width: 100% !important;
     width: 100% !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    min-height: 200px !important;
+    min-height: auto !important;
   }
 
-  /* Visual Grouping - Side by Side Layout */
+  /* Visual Grouping - Vertical Layout */
   .product-info {
     display: flex;
     flex-direction: column;
@@ -274,13 +428,13 @@
 
   .features-mvn-container {
     display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
     margin-top: 1.5rem;
   }
 
   .features-dropdown {
-    flex: 1;
+      width: 100%;
     order: 0;
   }
 
@@ -297,7 +451,7 @@
 
 
   /* Responsive - Stack on mobile */
-  @media (max-width: 768px) {
+    @media (max-width: 768px) {
     .features-mvn-container {
       flex-direction: column;
     }
@@ -330,9 +484,9 @@
     content: "MVN Waveviz Block Loading...";
     display: block;
     padding: 2rem;
-    text-align: center;
+      text-align: center;
     color: #fbbf24;
-    font-weight: 600;
+      font-weight: 600;
   }
 
   /* Ensure the block container is visible */
@@ -359,46 +513,56 @@
 
             /* WaveViz Block Styling */
             .waveviz-block {
-              background: transparent;
-              border-radius: 0;
-              padding: 0;
-              margin: 0.25rem 0 0 0;
-              position: relative;
-              overflow: visible;
-              max-width: 100%;
-              width: 100%;
+              background: transparent !important;
+              border-radius: 0 !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              position: relative !important;
+              overflow: visible !important;
+              max-width: 100% !important;
+              width: 100% !important;
             }
 
             .waveviz-block > * {
-              position: relative;
-              z-index: 1;
+              position: relative !important;
+              z-index: 1 !important;
             }
 
             /* Override any margins from the app block */
             .waveviz-block .shopify-app-block {
               margin: 0 !important;
+              padding: 0 !important;
+            }
+
+            /* Force remove any inherited spacing */
+            .waveviz-block,
+            .waveviz-block *,
+            .waveviz-block .shopify-app-block,
+            .waveviz-block .shopify-app-block * {
+              margin: 0 !important;
+              padding: 0 !important;
             }
 
   /* Override page-width constraint */
   .page-width {
     max-width: 100% !important;
     width: 100% !important;
-  }
-{%- endstyle -%}
+    }
+  {%- endstyle -%}
 
 <div class="product-page">
   <!-- Hero Section -->
   <section class="hero-section">
-    <!-- Left: Product Image -->
-    <div>
-      {% if product.featured_image %}
-        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" class="product-image" />
+      <!-- Left: Product Image -->
+      <div class="product-image-container">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" class="product-image" />
       {% else %}
         <div class="product-image" style="background: #374151; height: 400px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
           No Image
                 </div>
-  {% endif %}
-                </div>
+                        {% endif %}
+                          </div>
     
     <!-- Right: Product Info -->
     <div class="product-info">
@@ -414,7 +578,7 @@
       
       <div class="pro-crafted">
         <span class="pro-crafted-text">Pro Crafted</span>
-                  </div>
+                          </div>
       
       <div class="product-price">
         {%- render 'price', product: product, price_class: 'price--large' -%}
@@ -424,7 +588,7 @@
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
         <button type="button" class="add-to-cart-btn" onclick="addToCartAndOpenDrawer(document.getElementById('product-form'), {{ product.selected_or_first_available_variant.id }})">
           Add to Cart
-                      </button>
+                            </button>
       </form>
       
       {% if product.description != blank %}
@@ -440,9 +604,9 @@
                 <div class="waveviz-block">
                   <div class="shopify-app-block" data-block-type="{{ block.type }}" data-block-id="{{ block.id }}">
                     {% render block %}
+                    </div>
                   </div>
-                </div>
-              {% endif %}
+                      {% endif %}
           {% endcase %}
         {% endfor %}
 
@@ -453,7 +617,7 @@
             <div class="features-header" onclick="toggleFeatures()">
               <h2 class="features-title">What Does the Pack Include?</h2>
               <span class="features-toggle" id="featuresToggle">▼</span>
-            </div>
+                        </div>
             <div class="features-content" id="featuresContent">
               <ul class="features-list">
                 <li>100+ Vocal Phrases</li>
@@ -462,12 +626,29 @@
                 <li>Syllables for layering and FX</li>
                 <li>High-quality WAV files</li>
                 <li>Ready-to-use in any DAW</li>
+                                </ul>
+                              </div>
+                          </div>
+
+          <!-- Middle Separator Line -->
+          <div class="middle-separator"></div>
+
+          <!-- System Requirements Dropdown -->
+          <div class="features-dropdown">
+            <div class="features-header" onclick="toggleSystemRequirements()">
+              <h2 class="features-title">System Requirements</h2>
+              <span class="features-toggle" id="systemRequirementsToggle">▼</span>
+                                  </div>
+            <div class="features-content" id="systemRequirementsContent">
+              <ul class="features-list">
+                <li>Serum 2 (Latest Update)</li>
+                <li>Ableton Live 12</li>
               </ul>
-            </div>
-          </div>
-        </div>
+                              </div>
+                            </div>
+                      </div>
       </div>
-  </section>
+        </section>
 
 
 <script type="application/ld+json">
@@ -478,6 +659,19 @@
   function toggleFeatures() {
     const content = document.getElementById('featuresContent');
     const toggle = document.getElementById('featuresToggle');
+    
+    if (content.classList.contains('open')) {
+      content.classList.remove('open');
+      toggle.classList.remove('open');
+    } else {
+      content.classList.add('open');
+      toggle.classList.add('open');
+    }
+  }
+
+  function toggleSystemRequirements() {
+    const content = document.getElementById('systemRequirementsContent');
+    const toggle = document.getElementById('systemRequirementsToggle');
     
     if (content.classList.contains('open')) {
       content.classList.remove('open');
