@@ -298,23 +298,60 @@ function submitFooterContact(event) {
   const form = document.getElementById('footer-contact-form');
   const successMessage = document.getElementById('footer-success');
   const sendBtn = form.querySelector('.send-btn');
+  const emailInput = document.getElementById('footer-email');
+  const messageInput = document.getElementById('footer-message');
+  
+  // Validate inputs
+  if (!emailInput.value || !messageInput.value) {
+    alert('Please fill in both email and message fields.');
+    return;
+  }
   
   // Add loading state
   sendBtn.classList.add('loading');
+  sendBtn.querySelector('.btn-text').textContent = 'Sending...';
   
-  // Simulate form submission (replace with actual form handling)
-  setTimeout(() => {
-    form.style.display = 'none';
-    successMessage.style.display = 'flex';
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      form.style.display = 'flex';
-      successMessage.style.display = 'none';
-      form.reset();
-      sendBtn.classList.remove('loading');
-    }, 3000);
-  }, 1500);
+  // Create URL-encoded form data for Shopify contact form
+  const formData = new URLSearchParams();
+  formData.append('form_type', 'contact');
+  formData.append('utf8', '✓');
+  formData.append('contact[email]', emailInput.value);
+  formData.append('contact[body]', messageInput.value);
+  
+  // Submit to Shopify contact form endpoint
+  fetch('/contact', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+  .then(response => {
+    // Check if response is ok or if it's a redirect (which is normal for contact forms)
+    if (response.ok || response.status === 302 || response.redirected) {
+      // Show success message
+      form.style.display = 'none';
+      successMessage.style.display = 'flex';
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        form.style.display = 'flex';
+        successMessage.style.display = 'none';
+        form.reset();
+        sendBtn.classList.remove('loading');
+        sendBtn.querySelector('.btn-text').textContent = 'Send';
+      }, 3000);
+    } else {
+      throw new Error('Form submission failed');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Sorry, there was an error sending your message. Please try again.');
+    sendBtn.classList.remove('loading');
+    sendBtn.querySelector('.btn-text').textContent = 'Send';
+  });
 }
 
 // Auto-resize textarea

@@ -26,6 +26,326 @@
   {%- endif -%}
 
   {%- style -%}
+    /* Target all sections with the featured-packs background */
+    .shopify-section {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    /* Target the MVN section (second section on page) - Full width background */
+    .shopify-section:nth-child(2) {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+      background-color: #0a0a0a !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    /* Center the content within the full-width background */
+    .shopify-section:nth-child(2) .page-width,
+    .shopify-section:nth-child(2) .container,
+    .shopify-section:nth-child(2) .wrapper {
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding-left: 10rem !important;
+      padding-right: 10rem !important;
+      padding-top: 1.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+    
+    /* Add padding to the MVN section content */
+    .shopify-section:nth-child(2) .shopify-app-block,
+    .shopify-section:nth-child(2) [data-block-type*="mvn"],
+    .shopify-section:nth-child(2) [data-block-type*="waveviz"] {
+      padding-top: 1.5rem !important;
+      padding-bottom: 1.5rem !important;
+      padding-left: 6rem !important;
+      padding-right: 6rem !important;
+      margin: 0 !important;
+    }
+    
+    /* Remove any spacing from MVN section children */
+    .shopify-section:nth-child(2) * {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Target the section before MVN to remove bottom spacing */
+    .shopify-section:nth-child(1) {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    /* Fix header spacing - ensure proper top spacing */
+    .shopify-section:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Ensure body and html don't have extra spacing */
+    body, html {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Reduce page borders - make them smaller */
+    .page-width {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+    
+    /* Reduce container padding */
+    .container {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+    
+    /* Reduce main content padding */
+    .main-content {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+    
+    /* Remove header padding that creates greenish space */
+    .header {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    
+    /* Remove any main wrapper spacing */
+    .main-content,
+    .main,
+    .page-width,
+    .container {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Remove spacing from first section to make it flush with top */
+    .shopify-section:first-child {
+      margin-top: -1px !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Remove spacing between footer-contact and footer */
+    .footer-contact-section {
+      margin-bottom: -1px !important;
+      padding-bottom: 0 !important;
+    }
+    
+    .footer {
+      margin-top: -1px !important;
+      padding-top: 0 !important;
+      padding: 2rem 0 !important;
+    }
+    
+    /* Override any theme body padding */
+    body {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    
+    /* Remove greenish strip - Target main content area */
+    #MainContent,
+    .main-content,
+    main,
+    .main,
+    .page-width,
+    .container,
+    .template-product #MainContent,
+    .template-product .main-content,
+    .template-product main {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+    
+    /* Target the first section specifically to remove any top spacing */
+    .template-product .shopify-section:first-child,
+    .template-product .shopify-section[data-section-type="main-product"],
+    .template-product .main-product-section {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Ensure the first section background fills the area under header */
+    .template-product .shopify-section:first-child {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+      background-color: #0a0a0a !important;
+    }
+    
+    /* Remove gap between first and second sections - NO GAP */
+    .shopify-section:nth-child(1) {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    .shopify-section:nth-child(2) {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Force sections to be completely flush */
+    .shopify-section:nth-child(1) + .shopify-section:nth-child(2) {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      position: relative !important;
+      top: 0 !important;
+    }
+    
+    /* Remove any spacing from section containers */
+    .shopify-section:nth-child(1) .page-width,
+    .shopify-section:nth-child(1) .container,
+    .shopify-section:nth-child(2) .page-width,
+    .shopify-section:nth-child(2) .container {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    /* Pull second section up to eliminate gap */
+    .shopify-section:nth-child(2) {
+      margin-top: -20px !important;
+    }
+    
+    /* Also try pulling the first section down */
+    .shopify-section:nth-child(1) {
+      margin-bottom: -20px !important;
+    }
+    
+    /* Fix footer-contact section spacing - TARGET CONTENT DIRECTLY */
+    .footer-contact-section {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Add equal spacing to the actual content container */
+    .footer-contact-section .footer-contact-content {
+      margin: 3rem 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Remove spacing from page-width container */
+    .footer-contact-section .page-width,
+    .footer-contact-section .container {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* Override any theme spacing with maximum specificity */
+    .template-product .shopify-section .footer-contact-section,
+    .template-product .shopify-section .footer-contact-section.section {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+    
+    /* Remove ALL vertical spacing between sections */
+    .shopify-section {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    /* Remove spacing from adjacent sections */
+    .shopify-section + .shopify-section {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Override any theme section spacing */
+    .shopify-section .section,
+    .shopify-section .page-width,
+    .shopify-section .container {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    /* Remove spacing from section groups */
+    .shopify-section-group {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    
+    .shopify-section-group + .shopify-section-group {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+    /* Add background effects to MVN section to match featured-packs */
+    .shopify-section:nth-child(2)::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 45, 149, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(122, 60, 255, 0.06) 0%, transparent 50%);
+      opacity: 0.6;
+      animation: backgroundPulse 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .shopify-section:nth-child(2) > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Add animated background effects to all sections */
+    .shopify-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 45, 149, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(122, 60, 255, 0.06) 0%, transparent 50%);
+      opacity: 0.6;
+      animation: backgroundPulse 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .shopify-section > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Background pulse animation */
+    @keyframes backgroundPulse {
+      0%, 100% { 
+        opacity: 0.3; 
+      }
+      50% { 
+        opacity: 0.6; 
+      }
+    }
+    
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -305,7 +625,7 @@
       display: flex;
     justify-content: space-between;
       align-items: center;
-    transition: all 0.3s ease;
+      transition: all 0.3s ease;
     background: transparent;
     border: none;
     outline: none;
@@ -421,10 +741,10 @@
 
   /* Visual Grouping - Vertical Layout */
   .product-info {
-    display: flex;
+      display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
+      gap: 1rem;
+    }
 
   .features-mvn-container {
     display: flex;
@@ -547,7 +867,225 @@
   .page-width {
     max-width: 100% !important;
     width: 100% !important;
+  }
+
+  /* MVN Section Background Styling - Match featured-packs section - ULTRA SPECIFIC */
+  .shopify-section[data-section-id*="17584002886da93a84"],
+  #shopify-section-17584002886da93a84,
+  .shopify-section[data-section-id="17584002886da93a84"],
+  div[data-section-id*="17584002886da93a84"],
+  section[data-section-id*="17584002886da93a84"] {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  /* Force override any inherited backgrounds */
+  .shopify-section[data-section-id*="17584002886da93a84"] *,
+  #shopify-section-17584002886da93a84 *,
+  .shopify-section[data-section-id="17584002886da93a84"] * {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+
+  /* Override any theme section styling */
+  .shopify-section[data-section-id*="17584002886da93a84"].section,
+  #shopify-section-17584002886da93a84.section,
+  .shopify-section[data-section-id="17584002886da93a84"].section {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+  }
+
+  /* Override any apps section specific styling */
+  .shopify-section[data-section-id*="17584002886da93a84"][data-section-type="apps"],
+  #shopify-section-17584002886da93a84[data-section-type="apps"] {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+  }
+
+  /* DEBUG: Add a visible border to confirm the section is being targeted */
+  .shopify-section[data-section-id*="17584002886da93a84"],
+  #shopify-section-17584002886da93a84,
+  .shopify-section[data-section-type="apps"],
+  .shopify-section[data-section-id*="175840"] {
+    border: 2px solid #ff0000 !important;
+    min-height: 100px !important;
+  }
+
+
+  /* Target any apps section as fallback */
+  .shopify-section[data-section-type="apps"] {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  /* Target any section that comes after main-product section */
+  .shopify-section[data-section-id*="main-product"] + .shopify-section {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #00ff00 !important;
+    min-height: 100px !important;
+  }
+
+  /* Target the second section after main-product (MVN section) */
+  .shopify-section[data-section-id*="main-product"] + .shopify-section + .shopify-section {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    background-color: #0a0a0a !important;
+    background-image: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 2px solid #0000ff !important;
+    min-height: 100px !important;
+  }
+
+  /* Override global section spacing rules */
+  .shopify-section[data-section-id*="17584002886da93a84"] + .shopify-section,
+  .shopify-section + .shopify-section[data-section-id*="17584002886da93a84"] {
+    margin-top: 0 !important;
+  }
+
+  /* Remove any inherited section padding/margin */
+  .shopify-section[data-section-id*="17584002886da93a84"] *,
+  .shopify-section[data-section-id*="17584002886da93a84"] *::before,
+  .shopify-section[data-section-id*="17584002886da93a84"] *::after {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Override any potential theme spacing */
+  #shopify-section-17584002886da93a84 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Target the specific section by ID */
+  .shopify-section[data-section-id="17584002886da93a84"] {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Override any container spacing */
+  .shopify-section[data-section-id*="17584002886da93a84"] .page-width,
+  .shopify-section[data-section-id*="17584002886da93a84"] .container,
+  .shopify-section[data-section-id*="17584002886da93a84"] .wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Override main product section bottom spacing that might affect MVN section */
+  .shopify-section[data-section-id*="main-product"] {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Force zero spacing on all elements within MVN section */
+  .shopify-section[data-section-id*="17584002886da93a84"],
+  .shopify-section[data-section-id*="17584002886da93a84"] > *,
+  .shopify-section[data-section-id*="17584002886da93a84"] > * > *,
+  .shopify-section[data-section-id*="17584002886da93a84"] > * > * > * {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Override apps section specific styling */
+  .shopify-section[data-section-id*="17584002886da93a84"] .section {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .shopify-section[data-section-id*="17584002886da93a84"] .page-width {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Override any scroll-trigger animations that might add spacing */
+  .shopify-section[data-section-id*="17584002886da93a84"] .scroll-trigger,
+  .shopify-section[data-section-id*="17584002886da93a84"] .animate--slide-in {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .shopify-section[data-section-id*="17584002886da93a84"] .shopify-app-block {
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Enhanced background effects to match featured-packs section - Maximum Specificity */
+  .shopify-section[data-section-id*="17584002886da93a84"]::before,
+  #shopify-section-17584002886da93a84::before,
+  .shopify-section[data-section-id="17584002886da93a84"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(255, 45, 149, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(122, 60, 255, 0.06) 0%, transparent 50%);
+    opacity: 0.6;
+    animation: backgroundPulse 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+
+  /* Subtle border glow effect */
+  .shopify-section[data-section-id*="17584002886da93a84"] {
+    position: relative;
+    border-top: 1px solid rgba(255, 45, 149, 0.1);
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  }
+
+  /* Add subtle inner glow */
+  .shopify-section[data-section-id*="17584002886da93a84"] .shopify-app-block {
+    position: relative;
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 45, 149, 0.1),
+      inset 0 -1px 0 rgba(0, 212, 255, 0.1),
+      0 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .shopify-section[data-section-id*="17584002886da93a84"] > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Background pulse animation - Match featured-packs section */
+  @keyframes backgroundPulse {
+    0%, 100% { 
+      opacity: 0.3; 
     }
+    50% { 
+      opacity: 0.6; 
+    }
+  }
   {%- endstyle -%}
 
 <div class="product-page">

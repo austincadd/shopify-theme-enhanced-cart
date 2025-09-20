@@ -104,7 +104,9 @@
         "mvn_waveviz_waveviz_4C7WE7"
       ],
       "settings": {
-        "include_margins": true
+        "include_margins": false,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
