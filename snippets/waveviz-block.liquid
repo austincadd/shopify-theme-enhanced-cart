@@ -1,0 +1,26 @@
+{% comment %}
+WaveViz Player Block
+Usage: Add this block to a section schema and it will render a WaveViz audio player.
+{% endcomment %}
+
+<div class="waveviz-block my-8">
+  <h3 class="text-xl font-bold mb-4">{{ block.settings.heading }}</h3>
+  
+  <!-- Debug info -->
+  <div style="background: #ff0000; color: white; padding: 1rem; margin: 1rem 0; border-radius: 4px;">
+    <strong>Debug Info:</strong><br>
+    Block Type: {{ block.type }}<br>
+    Heading: {{ block.settings.heading }}<br>
+    Track ID: {{ block.settings.track_id }}<br>
+    Block ID: {{ block.id }}
+  </div>
+  
+  <!-- MVN WaveViz App Block -->
+  <div class="shopify-app-block" data-block-type="shopify://apps/mvn-waveviz/blocks/waveviz/c13b3339-386a-4906-9c68-724347db7025" data-track-id="{{ block.settings.track_id }}">
+    <div style="background: #fbbf24; color: #000; padding: 2rem; text-align: center; border-radius: 8px; margin: 1rem 0;">
+      <h4>MVN WaveViz Player</h4>
+      <p>Track ID: {{ block.settings.track_id }}</p>
+      <p><em>If you see this, the MVN app is not loading properly.</em></p>
+    </div>
+  </div>
+</div>
