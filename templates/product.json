@@ -30,8 +30,7 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
+            "picker_type": "button"
           }
         },
         "quantity_selector": {
@@ -68,14 +67,13 @@
       ],
       "settings": {
         "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
@@ -106,10 +104,26 @@
         "headline": "Let's build something together.",
         "subtext": "Questions about our packs or plugins?"
       }
+    },
+    "175839290682921be4": {
+      "type": "apps",
+      "blocks": {
+        "mvn_waveviz_waveviz_xwNJkb": {
+          "type": "shopify://apps/mvn-waveviz/blocks/waveviz/c13b3339-386a-4906-9c68-724347db7025",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "mvn_waveviz_waveviz_xwNJkb"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "main",
+    "175839290682921be4",
     "related-products",
     "footer_contact"
   ]
