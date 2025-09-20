@@ -74,7 +74,6 @@
       max-width: 100%;
     }
     
-    .audio-section,
     .upsell-section,
     .demo-section,
     .related-section {
@@ -99,7 +98,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
   }
 
   .breadcrumb-link {
@@ -187,7 +186,7 @@
 
   .features-dropdown {
     background: #1f2937;
-    border-radius: 6px;
+      border-radius: 6px;
     border: 1px solid #374151;
     overflow: hidden;
     max-width: 400px;
@@ -249,33 +248,6 @@
     margin-bottom: 0.25rem;
   }
 
-  /* Audio Demos Section */
-  .audio-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 5.5rem;
-  }
-
-  .audio-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-
-  .audio-demo {
-    margin-bottom: 2rem;
-  }
-
-  .audio-demo h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  .audio-demo audio {
-    width: 100%;
-    height: 40px;
-  }
 
   /* Bundle Upsell Section */
   .upsell-section {
@@ -457,19 +429,19 @@
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
         <button type="button" class="add-to-cart-btn" onclick="addToCartAndOpenDrawer(document.getElementById('product-form'), {{ product.selected_or_first_available_variant.id }})">
           Add to Cart
-        </button>
+                      </button>
       </form>
       
       {% if product.description != blank %}
         <p class="product-description">{{ product.description }}</p>
-      {% endif %}
+                        {% endif %}
       
       <!-- Features Dropdown -->
       <div class="features-dropdown">
         <div class="features-header" onclick="toggleFeatures()">
           <h2 class="features-title">What Does the Pack Include?</h2>
           <span class="features-toggle" id="featuresToggle">▼</span>
-        </div>
+                          </div>
         <div class="features-content" id="featuresContent">
           <ul class="features-list">
             <li>100+ Vocal Phrases</li>
@@ -479,47 +451,11 @@
             <li>High-quality WAV files</li>
             <li>Ready-to-use in any DAW</li>
           </ul>
-        </div>
-      </div>
-    </div>
+                          </div>
+                  </div>
+                  </div>
   </section>
 
-  <!-- Audio Demos Section -->
-  <section class="audio-section">
-    <h2 class="audio-title">Audio Demos</h2>
-    
-    <div class="audio-demo">
-      <h3>Phrases</h3>
-      <audio controls>
-        <source src="{{ product.metafields.custom.audio_phrases | file_url | default: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav' }}" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-                                  </div>
-
-    <div class="audio-demo">
-      <h3>Chops</h3>
-      <audio controls>
-        <source src="{{ product.metafields.custom.audio_chops | file_url | default: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav' }}" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-                              </div>
-
-    <div class="audio-demo">
-      <h3>Shouts</h3>
-      <audio controls>
-        <source src="{{ product.metafields.custom.audio_shouts | file_url | default: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav' }}" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-                            </div>
-
-    <div class="audio-demo">
-      <h3>Syllables</h3>
-      <audio controls>
-        <source src="{{ product.metafields.custom.audio_syllables | file_url | default: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav' }}" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-                      </div>
-        </section>
 
   <!-- Bundle Upsell Section -->
   <section class="upsell-section">
@@ -527,7 +463,7 @@
       <div>
         <h2 class="upsell-title">Buy Bundle & Save</h2>
         <p class="upsell-description">Get {{ product.title }} + 2 more packs for one discounted price.</p>
-      </div>
+                </div>
       <button class="upsell-btn">View Bundle</button>
     </div>
   </section>
@@ -551,18 +487,18 @@
             {% else %}
               <div class="related-image" style="background: #374151; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
                 No Image
-          </div>
+                    </div>
             {% endif %}
             <h3 class="related-name">{{ related_product.title | escape }}</h3>
             <p class="related-price">
               {%- render 'price', product: related_product, price_class: '' -%}
-            </p>
-        </div>
-        {% endif %}
+                    </p>
+                  </div>
+                      {% endif %}
       {% endfor %}
+                        </div>
+        </section>
     </div>
-  </section>
-</div>
 
 <script type="application/ld+json">
   {{ product | structured_data }}
