@@ -553,8 +553,18 @@ function initProductsAnimation() {
     const buyButtons = featuredSection.querySelectorAll('.buy-now-container');
     buyButtons.forEach(button => {
       button.addEventListener('click', function(e) {
+        console.log('Buy button clicked - preventing card navigation');
         e.stopPropagation();
         e.preventDefault();
+      });
+    });
+    
+    // Add click handlers for product card navigation
+    const productCards = featuredSection.querySelectorAll('.product-card-link');
+    productCards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        console.log('Product card clicked - navigating to product page');
+        // Let the default link behavior handle navigation
       });
     });
   } else {
