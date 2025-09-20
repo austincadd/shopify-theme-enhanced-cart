@@ -145,7 +145,7 @@
     "blocks": {
       "924959678136166413": {
         "type": "shopify://apps/awplayer/blocks/awp-embed/5f993b35-372f-4ed6-98c4-a771fd2d62ea",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "backgroundcolor": "#ffffff",
           "bordercolor": "#e3e3e3",
@@ -161,7 +161,7 @@
       },
       "15644430021160682579": {
         "type": "shopify://apps/awplayer/blocks/awp-product-card/5f993b35-372f-4ed6-98c4-a771fd2d62ea",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "backgroundcolor": "#ffffff",
           "iconcolor": "#000000",
