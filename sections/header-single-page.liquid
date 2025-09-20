@@ -502,7 +502,7 @@
           <a href="#" class="nav-dropdown-toggle">Account</a>
           <div class="nav-dropdown-menu">
             <a href="{{ routes.account_login_url }}">Log In</a>
-            <a href="/account/register">Create Account</a>
+            <a href="{{ routes.account_register_url }}" onclick="console.log('Register URL:', '{{ routes.account_register_url }}'); return true;">Create Account</a>
           </div>
         </div>
         <a href="#" onclick="event.preventDefault(); event.stopPropagation(); openCartDrawer(); return false;">Cart</a>
