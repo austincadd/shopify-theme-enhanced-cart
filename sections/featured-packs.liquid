@@ -42,10 +42,10 @@
 
     <div class="packs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
       
-      <!-- Pack 1: Euphoria -->
-      <div class="pack-card" data-pack="euphoria" style="background: rgba(13, 15, 13, 0.8); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(102, 255, 204, 0.2); backdrop-filter: blur(20px); transition: all 0.3s ease; position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- New Pack Card 1 -->
+      <div class="pack-card" data-awp-product-id="{{ section.settings.pack1_product_id | default: 'pack1' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack1_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.59.05PM.png?v=1757973557' }}" alt="Euphoria Pack" class="pack-image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
+          <img src="{{ section.settings.pack1_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.59.05PM.png?v=1757973557' }}" alt="Pack 1" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -53,30 +53,38 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack1_name | default: "Euphoria" }}
+            {{ section.settings.pack1_name | default: "Sample Pack 1" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
-            {{ section.settings.pack1_genre | default: "Progressive House" }}
+            {{ section.settings.pack1_genre | default: "Electronic" }}
           </p>
         </div>
 
-        <div class="audio-controls" style="margin-bottom: 1rem;">
-          <audio id="audio-euphoria" preload="none" style="width: 100%; height: 40px; border-radius: 8px; background: rgba(0, 0, 0, 0.3);">
-            <source src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/demo1.wav?v=1758074420" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
+        <!-- Wav Form Display -->
+        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will populate this with the actual wav form -->
+            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
+              Wav Form Loading...
+            </div>
+          </div>
         </div>
 
-        <button class="play-demo-btn" data-pack="euphoria" style="width: 100%; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
-          <span class="btn-text">Play Demo</span>
-          <div class="btn-shine"></div>
-        </button>
+        <div class="pack-actions" style="display: flex; gap: 1rem; align-items: center;">
+          <button class="play-demo-btn" style="flex: 1; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
+            <span class="btn-text">Play Demo</span>
+            <div class="btn-shine"></div>
+          </button>
+          <button class="buy-btn" style="padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
       </div>
 
-      <!-- Pack 2: Paradox -->
-      <div class="pack-card" data-pack="paradox" style="background: rgba(13, 15, 13, 0.8); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(102, 255, 204, 0.2); backdrop-filter: blur(20px); transition: all 0.3s ease; position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- New Pack Card 2 -->
+      <div class="pack-card" data-awp-product-id="{{ section.settings.pack2_product_id | default: 'pack2' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack2_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.49.13PM.png?v=1757973190' }}" alt="Paradox Pack" class="pack-image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
+          <img src="{{ section.settings.pack2_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.49.13PM.png?v=1757973190' }}" alt="Pack 2" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -84,30 +92,38 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack2_name | default: "Paradox" }}
+            {{ section.settings.pack2_name | default: "Sample Pack 2" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
-            {{ section.settings.pack2_genre | default: "Tech House" }}
+            {{ section.settings.pack2_genre | default: "House" }}
           </p>
         </div>
 
-        <div class="audio-controls" style="margin-bottom: 1rem;">
-          <audio id="audio-paradox" preload="none" style="width: 100%; height: 40px; border-radius: 8px; background: rgba(0, 0, 0, 0.3);">
-            <source src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/demo2.wav?v=1758074420" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
+        <!-- Wav Form Display -->
+        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will populate this with the actual wav form -->
+            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
+              Wav Form Loading...
+            </div>
+          </div>
         </div>
 
-        <button class="play-demo-btn" data-pack="paradox" style="width: 100%; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
-          <span class="btn-text">Play Demo</span>
-          <div class="btn-shine"></div>
-        </button>
+        <div class="pack-actions" style="display: flex; gap: 1rem; align-items: center;">
+          <button class="play-demo-btn" style="flex: 1; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
+            <span class="btn-text">Play Demo</span>
+            <div class="btn-shine"></div>
+          </button>
+          <button class="buy-btn" style="padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
       </div>
 
-      <!-- Pack 3: One -->
-      <div class="pack-card" data-pack="one" style="background: rgba(13, 15, 13, 0.8); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(102, 255, 204, 0.2); backdrop-filter: blur(20px); transition: all 0.3s ease; position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
+      <!-- New Pack Card 3 -->
+      <div class="pack-card" data-awp-product-id="{{ section.settings.pack3_product_id | default: 'pack3' }}" style="background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; opacity: 0; transform: translateX(-50px);">
         <div class="pack-image-container" style="position: relative; margin-bottom: 1.5rem;">
-          <img src="{{ section.settings.pack3_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.45.28PM.png?v=1757973417' }}" alt="One Pack" class="pack-image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px;">
+          <img src="{{ section.settings.pack3_image | default: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/Screenshot2025-09-15at5.45.28PM.png?v=1757973417' }}" alt="Pack 3" class="pack-image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 12px; background: rgba(255, 255, 255, 0.05);">
           <div class="pack-badge" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             NEW
           </div>
@@ -115,24 +131,32 @@
         
         <div class="pack-info" style="margin-bottom: 1.5rem;">
           <h3 class="pack-name" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.5rem 0;">
-            {{ section.settings.pack3_name | default: "One" }}
+            {{ section.settings.pack3_name | default: "Sample Pack 3" }}
           </h3>
           <p class="pack-genre" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
-            {{ section.settings.pack3_genre | default: "Deep House" }}
+            {{ section.settings.pack3_genre | default: "Techno" }}
           </p>
         </div>
 
-        <div class="audio-controls" style="margin-bottom: 1rem;">
-          <audio id="audio-one" preload="none" style="width: 100%; height: 40px; border-radius: 8px; background: rgba(0, 0, 0, 0.3);">
-            <source src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/demo3.wav?v=1758074420" type="audio/wav">
-            Your browser does not support the audio element.
-          </audio>
+        <!-- Wav Form Display -->
+        <div class="wav-form-container awp-wavform-container" style="margin-bottom: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="wav-form awp-wavform" style="height: 60px; background: linear-gradient(90deg, #ff2d95, #00d4ff); border-radius: 4px; position: relative; overflow: hidden;">
+            <!-- AWPlayer will populate this with the actual wav form -->
+            <div class="wav-placeholder awp-wavform-placeholder" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; opacity: 0.7;">
+              Wav Form Loading...
+            </div>
+          </div>
         </div>
 
-        <button class="play-demo-btn" data-pack="one" style="width: 100%; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
-          <span class="btn-text">Play Demo</span>
-          <div class="btn-shine"></div>
-        </button>
+        <div class="pack-actions" style="display: flex; gap: 1rem; align-items: center;">
+          <button class="play-demo-btn" style="flex: 1; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #ff2d95, #00d4ff); color: white; border: none; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
+            <span class="btn-text">Play Demo</span>
+            <div class="btn-shine"></div>
+          </button>
+          <button class="buy-btn" style="padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Buy Now
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -168,18 +192,115 @@
 }
 
 /* Pack Card Hover Effects */
+.pack-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, rgba(75, 0, 130, 0.4), rgba(138, 43, 226, 0.4), rgba(72, 61, 139, 0.4), rgba(106, 90, 205, 0.4), rgba(123, 104, 238, 0.4));
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.pack-card:hover::before {
+  opacity: 1;
+  animation: pack-glow-pulse 2s ease-in-out infinite;
+}
+
 .pack-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(102, 255, 204, 0.4);
-  box-shadow: 0 20px 40px rgba(102, 255, 204, 0.2), 0 0 20px rgba(255, 45, 149, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes pack-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 0 0 25px rgba(75, 0, 130, 0.2);
+  }
 }
 
 .pack-card:hover .pack-image {
   transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .pack-image {
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* Buy Button Hover Effects */
+.buy-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Wav Form Styling */
+.wav-form-container {
+  transition: all 0.3s ease;
+}
+
+.wav-form-container:hover {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.wav-form {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.wav-form:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(255, 45, 149, 0.3);
+}
+
+.wav-placeholder {
+  transition: opacity 0.3s ease;
+}
+
+.wav-form:hover .wav-placeholder {
+  opacity: 0.5;
+}
+
+/* AWPlayer Wavform Styling */
+.awp-wavform-container {
+  position: relative;
+}
+
+.awp-wavform {
+  width: 100% !important;
+  height: 60px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+
+.awp-wavform canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 4px !important;
+}
+
+.awp-wavform-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.awp-wavform:not(:empty) .awp-wavform-placeholder {
+  display: none !important;
 }
 
 /* Button Shine Effect */
@@ -252,50 +373,23 @@ audio::-webkit-media-controls-panel {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const playButtons = document.querySelectorAll('.play-demo-btn');
-  const audioElements = document.querySelectorAll('audio');
+  const buyButtons = document.querySelectorAll('.buy-btn');
   
-  // Track currently playing audio
-  let currentAudio = null;
-  
+  // Play Demo button functionality (now handled by AWPlayer)
   playButtons.forEach(button => {
     button.addEventListener('click', function() {
-      const packName = this.getAttribute('data-pack');
-      const audio = document.getElementById(`audio-${packName}`);
-      const card = this.closest('.pack-card');
-      
-      // Pause any currently playing audio
-      if (currentAudio && currentAudio !== audio) {
-        currentAudio.pause();
-        const otherButton = currentAudio.closest('.pack-card').querySelector('.play-demo-btn');
-        otherButton.querySelector('.btn-text').textContent = 'Play Demo';
-        otherButton.classList.remove('playing');
-      }
-      
-      if (audio.paused) {
-        audio.play().then(() => {
-          this.querySelector('.btn-text').textContent = 'Pause Demo';
-          this.classList.add('playing');
-          currentAudio = audio;
-        }).catch(error => {
-          console.error('Error playing audio:', error);
-        });
-      } else {
-        audio.pause();
-        this.querySelector('.btn-text').textContent = 'Play Demo';
-        this.classList.remove('playing');
-        currentAudio = null;
-      }
+      // AWPlayer will handle the audio functionality
+      console.log('Play demo clicked - AWPlayer will handle this');
     });
   });
   
-  // Handle audio end events
-  audioElements.forEach(audio => {
-    audio.addEventListener('ended', function() {
-      const packName = this.id.replace('audio-', '');
-      const button = document.querySelector(`[data-pack="${packName}"]`);
-      button.querySelector('.btn-text').textContent = 'Play Demo';
-      button.classList.remove('playing');
-      currentAudio = null;
+  // Buy Now button functionality
+  buyButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const card = this.closest('.pack-card');
+      const productId = card.getAttribute('data-awp-product-id');
+      console.log('Buy now clicked for product:', productId);
+      // Add your buy now functionality here
     });
   });
 });
@@ -395,6 +489,12 @@ if (document.readyState === 'loading') {
       "label": "Pack 1 Image"
     },
     {
+      "type": "text",
+      "id": "pack1_product_id",
+      "label": "Pack 1 Product ID",
+      "info": "Enter the Shopify product ID for AWPlayer integration"
+    },
+    {
       "type": "header",
       "content": "Pack 2 - Paradox"
     },
@@ -416,6 +516,12 @@ if (document.readyState === 'loading') {
       "label": "Pack 2 Image"
     },
     {
+      "type": "text",
+      "id": "pack2_product_id",
+      "label": "Pack 2 Product ID",
+      "info": "Enter the Shopify product ID for AWPlayer integration"
+    },
+    {
       "type": "header",
       "content": "Pack 3 - One"
     },
@@ -435,6 +541,12 @@ if (document.readyState === 'loading') {
       "type": "image_picker",
       "id": "pack3_image",
       "label": "Pack 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "pack3_product_id",
+      "label": "Pack 3 Product ID",
+      "info": "Enter the Shopify product ID for AWPlayer integration"
     }
   ],
   "presets": [
