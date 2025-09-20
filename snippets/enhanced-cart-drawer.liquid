@@ -470,8 +470,9 @@ class EnhancedCartDrawer {
       z-index: 1 !important;
       pointer-events: all !important;
       display: block !important;
-      opacity: 1 !important;
+      opacity: 0 !important;
       visibility: visible !important;
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
     `;
     
     // Add it to the body
@@ -487,9 +488,13 @@ class EnhancedCartDrawer {
     console.log('Dark tint overlay created with z-index: 1');
     console.log('Dark tint element:', darkTint);
     
-    // Open the cart drawer (which has much higher z-index)
-    this.drawer.classList.add('open');
-    this.overlay.classList.add('open');
+    // Use requestAnimationFrame to ensure smooth synchronized animation
+    requestAnimationFrame(() => {
+      // Start both animations simultaneously
+      darkTint.style.opacity = '1';
+      this.drawer.classList.add('open');
+      this.overlay.classList.add('open');
+    });
     
     // Make overlay clickable for close functionality
     this.overlay.style.pointerEvents = 'all';
@@ -523,6 +528,8 @@ class EnhancedCartDrawer {
 
   close() {
     console.log('Closing cart drawer...');
+    
+    // Start closing animations simultaneously
     this.drawer.classList.remove('open');
     this.overlay.classList.remove('open');
     
@@ -531,10 +538,16 @@ class EnhancedCartDrawer {
     this.overlay.style.opacity = '0';
     this.overlay.style.visibility = 'hidden';
     
-    // Remove the dark tint overlay
+    // Fade out the dark tint overlay smoothly
     if (this.pageTint) {
-      this.pageTint.remove();
-      console.log('Dark tint overlay removed');
+      this.pageTint.style.opacity = '0';
+      // Remove after transition completes
+      setTimeout(() => {
+        if (this.pageTint) {
+          this.pageTint.remove();
+          console.log('Dark tint overlay removed');
+        }
+      }, 800); // Match the transition duration
     }
     
     // Also remove any other tint elements
