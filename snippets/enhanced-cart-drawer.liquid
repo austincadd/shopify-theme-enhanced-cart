@@ -543,7 +543,7 @@ class EnhancedCartDrawer {
       height: 100vh !important;
       background-color: rgba(0, 0, 0, 0.8) !important;
       z-index: 1 !important;
-      pointer-events: none !important;
+      pointer-events: all !important;
       display: block !important;
       opacity: 1 !important;
       visibility: visible !important;
@@ -552,6 +552,12 @@ class EnhancedCartDrawer {
     // Add it to the body
     document.body.appendChild(darkTint);
     this.pageTint = darkTint;
+    
+    // Add click event to close cart drawer when clicking on dark tint
+    darkTint.addEventListener('click', (e) => {
+      console.log('Dark tint overlay clicked - closing cart drawer');
+      this.close();
+    });
     
     console.log('Dark tint overlay created with z-index: 1');
     console.log('Dark tint element:', darkTint);
@@ -568,6 +574,11 @@ class EnhancedCartDrawer {
     // Force the cart drawer to be on top with even higher z-index
     this.drawer.style.zIndex = '99999999';
     this.overlay.style.zIndex = '99999998';
+    
+    // Prevent cart drawer clicks from closing the drawer
+    this.drawer.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
     console.log('Cart drawer z-index set to:', this.drawer.style.zIndex);
     console.log('Cart overlay z-index set to:', this.overlay.style.zIndex);
     
