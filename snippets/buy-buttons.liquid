@@ -81,7 +81,7 @@
             %}
               disabled
             {% endif %}
-            onclick="if(this.form.checkValidity()) { setTimeout(() => { if(window.enhancedCartDrawer) window.enhancedCartDrawer.open(); }, 1000); }"
+            onclick="if(this.form.checkValidity()) { if(window.enhancedCartDrawer) window.enhancedCartDrawer.open(); }"
           >
             <span>
               {%- if product.selected_or_first_available_variant == null -%}

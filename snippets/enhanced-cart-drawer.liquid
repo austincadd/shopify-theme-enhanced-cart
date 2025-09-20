@@ -920,10 +920,11 @@ window.addToCartAndOpenDrawer = async (form, variantId) => {
     
     if (response.ok) {
       console.log('Product added to cart successfully');
-      // Refresh cart data
+      // Open drawer immediately for faster response
       if (window.enhancedCartDrawer) {
-        await window.enhancedCartDrawer.refreshCart();
         window.enhancedCartDrawer.open();
+        // Refresh cart data in background
+        window.enhancedCartDrawer.refreshCart();
       }
     } else {
       console.error('Failed to add product to cart');
