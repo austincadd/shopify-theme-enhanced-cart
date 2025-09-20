@@ -17,11 +17,13 @@
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
         "hide_variants": false,
-        "enable_video_looping": false
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "audio_demo": {
@@ -41,13 +43,41 @@
     "product_description": {
       "type": "main-product",
       "disabled": true,
-      "settings": {}
+      "settings": {
+        "enable_sticky_info": true,
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     },
     "footer_contact": {
       "type": "footer-contact",
       "settings": {
         "headline": "Let's build something together.",
         "subtext": "Questions about our packs or plugins?"
+      }
+    },
+    "175839121912890f3c": {
+      "type": "apps",
+      "blocks": {
+        "mvn_waveviz_waveviz_TKNbxc": {
+          "type": "shopify://apps/mvn-waveviz/blocks/waveviz/c13b3339-386a-4906-9c68-724347db7025",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "mvn_waveviz_waveviz_TKNbxc"
+      ],
+      "settings": {
+        "include_margins": false
       }
     }
   },
@@ -56,6 +86,7 @@
     "audio_demo",
     "instant_download",
     "product_description",
-    "footer_contact"
+    "footer_contact",
+    "175839121912890f3c"
   ]
 }
