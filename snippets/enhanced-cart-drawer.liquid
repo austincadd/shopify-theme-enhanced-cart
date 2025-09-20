@@ -32,13 +32,20 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: transparent;
     z-index: 99999998 !important;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .enhanced-cart-drawer__overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
   }
 
   /* Page tint when cart drawer is open */
@@ -420,9 +427,11 @@
 <!-- Page Tint Overlay -->
 <div class="page-tint-overlay" id="page-tint-overlay"></div>
 
+<!-- Cart Drawer Overlay (for click outside to close) -->
+<div class="enhanced-cart-drawer__overlay" id="cart-drawer-overlay"></div>
+
 <!-- Enhanced Cart Drawer -->
 <div id="enhanced-cart-drawer" class="enhanced-cart-drawer">
-  <div class="enhanced-cart-drawer__overlay" id="cart-drawer-overlay"></div>
   
   <div class="enhanced-cart-drawer__header">
     <h2 class="enhanced-cart-drawer__title">Cart</h2>
@@ -463,8 +472,15 @@ class EnhancedCartDrawer {
 
   init() {
     // Event listeners
-    this.closeBtn.addEventListener('click', () => this.close());
-    this.overlay.addEventListener('click', () => this.close());
+    this.closeBtn.addEventListener('click', (e) => {
+      console.log('Close button clicked');
+      e.stopPropagation();
+      this.close();
+    });
+    this.overlay.addEventListener('click', (e) => {
+      console.log('Overlay clicked - closing cart drawer');
+      this.close();
+    });
     
     // Close on escape key
     document.addEventListener('keydown', (e) => {
