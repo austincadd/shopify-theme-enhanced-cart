@@ -86,7 +86,7 @@
 
   .enhanced-cart-drawer__title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
@@ -97,18 +97,38 @@
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+    padding: 0;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .enhanced-cart-drawer__close svg {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
   }
 
   .enhanced-cart-drawer__close:hover {
-    background: rgba(102, 255, 204, 0.1);
-    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(255, 107, 122, 0.1));
+    border-color: rgba(255, 71, 87, 0.2);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.15);
+    color: #ff4757;
+  }
+
+  .enhanced-cart-drawer__close:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 1px 4px rgba(255, 71, 87, 0.1);
   }
 
   .enhanced-cart-drawer__content {
@@ -256,6 +276,8 @@
     min-width: 44px;
     height: 44px;
     box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
+    align-self: center;
+    margin-top: 0.5rem;
   }
 
   .enhanced-cart-item__remove:hover {
@@ -407,7 +429,7 @@
   <div class="enhanced-cart-drawer__header">
     <h2 class="enhanced-cart-drawer__title">Cart</h2>
     <button class="enhanced-cart-drawer__close" id="cart-drawer-close">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
