@@ -20,33 +20,43 @@
       </div>
       
       <div class="lab-form-container">
-        <form class="lab-form" action="#" method="post" id="lab-form" onsubmit="submitLabForm(event)" style="max-width: 500px; margin: 0 auto;">
-          <div class="form-group" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Enter your email address" 
-              class="lab-email-input"
-              required
-              style="flex: 1; padding: 1rem; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 8px; color: var(--text-primary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease;"
-            >
-            <button type="submit" class="lab-join-btn" style="background: var(--accent-blue); color: var(--cyber-bg); padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Space Grotesk', sans-serif; white-space: nowrap;">
-              <span class="btn-text">{{ section.settings.button_text | default: "Unlock Free Sounds" }}</span>
-            </button>
-          </div>
-          <p class="lab-disclaimer" style="color: var(--text-secondary); font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;">
-            {{ section.settings.disclaimer | default: "Instant access to free sounds. No spam, unsubscribe anytime." }}
-          </p>
-        </form>
-        
-        <!-- Success Message -->
-        <div id="lab-success" class="lab-success" style="display: none; flex-direction: column; align-items: center; gap: 1rem;">
-          <div class="success-icon" style="font-size: 3rem; color: var(--neon-green);">✓</div>
-          <div class="success-text" style="text-align: center;">
-            <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">Welcome to the Lab!</h3>
-            <p style="color: var(--text-secondary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif;">Check your email for instant access to your free sounds.</p>
-          </div>
-        </div>
+        {% form 'customer', class: 'lab-form', id: 'lab-form' %}
+          {% if form.posted_successfully? %}
+            <div class="lab-success" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+              <div class="success-icon" style="font-size: 3rem; color: var(--neon-green);">✓</div>
+              <div class="success-text" style="text-align: center;">
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">Welcome to the Lab!</h3>
+                <p style="color: var(--text-secondary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif;">Check your email for instant access to your free sounds.</p>
+              </div>
+            </div>
+          {% else %}
+            <div class="form-group" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+              <input 
+                type="email" 
+                name="contact[email]" 
+                placeholder="Enter your email address" 
+                class="lab-email-input"
+                value="{{ form.email }}"
+                required
+                style="flex: 1; padding: 1rem; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 8px; color: var(--text-primary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease;"
+              >
+              <button type="submit" class="lab-join-btn" style="background: var(--accent-blue); color: var(--cyber-bg); padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Space Grotesk', sans-serif; white-space: nowrap;">
+                <span class="btn-text">{{ section.settings.button_text | default: "Unlock Free Sounds" }}</span>
+              </button>
+            </div>
+            <p class="lab-disclaimer" style="color: var(--text-secondary); font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;">
+              {{ section.settings.disclaimer | default: "Instant access to free sounds. No spam, unsubscribe anytime." }}
+            </p>
+            
+            {% if form.errors %}
+              <div class="form-errors" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 8px; color: #ff6b6b; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;">
+                {% for field in form.errors %}
+                  <p>{{ field }}: {{ form.errors[field] }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endform %}
       </div>
     </div>
   </div>
@@ -68,43 +78,6 @@
 }
 </style>
 
-<script>
-function submitLabForm(event) {
-  event.preventDefault();
-  
-  const form = document.getElementById('lab-form');
-  const successMessage = document.getElementById('lab-success');
-  const joinBtn = form.querySelector('.lab-join-btn');
-  
-  // Add loading state
-  joinBtn.classList.add('loading');
-  
-  // Simulate form submission (replace with actual form handling)
-  setTimeout(() => {
-    form.style.display = 'none';
-    successMessage.style.display = 'flex';
-    
-    // Scroll to contact section after showing success
-    setTimeout(() => {
-      const contactSection = document.getElementById('contact-section');
-      if (contactSection) {
-        contactSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }, 1000);
-    
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-      form.reset();
-      joinBtn.classList.remove('loading');
-    }, 5000);
-  }, 2000);
-}
-</script>
 
 {% schema %}
 {
