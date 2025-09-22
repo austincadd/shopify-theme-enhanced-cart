@@ -93,47 +93,220 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
     linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
   animation: colorCycle 12s ease-in-out infinite;
+}
+
+/* Animated mesh gradient overlay */
+.hero-mesh-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(122, 60, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(14, 203, 230, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 37, 102, 0.06) 0%, transparent 60%);
+  animation: meshFloat 15s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes meshFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(-20px, -30px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(30px, -20px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-10px, 20px) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+/* Floating particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: particleFloat 20s linear infinite;
+}
+
+.particle-1 { top: 10%; left: 20%; animation-delay: 0s; }
+.particle-2 { top: 30%; left: 80%; animation-delay: 2s; }
+.particle-3 { top: 60%; left: 10%; animation-delay: 4s; }
+.particle-4 { top: 80%; left: 70%; animation-delay: 6s; }
+.particle-5 { top: 20%; left: 50%; animation-delay: 8s; }
+.particle-6 { top: 70%; left: 30%; animation-delay: 10s; }
+.particle-7 { top: 40%; left: 90%; animation-delay: 12s; }
+.particle-8 { top: 90%; left: 40%; animation-delay: 14s; }
+.particle-9 { top: 15%; left: 60%; animation-delay: 16s; }
+.particle-10 { top: 85%; left: 15%; animation-delay: 18s; }
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-10px) translateX(5px) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-100vh) translateX(50px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(60px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Light streaks */
+.light-streak {
+  position: absolute;
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: streakMove 8s linear infinite;
+  z-index: 1;
+}
+
+.light-streak-1 {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+  transform: rotate(15deg);
+}
+
+.light-streak-2 {
+  top: 60%;
+  left: 75%;
+  animation-delay: 3s;
+  transform: rotate(-20deg);
+}
+
+.light-streak-3 {
+  top: 40%;
+  left: 50%;
+  animation-delay: 6s;
+  transform: rotate(45deg);
+}
+
+@keyframes streakMove {
+  0% {
+    transform: translateY(-100px) rotate(var(--rotation, 0deg));
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(var(--rotation, 0deg));
+    opacity: 0;
+  }
+}
+
+/* Depth layers */
+.depth-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.depth-layer-1 {
+  background: 
+    radial-gradient(circle at 40% 30%, rgba(122, 60, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 60% 70%, rgba(14, 203, 230, 0.03) 0%, transparent 50%);
+  animation: depthPulse 20s ease-in-out infinite;
+}
+
+.depth-layer-2 {
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(255, 37, 102, 0.04) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(255, 127, 50, 0.03) 0%, transparent 50%);
+  animation: depthPulse 25s ease-in-out infinite reverse;
+}
+
+.depth-layer-3 {
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(158, 75, 255, 0.02) 0%, transparent 70%);
+  animation: depthPulse 30s ease-in-out infinite;
+}
+
+@keyframes depthPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
 }
 
 @keyframes colorCycle {
   0% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 71, 71, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 71, 71, 0.03) 0%, transparent 50%),
       linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%);
   }
   20% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(255, 127, 50, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 153, 85, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(255, 127, 50, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 153, 85, 0.04) 0%, transparent 50%),
       linear-gradient(180deg, #1a1330 0%, #0c0b1a 100%);
   }
   40% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(255, 37, 102, 0.18) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(214, 36, 120, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(255, 37, 102, 0.07) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(214, 36, 120, 0.05) 0%, transparent 50%),
       linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%);
   }
   60% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(122, 60, 255, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(158, 75, 255, 0.18) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(122, 60, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(158, 75, 255, 0.06) 0%, transparent 50%),
       linear-gradient(180deg, #1a1330 0%, #0c0b1a 100%);
   }
   80% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(14, 203, 230, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(63, 215, 255, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(14, 203, 230, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(63, 215, 255, 0.04) 0%, transparent 50%),
       linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%);
   }
   100% {
     background: 
-      radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 71, 71, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 71, 71, 0.03) 0%, transparent 50%),
       linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%);
   }
 }
@@ -190,94 +363,256 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.6 !important; }
+  50% { opacity: 1.0 !important; }
 }
 
 /* Orb Styles */
 .orb {
+  position: absolute !important;
+  border-radius: 50% !important;
+  filter: blur(1px) !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Enhanced orb glow effects */
+.orb::before {
+  content: '';
   position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
   border-radius: 50%;
-  filter: blur(1px);
-  pointer-events: none;
-  z-index: 1;
+  background: inherit;
+  filter: blur(15px);
+  opacity: 0.3;
+  animation: orbGlow 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes orbGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
 }
 
 .orb-1 {
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(255, 59, 47, 0.4) 0%, rgba(255, 59, 47, 0.1) 50%, transparent 70%);
-  top: 20%;
-  left: 10%;
-  animation: float1 20s ease-in-out infinite, pulse 4s ease-in-out infinite;
+  width: 120px !important;
+  height: 120px !important;
+  background: radial-gradient(circle, rgba(255, 59, 47, 0.8) 0%, rgba(255, 59, 47, 0.3) 50%, transparent 70%) !important;
+  top: 20% !important;
+  left: 10% !important;
+  animation: float1 20s ease-in-out infinite, pulse 4s ease-in-out infinite !important;
 }
 
 .orb-2 {
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, rgba(122, 60, 255, 0.5) 0%, rgba(122, 60, 255, 0.2) 50%, transparent 70%);
-  top: 60%;
-  right: 15%;
-  animation: float2 25s ease-in-out infinite, pulse 3s ease-in-out infinite;
+  width: 80px !important;
+  height: 80px !important;
+  background: radial-gradient(circle, rgba(122, 60, 255, 0.8) 0%, rgba(122, 60, 255, 0.3) 50%, transparent 70%) !important;
+  top: 60% !important;
+  right: 15% !important;
+  animation: float2 25s ease-in-out infinite, pulse 3s ease-in-out infinite !important;
 }
 
 .orb-3 {
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(14, 203, 230, 0.3) 0%, rgba(14, 203, 230, 0.1) 50%, transparent 70%);
-  top: 30%;
-  right: 30%;
-  animation: float3 30s ease-in-out infinite, pulse 5s ease-in-out infinite;
+  width: 150px !important;
+  height: 150px !important;
+  background: radial-gradient(circle, rgba(14, 203, 230, 0.6) 0%, rgba(14, 203, 230, 0.2) 50%, transparent 70%) !important;
+  top: 30% !important;
+  right: 30% !important;
+  animation: float3 30s ease-in-out infinite, pulse 5s ease-in-out infinite !important;
 }
 
 .orb-4 {
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle, rgba(255, 37, 102, 0.6) 0%, rgba(255, 37, 102, 0.2) 50%, transparent 70%);
-  top: 70%;
-  left: 20%;
-  animation: float4 15s ease-in-out infinite, pulse 2.5s ease-in-out infinite;
+  width: 60px !important;
+  height: 60px !important;
+  background: radial-gradient(circle, rgba(255, 37, 102, 0.9) 0%, rgba(255, 37, 102, 0.4) 50%, transparent 70%) !important;
+  top: 70% !important;
+  left: 20% !important;
+  animation: float4 15s ease-in-out infinite, pulse 2.5s ease-in-out infinite !important;
 }
 
 .orb-5 {
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, rgba(255, 127, 50, 0.4) 0%, rgba(255, 127, 50, 0.15) 50%, transparent 70%);
-  top: 10%;
-  right: 50%;
-  animation: float5 22s ease-in-out infinite, pulse 3.5s ease-in-out infinite;
+  width: 100px !important;
+  height: 100px !important;
+  background: radial-gradient(circle, rgba(255, 127, 50, 0.7) 0%, rgba(255, 127, 50, 0.3) 50%, transparent 70%) !important;
+  top: 10% !important;
+  right: 50% !important;
+  animation: float5 22s ease-in-out infinite, pulse 3.5s ease-in-out infinite !important;
 }
 
 .orb-6 {
-  width: 90px;
-  height: 90px;
-  background: radial-gradient(circle, rgba(158, 75, 255, 0.5) 0%, rgba(158, 75, 255, 0.2) 50%, transparent 70%);
-  top: 80%;
-  right: 40%;
-  animation: float6 18s ease-in-out infinite, pulse 4.5s ease-in-out infinite;
+  width: 90px !important;
+  height: 90px !important;
+  background: radial-gradient(circle, rgba(158, 75, 255, 0.8) 0%, rgba(158, 75, 255, 0.3) 50%, transparent 70%) !important;
+  top: 80% !important;
+  right: 40% !important;
+  animation: float6 18s ease-in-out infinite, pulse 4.5s ease-in-out infinite !important;
 }
 
 .orb-7 {
-  width: 70px;
-  height: 70px;
-  background: radial-gradient(circle, rgba(63, 215, 255, 0.4) 0%, rgba(63, 215, 255, 0.15) 50%, transparent 70%);
-  top: 40%;
-  left: 60%;
-  animation: float7 28s ease-in-out infinite, pulse 3.2s ease-in-out infinite;
+  width: 70px !important;
+  height: 70px !important;
+  background: radial-gradient(circle, rgba(63, 215, 255, 0.7) 0%, rgba(63, 215, 255, 0.3) 50%, transparent 70%) !important;
+  top: 40% !important;
+  left: 60% !important;
+  animation: float7 28s ease-in-out infinite, pulse 3.2s ease-in-out infinite !important;
 }
 
 .orb-8 {
-  width: 110px;
-  height: 110px;
-  background: radial-gradient(circle, rgba(255, 153, 85, 0.3) 0%, rgba(255, 153, 85, 0.1) 50%, transparent 70%);
-  top: 50%;
-  left: 5%;
-  animation: float8 24s ease-in-out infinite, pulse 4.8s ease-in-out infinite;
+  width: 110px !important;
+  height: 110px !important;
+  background: radial-gradient(circle, rgba(255, 153, 85, 0.6) 0%, rgba(255, 153, 85, 0.2) 50%, transparent 70%) !important;
+  top: 50% !important;
+  left: 5% !important;
+  animation: float8 24s ease-in-out infinite, pulse 4.8s ease-in-out infinite !important;
+}
+
+/* Small Orbs for Balance */
+.small-orb {
+  position: absolute !important;
+  border-radius: 50% !important;
+  filter: blur(0.5px) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  opacity: 0.7 !important;
+  display: block !important;
+  visibility: visible !important;
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.1),
+    inset 0 0 10px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Small orb glow effects */
+.small-orb::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(8px);
+  opacity: 0.4;
+  animation: smallOrbGlow 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes smallOrbGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+/* Small orb positioning and styling */
+.small-orb-1 {
+  width: 20px !important;
+  height: 20px !important;
+  background: radial-gradient(circle, rgba(255, 59, 47, 0.6) 0%, rgba(255, 59, 47, 0.2) 50%, transparent 70%) !important;
+  top: 15% !important;
+  left: 25% !important;
+  animation: smallFloat1 12s ease-in-out infinite, smallPulse 2s ease-in-out infinite !important;
+}
+
+.small-orb-2 {
+  width: 25px !important;
+  height: 25px !important;
+  background: radial-gradient(circle, rgba(122, 60, 255, 0.5) 0%, rgba(122, 60, 255, 0.15) 50%, transparent 70%) !important;
+  top: 45% !important;
+  right: 25% !important;
+  animation: smallFloat2 15s ease-in-out infinite, smallPulse 2.5s ease-in-out infinite !important;
+}
+
+.small-orb-3 {
+  width: 18px !important;
+  height: 18px !important;
+  background: radial-gradient(circle, rgba(14, 203, 230, 0.7) 0%, rgba(14, 203, 230, 0.2) 50%, transparent 70%) !important;
+  top: 75% !important;
+  left: 15% !important;
+  animation: smallFloat3 18s ease-in-out infinite, smallPulse 3s ease-in-out infinite !important;
+}
+
+.small-orb-4 {
+  width: 22px !important;
+  height: 22px !important;
+  background: radial-gradient(circle, rgba(255, 37, 102, 0.6) 0%, rgba(255, 37, 102, 0.2) 50%, transparent 70%) !important;
+  top: 25% !important;
+  right: 45% !important;
+  animation: smallFloat4 14s ease-in-out infinite, smallPulse 2.2s ease-in-out infinite !important;
+}
+
+.small-orb-5 {
+  width: 16px !important;
+  height: 16px !important;
+  background: radial-gradient(circle, rgba(255, 127, 50, 0.8) 0%, rgba(255, 127, 50, 0.3) 50%, transparent 70%) !important;
+  top: 65% !important;
+  right: 15% !important;
+  animation: smallFloat5 16s ease-in-out infinite, smallPulse 2.8s ease-in-out infinite !important;
+}
+
+
+/* Small orb animations */
+@keyframes smallFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(15px, -10px) scale(1.1); }
+  50% { transform: translate(-10px, -20px) scale(0.9); }
+  75% { transform: translate(20px, 5px) scale(1.05); }
+}
+
+@keyframes smallFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, 15px) scale(1.2); }
+  66% { transform: translate(10px, -15px) scale(0.8); }
+}
+
+@keyframes smallFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(25px, 10px) scale(1.15); }
+  40% { transform: translate(-15px, -25px) scale(0.85); }
+  60% { transform: translate(30px, -5px) scale(1.1); }
+  80% { transform: translate(-5px, 20px) scale(0.95); }
+}
+
+@keyframes smallFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, -10px) scale(1.3); }
+}
+
+@keyframes smallFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(12px, -17px) scale(0.9); }
+  50% { transform: translate(-22px, 7px) scale(1.25); }
+  75% { transform: translate(17px, 12px) scale(0.95); }
+}
+
+
+@keyframes smallPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 1.5rem;
@@ -285,6 +620,32 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 0 0.5rem;
+}
+
+/* Add depth to hero content */
+.hero-content::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+  border-radius: 20px;
+  z-index: -1;
+  animation: contentGlow 8s ease-in-out infinite;
+}
+
+@keyframes contentGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
 }
 
 .hero-text {
@@ -549,6 +910,49 @@ button.secondary-cta:active {
     0 0 20px rgba(122, 60, 255, 0.15),
     0 0 40px rgba(14, 203, 230, 0.1),
     0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced depth for preview container */
+.preview-container::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(122, 60, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(14, 203, 230, 0.08) 0%, transparent 50%);
+  border-radius: 20px;
+  z-index: -1;
+  animation: previewGlow 6s ease-in-out infinite;
+}
+
+.preview-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    transparent 50%, 
+    rgba(255, 255, 255, 0.02) 100%);
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes previewGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
 }
 
 

@@ -679,8 +679,11 @@ class EnhancedCartDrawer {
 
   async updateCart() {
     try {
+      console.log('updateCart called - fetching cart data...');
       const response = await fetch('/cart.js');
       const cart = await response.json();
+      console.log('Cart data received:', cart);
+      console.log('Cart items count:', cart.items.length);
       
       this.renderCartItems(cart);
       this.renderFooter(cart);
@@ -691,7 +694,11 @@ class EnhancedCartDrawer {
   }
 
   renderCartItems(cart) {
+    console.log('renderCartItems called with cart:', cart);
+    console.log('Cart items length:', cart.items.length);
+    
     if (cart.items.length === 0) {
+      console.log('Cart is empty, showing empty state');
       this.content.innerHTML = `
         <div class="enhanced-cart-drawer__empty">
           <svg class="enhanced-cart-drawer__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -716,7 +723,7 @@ class EnhancedCartDrawer {
           <p class="enhanced-cart-item__price">${this.formatMoney(item.price)}</p>
             <div class="enhanced-cart-item__quantity">
              <button class="enhanced-cart-item__quantity-btn" onclick="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, ${item.quantity - 1})">-</button>
-             <input type="number" class="enhanced-cart-item__quantity-input" value="${item.quantity}" min="1" onchange="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, this.value)">
+             <input type="number" class="enhanced-cart-item__quantity-input" value="${item.quantity}" min="0" onchange="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, this.value)">
              <button class="enhanced-cart-item__quantity-btn" onclick="window.enhancedCartDrawer.updateQuantity(${item.variant_id}, ${item.quantity + 1})">+</button>
             </div>
         </div>
@@ -758,8 +765,12 @@ class EnhancedCartDrawer {
 
   async updateQuantity(variantId, quantity) {
     try {
-      // Ensure quantity is at least 1
-      const newQuantity = Math.max(1, parseInt(quantity) || 1);
+      const newQuantity = parseInt(quantity) || 0;
+      console.log('updateQuantity called with:', { variantId, quantity, newQuantity });
+      
+      // If quantity is 0 or less, remove the item by setting quantity to 0
+      const finalQuantity = newQuantity <= 0 ? 0 : newQuantity;
+      console.log('Final quantity to send:', finalQuantity);
       
       const response = await fetch('/cart/update.js', {
         method: 'POST',
@@ -768,13 +779,23 @@ class EnhancedCartDrawer {
         },
         body: JSON.stringify({
           updates: {
-            [variantId]: newQuantity
+            [variantId]: finalQuantity
           }
         })
       });
 
       if (response.ok) {
-        this.updateCart();
+        console.log('Cart update successful, refreshing cart');
+        const responseData = await response.json();
+        console.log('Cart update response:', responseData);
+        // Add a small delay to ensure the cart update is processed
+        setTimeout(() => {
+          this.updateCart();
+        }, 100);
+      } else {
+        console.error('Cart update failed:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
       }
     } catch (error) {
       console.error('Error updating quantity:', error);
