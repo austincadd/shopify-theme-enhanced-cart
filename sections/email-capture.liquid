@@ -2,31 +2,41 @@
   Stay in the Lab Section - Exclusive Content & Early Access
 {% endcomment %}
 
-<div class="stay-in-lab-section section" id="newsletter">
+<div class="stay-in-lab-section section" id="newsletter" style="background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); padding: 1rem 0; position: relative; overflow: hidden; z-index: 2; animation: colorShift 20s ease-in-out infinite;">
+  <!-- Animated Background Elements - Match trusted-artists styling exactly -->
+  <div class="lab-bg" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 20% 80%, rgba(102, 255, 204, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 45, 149, 0.1) 0%, transparent 50%); animation: backgroundPulse 8s ease-in-out infinite; z-index: 1;"></div>
+  
+  <!-- Floating Color Orbs -->
+  <div class="floating-orb orb-1" style="position: absolute; top: 10%; left: 10%; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255, 87, 34, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 12s ease-in-out infinite; z-index: 1;"></div>
+  <div class="floating-orb orb-2" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: radial-gradient(circle, rgba(255, 140, 0, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 15s ease-in-out infinite reverse; z-index: 1;"></div>
+  <div class="floating-orb orb-3" style="position: absolute; bottom: 20%; left: 20%; width: 60px; height: 60px; background: radial-gradient(circle, rgba(255, 69, 0, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 18s ease-in-out infinite; z-index: 1;"></div>
+  <div class="floating-orb orb-4" style="position: absolute; top: 30%; right: 30%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255, 99, 71, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 20s ease-in-out infinite reverse; z-index: 1;"></div>
+  <div class="floating-orb orb-5" style="position: absolute; top: 70%; left: 50%; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255, 165, 0, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 16s ease-in-out infinite; z-index: 1;"></div>
+  
   <div class="page-width">
-    <div class="lab-content tech-panel" style="padding: 1rem 3rem; border-radius: 12px; text-align: center; position: relative; overflow: hidden;">
+    <div class="lab-content tech-panel" style="padding: 3rem; border-radius: 20px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(8, 7, 18, 0.95), rgba(18, 13, 32, 0.95)); border: 1px solid #7a3cff; box-shadow: 0 1px 4px rgba(122, 60, 255, 0.05); z-index: 2;">
       <div class="lab-header" style="margin-bottom: 2rem;">
-        <div class="lab-icon" style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 1rem;">⚡</div>
-        <h2 class="lab-heading" style="color: var(--text-primary); font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif;">
+        <div class="lab-icon" style="font-size: 3rem; color: #7a3cff; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(122, 60, 255, 0.3);">⚡</div>
+        <h2 class="lab-heading" style="color: #ffffff; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif; text-shadow: 0 0 8px rgba(122, 60, 255, 0.2);">
           {{ section.settings.heading | default: "Stay in the Lab" }}
         </h2>
-        <p class="lab-subtext" style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem;">
+        <p class="lab-subtext" style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto 2rem; text-shadow: 0 0 5px rgba(14, 203, 230, 0.1);">
           {{ section.settings.subtext | default: "Exclusive sounds, presets, and early access to plugins — free for our members." }}
         </p>
       </div>
       
       <div class="lab-benefits" style="margin-bottom: 2rem;">
-        <span class="benefit-text" style="color: var(--text-secondary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif;">🎁 Free sounds • ⚡ Early access • 🔥 Beta plugins</span>
+        <span class="benefit-text" style="color: rgba(255, 255, 255, 0.7); font-size: 1rem; font-family: 'Space Grotesk', sans-serif; text-shadow: 0 0 4px rgba(255, 127, 50, 0.2);">🎁 Free sounds • ⚡ Early access • 🔥 Beta plugins</span>
       </div>
       
-      <div class="lab-form-container">
+      <div class="lab-form-container" style="border: none; background: none; box-shadow: none;">
         {% form 'customer', class: 'lab-form', id: 'lab-form' %}
           {% if form.posted_successfully? %}
             <div class="lab-success" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-              <div class="success-icon" style="font-size: 3rem; color: var(--neon-green);">✓</div>
+              <div class="success-icon" style="font-size: 3rem; color: #0ecbe6; text-shadow: 0 0 10px rgba(14, 203, 230, 0.3);">✓</div>
               <div class="success-text" style="text-align: center;">
-                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">Welcome to the Team!</h3>
-                <p style="color: var(--text-secondary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif;">Check your email for instant access to your free sounds.</p>
+                <h3 style="color: #ffffff; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; text-shadow: 0 0 5px rgba(14, 203, 230, 0.2);">Welcome to the Team!</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 1rem; font-family: 'Space Grotesk', sans-serif;">Check your email for instant access to your free sounds.</p>
               </div>
             </div>
           {% else %}
@@ -38,15 +48,12 @@
                 class="lab-email-input"
                 value="{{ form.email }}"
                 required
-                style="flex: 1; padding: 1rem; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 8px; color: var(--text-primary); font-size: 1rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease;"
+                style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(122, 60, 255, 0.3); border-radius: 12px; color: #ffffff; font-size: 1rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease; box-shadow: 0 1px 4px rgba(122, 60, 255, 0.1);"
               >
-              <button type="submit" class="lab-join-btn" style="background: var(--accent-blue); color: var(--cyber-bg); padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Space Grotesk', sans-serif; white-space: nowrap;">
+              <button type="submit" class="lab-join-btn primary-cta" style="background: linear-gradient(135deg, #ff3b2f, #ff7f32, #ff2566, #7a3cff, #0ecbe6) !important; color: #ffffff !important; border: none !important; border-radius: 16px !important; padding: 1rem 2.5rem !important; font-size: 1.1rem !important; font-weight: 600 !important; cursor: pointer !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; transition: all 0.3s ease !important; position: relative !important; overflow: hidden !important; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.2) !important; white-space: nowrap;">
                 <span class="btn-text">{{ section.settings.button_text | default: "Unlock Free Sounds" }}</span>
               </button>
             </div>
-            <p class="lab-disclaimer" style="color: var(--text-secondary); font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;">
-              {{ section.settings.disclaimer | default: "Instant access to free sounds. No spam, unsubscribe anytime." }}
-            </p>
             
             {% if form.errors %}
               <div class="form-errors" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 8px; color: #ff6b6b; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;">
@@ -63,14 +70,61 @@
 </div>
 
 <style>
+/* Background Animations - Match trusted-artists exactly */
+@keyframes colorShift {
+  0%, 100% { 
+    background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); 
+  }
+  25% { 
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%); 
+  }
+  50% { 
+    background: linear-gradient(135deg, #050505 0%, #16213e 50%, #050505 100%); 
+  }
+  75% { 
+    background: linear-gradient(135deg, #0a0a0a 0%, #0f0f1a 50%, #0a0a0a 100%); 
+  }
+}
+
+@keyframes backgroundPulse {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.6; 
+    transform: scale(1.05); 
+  }
+}
+
+@keyframes floatingOrbs {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+    opacity: 0.6; 
+  }
+  25% { 
+    transform: translateY(-20px) translateX(10px) rotate(90deg); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: translateY(-10px) translateX(-15px) rotate(180deg); 
+    opacity: 0.4; 
+  }
+  75% { 
+    transform: translateY(-30px) translateX(5px) rotate(270deg); 
+    opacity: 0.7; 
+  }
+}
+
 .lab-email-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+  border-color: #7a3cff;
+  box-shadow: 0 0 0 2px rgba(122, 60, 255, 0.3), 0 0 15px rgba(122, 60, 255, 0.2);
 }
 
 .lab-join-btn:hover {
-  background: var(--neon-green) !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(122, 60, 255, 0.5), 0 0 20px rgba(255, 59, 47, 0.4) !important;
+  background: linear-gradient(135deg, #ff4b47, #ff9955, #d62478, #9e4bff, #3fd7ff) !important;
 }
 
 .lab-join-btn:active {

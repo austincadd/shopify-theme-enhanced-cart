@@ -1,24 +1,42 @@
 /* Def Audio Footer Contact Section */
+
+/* Background Animations - Match email-capture exactly */
+@keyframes colorShift {
+  0%, 100% { 
+    background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); 
+  }
+  25% { 
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%); 
+  }
+  50% { 
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1330 50%, #0f0f1a 100%); 
+  }
+  75% { 
+    background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 50%, #1a1a2e 100%); 
+  }
+}
 .footer-contact-section {
-  background: linear-gradient(to bottom, #3a3d3a 0%, #1a3d2f 50%, #3a3d3a 100%) !important;
-  padding: 1.5rem 0 2rem 0 !important; /* Further reduced padding for compact layout */
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+  padding: 1rem 0 !important;
   position: relative;
   overflow: hidden;
   border: none;
   margin-top: -1px !important; /* Pull up to connect with trusted artists section */
   margin-bottom: 0 !important; /* Remove bottom margin */
   min-height: 25vh !important; /* Significantly reduced minimum height */
+  z-index: 2;
+  animation: colorShift 20s ease-in-out infinite;
 }
 
 /* Override footer gradient when contact section is present */
 .footer .footer-contact-section {
-  background: linear-gradient(to bottom, #3a3d3a 0%, #1a3d2f 50%, #3a3d3a 100%) !important;
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
 }
 
 /* Force override for any conflicting styles */
 footer .footer-contact-section,
 .footer .footer-contact-section {
-  background: linear-gradient(to bottom, #3a3d3a 0%, #1a3d2f 50%, #3a3d3a 100%) !important;
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
   margin-top: -1px !important;
   margin-bottom: 0 !important;
 }
@@ -64,17 +82,16 @@ footer .footer-contact-section,
 
 .footer-contact-form {
   display: flex;
-  background: rgba(13, 15, 13, 0.4);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(102, 255, 204, 0.3);
-  border-radius: 1rem;
-  padding: 1rem;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   transition: all 0.3s ease;
 }
 
 .footer-contact-form:hover {
-  border-color: rgba(102, 255, 204, 0.5);
-  box-shadow: 0 0 20px rgba(102, 255, 204, 0.2);
+  /* No hover effects since border is removed */
 }
 
 .form-row {
@@ -297,4 +314,53 @@ footer .footer-contact-section,
     width: 2px;
     height: 30px;
   }
+}
+
+/* Remove border and margin on product pages */
+.template-product .footer-contact-content,
+.template-product .footer-contact-content.tech-panel,
+.template-product .footer-contact-content * {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  margin-bottom: 0 !important;
+}
+
+/* Additional overrides for any inherited borders */
+.template-product .footer-contact-section .footer-contact-content {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  margin-bottom: 0 !important;
+}
+
+/* Remove all margins and padding from the entire section */
+.template-product .footer-contact-section {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure footer-contact sits directly on footer */
+.template-product .footer-contact-section + footer,
+.template-product .footer-contact-section + .footer {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Remove any spacing between sections */
+.template-product .footer-contact-section {
+  position: relative;
+  z-index: 1;
+}
+
+.template-product .footer-contact-section + * {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Override any default browser styles */
+.template-product .footer-contact-content:before,
+.template-product .footer-contact-content:after {
+  border: none !important;
+  box-shadow: none !important;
 }

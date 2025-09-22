@@ -3,6 +3,30 @@
 {% endcomment %}
 
 <style>
+/* Reviews Section Background */
+.reviews-section {
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.reviews-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 59, 47, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 127, 50, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 37, 102, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 60% 60%, rgba(122, 60, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 10% 70%, rgba(14, 203, 230, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* Staggered Left-to-Right Animation for Review Cards */
 .reviews-section .review-card {
   opacity: 0 !important;
@@ -82,101 +106,368 @@
   font-size: 0.8rem;
   font-family: 'Space Grotesk', sans-serif;
 }
+
+/* Cloned cards styling */
+.review-card-clone {
+  flex: 0 0 33.333% !important;
+  min-width: 300px !important;
+  max-width: 400px !important;
+  background: var(--cyber-panel) !important;
+  border: 1px solid var(--panel-border) !important;
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(20px) !important;
+  margin: 0 1rem !important;
+}
+
+/* Arrow Base Styles */
+.nav-arrow {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(122, 60, 255, 0.3) !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 10 !important;
+  box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1) !important;
+}
+
+.nav-arrow-left {
+  left: 0.5rem !important;
+}
+
+.nav-arrow-right {
+  right: 0.5rem !important;
+}
+
+.nav-arrow span {
+  color: rgba(122, 60, 255, 0.7) !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Arrow Hover Effects */
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-50%) scale(1.1) !important;
+  border-color: rgba(122, 60, 255, 0.5) !important;
+}
+
+.nav-arrow:hover span {
+  color: rgba(122, 60, 255, 0.9) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Ensure JavaScript display property takes precedence */
+.review-card[style*="display: flex"] {
+  display: flex !important;
+}
+
+/* Hidden class for review cards */
+.review-card.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Smooth transition animations for review cards */
+.review-card {
+  transition: all 0.5s ease-in-out !important;
+  opacity: 0 !important;
+  transform: translateX(50px) !important;
+}
+
+.review-card.active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Animation directions for different slide transitions */
+.review-card.slide-in-left {
+  transform: translateX(-50px) !important;
+}
+
+.review-card.slide-in-right {
+  transform: translateX(50px) !important;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .reviews-container {
+    padding: 0 2rem !important;
+  }
+  
+  .review-card {
+    max-width: 100% !important;
+  }
+  
+  .nav-arrow {
+    display: none !important;
+  }
+  
+}
+
+@media screen and (max-width: 1024px) {
+  .nav-arrow-left {
+    left: 0.25rem !important;
+  }
+  
+  .nav-arrow-right {
+    right: 0.25rem !important;
+  }
+  
+  .nav-arrow {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  
+  .nav-arrow span {
+    font-size: 14px !important;
+  }
+}
 </style>
 
 <div class="reviews-section section" id="reviews">
   <div class="page-width">
     <div class="reviews-header" style="text-align: center; margin-bottom: 3rem; margin-top: 0;">
-      <h2 class="reviews-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; text-shadow: 0 0 20px rgba(102, 255, 204, 0.3);">
+      <h2 class="reviews-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: #ffffff; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(122, 60, 255, 0.2);">
         {{ section.settings.title | default: "What Producers Are Saying" }}
       </h2>
-      <p class="reviews-subtitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+      <p class="reviews-subtitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: rgba(255, 255, 255, 0.7); max-width: 600px; margin: 0 auto;">
         {{ section.settings.subtitle | default: "Real feedback from producers who've transformed their sound" }}
       </p>
     </div>
 
-    <div class="reviews-grid" style="display: flex; flex-direction: row; gap: 2rem; max-width: 100%; width: 100%; margin: 0 auto; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 0 2rem;">
+    <!-- Reviews Navigation Container -->
+    <div class="reviews-navigation-container" style="position: relative; max-width: 1200px; margin: 0 auto;">
       
-      <!-- Review Card 1 -->
-      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
-        <div class="star-rating">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-        </div>
-        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
-          "{{ section.settings.review1_text | default: 'These samples are absolutely incredible. The quality is studio-grade and they fit perfectly in my tracks. My latest release got signed because of the sounds I used from this pack!' }}"
-        </blockquote>
-        <div class="review-author">
-          <div class="author-avatar">{{ section.settings.review1_author_initials | default: 'MJ' }}</div>
-          <div class="author-info">
-            <h4>{{ section.settings.review1_author_name | default: 'Marcus Johnson' }}</h4>
-            <p>{{ section.settings.review1_author_title | default: 'Electronic Producer' }}</p>
+      <!-- Left Arrow -->
+      <button class="nav-arrow nav-arrow-left" onclick="previousReviews()">
+        <span>◀</span>
+      </button>
+      
+      <!-- Right Arrow -->
+      <button class="nav-arrow nav-arrow-right" onclick="nextReviews()">
+        <span>▶</span>
+      </button>
+      
+      <!-- Reviews Container -->
+      <div class="reviews-container" style="display: flex; justify-content: center; align-items: stretch; padding: 0 4rem;">
+        
+        <!-- Review Card 1 -->
+        <div class="review-card active" data-review="0" style="flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review1_text | default: 'These samples are absolutely incredible. The quality is studio-grade and they fit perfectly in my tracks. My latest release got signed because of the sounds I used from this pack!' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/web-browser-lavender-light.avif?v=1758508554" alt="{{ section.settings.review1_author_name | default: 'Marcus Johnson' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review1_author_name | default: 'Marcus Johnson' }}</h4>
+              <p>{{ section.settings.review1_author_title | default: 'Electronic Producer' }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Review Card 2 -->
-      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
-        <div class="star-rating">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-        </div>
-        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
-          "{{ section.settings.review2_text | default: 'The presets are next level. I have been producing for 10 years and these are some of the best sounds I have ever used. The attention to detail is unmatched.' }}"
-        </blockquote>
-        <div class="review-author">
-          <div class="author-avatar">{{ section.settings.review2_author_initials | default: 'SK' }}</div>
-          <div class="author-info">
-            <h4>{{ section.settings.review2_author_name | default: 'Sarah Kim' }}</h4>
-            <p>{{ section.settings.review2_author_title | default: 'Music Producer' }}</p>
+        <!-- Review Card 2 -->
+        <div class="review-card hidden" data-review="1" style="display: none; flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review2_text | default: 'The presets are next level. I have been producing for 10 years and these are some of the best sounds I have ever used. The attention to detail is unmatched.' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/images.jpg?v=1758508554" alt="{{ section.settings.review2_author_name | default: 'Sarah Kim' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review2_author_name | default: 'Sarah Kim' }}</h4>
+              <p>{{ section.settings.review2_author_title | default: 'Music Producer' }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Review Card 3 -->
-      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
-        <div class="star-rating">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-        </div>
-        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
-          "{{ section.settings.review3_text | default: 'Game changer! These sounds have elevated my production quality so much. The variety and quality are exactly what I needed to take my music to the next level.' }}"
-        </blockquote>
-        <div class="review-author">
-          <div class="author-avatar">{{ section.settings.review3_author_initials | default: 'AL' }}</div>
-          <div class="author-info">
-            <h4>{{ section.settings.review3_author_name | default: 'Alex Rivera' }}</h4>
-            <p>{{ section.settings.review3_author_title | default: 'DJ & Producer' }}</p>
+        <!-- Hidden Review Cards -->
+        <div class="review-card hidden" data-review="2" style="display: none; flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review3_text | default: 'Game changer! These sounds have elevated my production quality so much. The variety and quality are exactly what I needed to take my music to the next level.' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/images_1.jpg?v=1758508554" alt="{{ section.settings.review3_author_name | default: 'Alex Rivera' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review3_author_name | default: 'Alex Rivera' }}</h4>
+              <p>{{ section.settings.review3_author_title | default: 'DJ & Producer' }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
+        <div class="review-card hidden" data-review="3" style="display: none; flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review4_text | default: 'Absolutely mind-blowing quality! These samples have become the foundation of my sound. Every track I make now starts with these incredible sounds.' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/images_3.jpg?v=1758508554" alt="{{ section.settings.review4_author_name | default: 'Emma Chen' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review4_author_name | default: 'Emma Chen' }}</h4>
+              <p>{{ section.settings.review4_author_title | default: 'Sound Designer' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card hidden" data-review="4" style="display: none; flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review5_text | default: 'Professional grade sounds that have transformed my workflow. The attention to detail and sonic quality is unmatched in the industry.' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/images_2.jpg?v=1758508554" alt="{{ section.settings.review5_author_name | default: 'David Park' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review5_author_name | default: 'David Park' }}</h4>
+              <p>{{ section.settings.review5_author_title | default: 'Music Producer' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card hidden" data-review="5" style="display: none; flex: 0 0 100%; max-width: 600px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(122, 60, 255, 0.3); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px); transition: all 0.5s ease; box-shadow: 0 2px 8px rgba(122, 60, 255, 0.1);">
+          <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <blockquote style="color: var(--text-primary); font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+            "{{ section.settings.review6_text | default: 'These sounds are pure gold! Every producer needs these in their arsenal. The quality and creativity behind each sample is incredible.' }}"
+          </blockquote>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/images_4.jpg?v=1758508554" alt="{{ section.settings.review6_author_name | default: 'Lisa Thompson' }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="author-info">
+              <h4>{{ section.settings.review6_author_name | default: 'Lisa Thompson' }}</h4>
+              <p>{{ section.settings.review6_author_title | default: 'Electronic Artist' }}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
     </div>
 
-    <!-- Call to Action -->
-    <div class="reviews-cta" style="text-align: center; margin-top: 3rem;">
-      <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">
-        Join thousands of producers who trust our sounds
-      </p>
-      <a href="#shop" class="cta-button" style="display: inline-block; background: linear-gradient(135deg, var(--accent-blue), var(--neon-green)); color: var(--cyber-bg); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; font-family: 'Space Grotesk', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 255, 204, 0.3);">
-        Explore Our Sounds
-      </a>
-    </div>
   </div>
 </div>
 
 <script>
-// Animate review cards on scroll
+let currentSlide = 0;
+const totalSlides = 6; // 6 individual reviews
+let isAnimating = false;
+
+function showReviews(slideIndex, direction = 'right') {
+  if (isAnimating) return;
+  isAnimating = true;
+  
+  const cards = document.querySelectorAll('.review-card');
+  
+  // Hide all cards with animation
+  cards.forEach((card, index) => {
+    card.classList.remove('active', 'slide-in-left', 'slide-in-right');
+    card.classList.add('hidden');
+    card.style.display = 'none';
+    card.style.visibility = 'hidden';
+  });
+  
+  // Show the single card for this slide with animation
+  if (cards[slideIndex]) {
+    cards[slideIndex].classList.remove('hidden');
+    cards[slideIndex].style.display = 'flex';
+    cards[slideIndex].style.visibility = 'visible';
+    
+    // Add direction class for animation
+    if (direction === 'left') {
+      cards[slideIndex].classList.add('slide-in-left');
+    } else {
+      cards[slideIndex].classList.add('slide-in-right');
+    }
+    
+    // Small delay to ensure the card is visible before adding active class
+    setTimeout(() => {
+      cards[slideIndex].classList.add('active');
+      isAnimating = false;
+    }, 10);
+  }
+  
+  console.log('Showing slide:', slideIndex, 'Total cards:', cards.length);
+}
+
+function nextReviews() {
+  console.log('Next clicked, current slide:', currentSlide);
+  currentSlide = (currentSlide + 1) % totalSlides;
+  console.log('New slide:', currentSlide);
+  showReviews(currentSlide, 'right');
+}
+
+function previousReviews() {
+  console.log('Previous clicked, current slide:', currentSlide);
+  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+  console.log('New slide:', currentSlide);
+  showReviews(currentSlide, 'left');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Initialize with first slide
+  showReviews(0);
+  
+  
+  // Animate review cards on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -295,6 +586,90 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "review3_author_initials",
       "label": "Author Initials",
       "default": "AL"
+    },
+    {
+      "type": "header",
+      "content": "Review 4"
+    },
+    {
+      "type": "textarea",
+      "id": "review4_text",
+      "label": "Review Text",
+      "default": "Absolutely mind-blowing quality! These samples have become the foundation of my sound. Every track I make now starts with these incredible sounds."
+    },
+    {
+      "type": "text",
+      "id": "review4_author_name",
+      "label": "Author Name",
+      "default": "Emma Chen"
+    },
+    {
+      "type": "text",
+      "id": "review4_author_title",
+      "label": "Author Title",
+      "default": "Sound Designer"
+    },
+    {
+      "type": "text",
+      "id": "review4_author_initials",
+      "label": "Author Initials",
+      "default": "EC"
+    },
+    {
+      "type": "header",
+      "content": "Review 5"
+    },
+    {
+      "type": "textarea",
+      "id": "review5_text",
+      "label": "Review Text",
+      "default": "Professional grade sounds that have transformed my workflow. The attention to detail and sonic quality is unmatched in the industry."
+    },
+    {
+      "type": "text",
+      "id": "review5_author_name",
+      "label": "Author Name",
+      "default": "David Park"
+    },
+    {
+      "type": "text",
+      "id": "review5_author_title",
+      "label": "Author Title",
+      "default": "Music Producer"
+    },
+    {
+      "type": "text",
+      "id": "review5_author_initials",
+      "label": "Author Initials",
+      "default": "DP"
+    },
+    {
+      "type": "header",
+      "content": "Review 6"
+    },
+    {
+      "type": "textarea",
+      "id": "review6_text",
+      "label": "Review Text",
+      "default": "These sounds are pure gold! Every producer needs these in their arsenal. The quality and creativity behind each sample is incredible."
+    },
+    {
+      "type": "text",
+      "id": "review6_author_name",
+      "label": "Author Name",
+      "default": "Lisa Thompson"
+    },
+    {
+      "type": "text",
+      "id": "review6_author_title",
+      "label": "Author Title",
+      "default": "Electronic Artist"
+    },
+    {
+      "type": "text",
+      "id": "review6_author_initials",
+      "label": "Author Initials",
+      "default": "LT"
     }
   ],
   "presets": [

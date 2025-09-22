@@ -156,6 +156,48 @@
     width: 100%;
   }
 
+  /* Ensure Cart link alignment */
+  .single-page-nav a[onclick] {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .single-page-nav a[onclick]:hover {
+    color: var(--accent-blue);
+  }
+
+  .single-page-nav a[onclick]::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-blue);
+    transition: width 0.3s ease;
+  }
+
+  .single-page-nav a[onclick]:hover::after {
+    width: 100%;
+  }
+
+  /* Ensure all navigation items are aligned */
+  .single-page-nav > * {
+    display: flex;
+    align-items: center;
+  }
+
 
   .header-right {
     display: flex;
@@ -187,6 +229,8 @@
     letter-spacing: 1px;
     font-family: 'Space Grotesk', sans-serif;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .nav-dropdown-toggle:hover {

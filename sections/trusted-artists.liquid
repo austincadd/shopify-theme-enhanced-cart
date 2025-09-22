@@ -3,6 +3,42 @@
 {% endcomment %}
 
 {{ 'section-trusted-artists.css' | asset_url | stylesheet_tag }}
+{{ 'section-featured-products.css' | asset_url | stylesheet_tag }}
+
+<style>
+.trusted-artists-section .trusted-artists-heading .trusted-artists-title {
+  color: var(--tonedef-neon) !important;
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  font-family: var(--tonedef-heading-font) !important;
+  text-shadow: 0 0 10px rgba(102, 255, 204, 0.2) !important;
+}
+
+.trusted-artists-section .trusted-artists-heading .trusted-artists-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 1.4rem !important;
+  line-height: 1.5 !important;
+  max-width: 50rem !important;
+  margin: 0 auto 2.5rem auto !important;
+  text-align: center !important;
+  font-family: var(--tonedef-body-font) !important;
+}
+
+/* Responsive Design - Match featured-products */
+@media screen and (max-width: 749px) {
+  .trusted-artists-section .trusted-artists-heading .trusted-artists-title {
+    font-size: 2.4rem !important;
+  }
+  
+  .trusted-artists-section .trusted-artists-heading .trusted-artists-subtitle {
+    font-size: 1.6rem !important;
+    margin-bottom: 3rem !important;
+  }
+}
+</style>
 
 <div class="trusted-artists-section section" id="testimonials" style="background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); padding: 1rem 0; position: relative; overflow: hidden; z-index: 2; animation: colorShift 20s ease-in-out infinite;">
   <!-- Animated Background Elements - Match featured-products styling exactly -->
@@ -17,10 +53,10 @@
   
   <div class="page-width" style="position: relative; z-index: 2;">
     <div class="trusted-artists-heading" style="text-align: center; margin-bottom: 0;">
-      <h2 style="color: #ffffff; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif; text-shadow: 0 0 20px rgba(14, 203, 230, 0.6), 0 0 40px rgba(63, 215, 255, 0.4), 0 0 60px rgba(122, 60, 255, 0.3);">
+      <h2 class="trusted-artists-title" style="color: var(--tonedef-neon) !important; font-size: 2.5rem !important; font-weight: 600 !important; margin-bottom: 1rem !important; line-height: 1.2 !important; text-align: center !important; font-family: var(--tonedef-heading-font) !important; text-shadow: 0 0 10px rgba(102, 255, 204, 0.2) !important;">
         {{ section.settings.heading | default: "Trusted by Top Artists" }}
       </h2>
-      <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto; text-shadow: 0 2px 4px rgba(12, 11, 26, 0.8);">
+      <p class="trusted-artists-subtitle" style="color: rgba(255, 255, 255, 0.7) !important; font-size: 1.4rem !important; line-height: 1.5 !important; max-width: 50rem !important; margin: 0 auto 2.5rem auto !important; text-align: center !important; font-family: var(--tonedef-body-font) !important;">
         {{ section.settings.subheading | default: "Fueling the tracks of world-class producers." }}
       </p>
     </div>
@@ -282,21 +318,19 @@ html body::after {
 
 .trusted-artists-section .artist-card:hover::before {
   opacity: 1 !important;
-  animation: glow-pulse 2s ease-in-out infinite !important;
 }
 
 .trusted-artists-section .artist-card:hover {
   transform: translateX(0) translateY(-5px) !important;
-  box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3) !important;
   background: rgba(255, 255, 255, 0.05) !important;
 }
 
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
+    box-shadow: 0 0 15px rgba(102, 255, 204, 0.3) !important;
   }
   50% {
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 0 0 25px rgba(75, 0, 130, 0.2) !important;
+    box-shadow: 0 0 20px rgba(102, 255, 204, 0.4), 0 0 25px rgba(102, 255, 204, 0.2) !important;
   }
 }
 
@@ -318,7 +352,7 @@ html body::after {
   text-align: center;
   padding: 0.5rem 0.75rem;
   background: linear-gradient(135deg, #0c0b1a, #1a1330);
-  border: 1px solid rgba(14, 203, 230, 0.3);
+  border: 1px solid rgba(102, 255, 204, 0.3);
   border-radius: 20px;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   backdrop-filter: blur(20px);
@@ -341,7 +375,7 @@ html body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(14, 203, 230, 0.08), rgba(63, 215, 255, 0.05), rgba(122, 60, 255, 0.05));
+  background: linear-gradient(135deg, rgba(102, 255, 204, 0.08), rgba(102, 255, 204, 0.05), rgba(102, 255, 204, 0.05));
   opacity: 0;
   transition: opacity 0.4s ease;
   border-radius: 20px;
@@ -353,8 +387,7 @@ html body::after {
 
 .artist-card:hover {
   transform: translateY(-8px) scale(1.02);
-  border-color: rgba(14, 203, 230, 0.6);
-  box-shadow: 0 20px 40px rgba(12, 11, 26, 0.6), 0 0 0 1px rgba(14, 203, 230, 0.4), 0 0 15px rgba(63, 215, 255, 0.2);
+  border-color: rgba(102, 255, 204, 0.6);
 }
 
 .artist-image {
@@ -363,7 +396,8 @@ html body::after {
   border-radius: 8px;
   object-fit: cover;
   margin-bottom: 0.5rem;
-  border: 2px solid rgba(14, 203, 230, 0.4);
+  border: 2px solid transparent;
+  position: relative;
   flex-shrink: 0;
   position: relative;
   z-index: 2;
@@ -371,9 +405,25 @@ html body::after {
   box-shadow: 0 4px 15px rgba(12, 11, 26, 0.3);
 }
 
+.artist-image::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 10px;
+  padding: 2px;
+  background: linear-gradient(135deg, #7a3cff, #9e4bff);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  z-index: -1;
+}
+
 .artist-card:hover .artist-image {
-  border-color: rgba(63, 215, 255, 0.7);
-  box-shadow: 0 6px 20px rgba(12, 11, 26, 0.4), 0 0 10px rgba(14, 203, 230, 0.3);
+  border-color: rgba(102, 255, 204, 0.7);
   transform: scale(1.05);
 }
 
