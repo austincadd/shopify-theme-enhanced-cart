@@ -46,11 +46,10 @@
     <!-- Def Audio Animation Libraries -->
     <script src="https://cdn.skypack.dev/gsap@3.12.2" defer></script>
     <script src="https://cdn.skypack.dev/gsap@3.12.2/ScrollTrigger" defer></script>
-    <script src="https://cdn.skypack.dev/swup@3.0.6" defer></script>
-    <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    <!-- <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script> -->
 
     {%- if settings.animations_reveal_on_scroll -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+      <!-- <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script> -->
     {%- endif -%}
 
     {{ content_for_header }}
@@ -503,7 +502,7 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'section-brand-story.css' | asset_url | stylesheet_tag }}
-    {{ 'section-value-props.css' | asset_url | stylesheet_tag }}
+    <!-- {{ 'section-value-props.css' | asset_url | stylesheet_tag }} -->
     {{ 'section-email-capture.css' | asset_url | stylesheet_tag }}
     {{ 'section-featured-packs.css' | asset_url | stylesheet_tag }}
     {{ 'section-footer-contact.css' | asset_url | stylesheet_tag }}

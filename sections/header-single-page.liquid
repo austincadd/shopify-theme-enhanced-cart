@@ -495,9 +495,9 @@
 
     <div class="header-right">
       <nav class="single-page-nav" id="nav-menu">
-        <a href="{{ routes.root_url }}#shop">Sample Packs</a>
-        <a href="{{ routes.root_url }}#newsletter">Free Downloads</a>
-        <a href="{{ routes.root_url }}#contact">Connect</a>
+        <a href="{{ routes.root_url }}#shop" class="nav-link" data-section="shop">Sample Packs</a>
+        <a href="{{ routes.root_url }}#newsletter" class="nav-link" data-section="newsletter">Free Downloads</a>
+        <a href="{{ routes.root_url }}#footer" class="nav-link" data-section="footer">Connect</a>
         <div class="nav-dropdown">
           <a href="#" class="nav-dropdown-toggle">Account</a>
           <div class="nav-dropdown-menu">
@@ -507,6 +507,15 @@
         </div>
         <a href="#" onclick="event.preventDefault(); event.stopPropagation(); openCartDrawer(); return false;">Cart</a>
       </nav>
+      
+      <!-- Fallback navigation for when JavaScript fails -->
+      <noscript>
+        <style>
+          .nav-link {
+            pointer-events: auto !important;
+          }
+        </style>
+      </noscript>
 
     </div>
 
@@ -529,12 +538,353 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Global function to initialize navigation
+function initializeNavigation() {
+  console.log('Initializing navigation...');
+  
   const header = document.querySelector('.single-page-header');
   const toggle = document.getElementById('mobile-toggle');
   const menu = document.getElementById('nav-menu');
   const scrollIndicators = document.querySelectorAll('.scroll-indicator a');
+  
+  console.log('Header elements found:', {
+    header: !!header,
+    toggle: !!toggle,
+    menu: !!menu,
+    scrollIndicators: scrollIndicators.length
+  });
 
+  // Remove existing event listeners to prevent duplicates
+  const existingNavLinks = document.querySelectorAll('.nav-link, .scroll-indicator a');
+  existingNavLinks.forEach(link => {
+    link.removeEventListener('click', handleNavClick);
+  });
+
+  // Add fresh event listeners
+  const navLinks = document.querySelectorAll('.nav-link, .scroll-indicator a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', handleNavClick);
+  });
+}
+
+// Navigation click handler function
+function handleNavClick(e) {
+  console.log('Navigation link clicked:', this.textContent, this.href);
+  
+  const href = this.getAttribute('href');
+  const hashIndex = href.indexOf('#');
+  
+  if (hashIndex !== -1) {
+    const targetId = href.substring(hashIndex);
+    const targetElement = document.querySelector(targetId);
+    
+    console.log('Hash navigation:', {
+      href: href,
+      targetId: targetId,
+      targetElement: !!targetElement,
+      currentPath: window.location.pathname
+    });
+    
+    // Special debugging for contact section
+    if (targetId === '#contact') {
+      console.log('Contact section debugging:');
+      console.log('- All elements with id="contact":', document.querySelectorAll('#contact'));
+      console.log('- All elements with class containing "contact":', document.querySelectorAll('[class*="contact"]'));
+      console.log('- Footer contact section:', document.querySelector('.footer-contact-section'));
+    }
+
+    // If we're on a different page, navigate to homepage first
+    if (window.location.pathname !== '/' && window.location.pathname !== '') {
+      console.log('Navigating to homepage with hash:', href);
+      e.preventDefault();
+      window.location.href = href;
+      return;
+    }
+
+    if (targetElement) {
+      console.log('Smooth scrolling to section');
+      e.preventDefault();
+      const header = document.querySelector('.single-page-header');
+      const menu = document.getElementById('nav-menu');
+      const toggle = document.getElementById('mobile-toggle');
+      
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetPosition = targetElement.offsetTop - headerHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+
+      // Close mobile menu
+      if (menu) {
+        menu.classList.remove('active');
+      }
+      if (toggle) {
+        toggle.classList.remove('active');
+      }
+    } else {
+      console.log('Target element not found, trying fallback for contact section');
+      
+      // Special fallback for contact section
+      if (targetId === '#contact') {
+        const contactFallback = document.querySelector('.footer-contact-section');
+        if (contactFallback) {
+          console.log('Found contact section via fallback, scrolling...');
+          e.preventDefault();
+          const header = document.querySelector('.single-page-header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          const targetPosition = contactFallback.offsetTop - headerHeight;
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          return;
+        }
+      }
+      
+      console.log('No fallback found, allowing default navigation');
+    }
+  }
+}
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Header navigation script loaded');
+  initializeNavigation();
+});
+
+// Re-initialize on page navigation (for browsers that support it)
+window.addEventListener('popstate', function() {
+  console.log('Page navigation detected, re-initializing...');
+  setTimeout(initializeNavigation, 100);
+});
+
+// Re-initialize when page becomes visible (fallback)
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    console.log('Page became visible, re-initializing...');
+    setTimeout(initializeNavigation, 100);
+  }
+});
+
+// Re-initialize periodically as a last resort
+setInterval(function() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const hasListeners = navLinks.length > 0 && navLinks[0].onclick === null;
+  if (navLinks.length > 0 && !hasListeners) {
+    console.log('Navigation listeners missing, re-initializing...');
+    initializeNavigation();
+  }
+}, 2000);
+
+// Special function to wait for contact section and fix Connect link
+function waitForContactSection() {
+  const contactSection = document.querySelector('#contact');
+  if (contactSection) {
+    console.log('Contact section found, ensuring Connect link works...');
+    const connectLink = document.querySelector('a[href*="#contact"]');
+    if (connectLink) {
+      console.log('Connect link found:', connectLink);
+      // Force re-attach event listener
+      connectLink.removeEventListener('click', handleNavClick);
+      connectLink.addEventListener('click', handleNavClick);
+    }
+  } else {
+    console.log('Contact section not found yet, retrying in 500ms...');
+    setTimeout(waitForContactSection, 500);
+  }
+}
+
+// Start waiting for contact section after a short delay
+setTimeout(waitForContactSection, 1000);
+
+// Force Connect link to work - override any conflicts
+function forceConnectLinkWork() {
+  const connectLink = document.querySelector('a[href*="#contact"]');
+  if (connectLink) {
+    console.log('Forcing Connect link to work...');
+    
+    // Remove all existing event listeners by cloning the element
+    const newConnectLink = connectLink.cloneNode(true);
+    connectLink.parentNode.replaceChild(newConnectLink, connectLink);
+    
+    // Add our event listener
+    newConnectLink.addEventListener('click', function(e) {
+      console.log('Connect link clicked (forced handler)');
+      e.preventDefault();
+      
+      const contactSection = document.querySelector('#contact') || document.querySelector('.footer-contact-section');
+      if (contactSection) {
+        console.log('Scrolling to contact section...');
+        const header = document.querySelector('.single-page-header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetPosition = contactSection.offsetTop - headerHeight;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      } else {
+        console.log('Contact section not found, navigating to homepage...');
+        window.location.href = '{{ routes.root_url }}#contact';
+      }
+    });
+  }
+}
+
+// Try to force Connect link to work multiple times
+setTimeout(forceConnectLinkWork, 500);
+setTimeout(forceConnectLinkWork, 1500);
+setTimeout(forceConnectLinkWork, 3000);
+
+// Simple test function to check Connect link
+function testConnectLink() {
+  console.log('=== CONNECT LINK TEST ===');
+  const connectLink = document.querySelector('a[href*="#contact"]');
+  const contactSection = document.querySelector('#contact');
+  
+  console.log('Connect link found:', !!connectLink);
+  console.log('Connect link href:', connectLink ? connectLink.href : 'N/A');
+  console.log('Contact section found:', !!contactSection);
+  console.log('Contact section ID:', contactSection ? contactSection.id : 'N/A');
+  console.log('Contact section classes:', contactSection ? contactSection.className : 'N/A');
+  console.log('Contact section visible:', contactSection ? contactSection.offsetHeight > 0 : 'N/A');
+  console.log('Contact section position:', contactSection ? contactSection.offsetTop : 'N/A');
+  
+  // Check all sections on the page
+  console.log('=== ALL SECTIONS ON PAGE ===');
+  const allSections = document.querySelectorAll('[id]');
+  allSections.forEach(section => {
+    console.log(`Section ID: ${section.id}, Classes: ${section.className}, Visible: ${section.offsetHeight > 0}`);
+  });
+  
+  // Check specifically for footer contact
+  const footerContact = document.querySelector('.footer-contact-section');
+  console.log('Footer contact section found:', !!footerContact);
+  if (footerContact) {
+    console.log('Footer contact ID:', footerContact.id);
+    console.log('Footer contact classes:', footerContact.className);
+  }
+  
+  console.log('========================');
+}
+
+// Run test after page loads
+setTimeout(testConnectLink, 2000);
+
+// Simple, direct function for Connect link
+function scrollToContact(event) {
+  console.log('Connect link clicked directly!');
+  event.preventDefault();
+  
+  // First try to find the contact section
+  let contactSection = document.querySelector('#contact');
+  console.log('Contact section found:', !!contactSection);
+  
+  if (contactSection) {
+    console.log('Scrolling to contact section...');
+    const header = document.querySelector('.single-page-header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetPosition = contactSection.offsetTop - headerHeight - 20;
+    
+    window.scrollTo({
+      top: Math.max(0, targetPosition),
+      behavior: 'smooth'
+    });
+  } else {
+    console.log('Contact section not found, scrolling to bottom of page...');
+    // If contact section not found, just scroll to bottom
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Make function globally available
+window.scrollToContact = scrollToContact;
+
+// Backup function that waits for page to load
+function scrollToContactDelayed() {
+  console.log('Delayed Connect link attempt...');
+  
+  // Wait a bit for all sections to load
+  setTimeout(() => {
+    const contactSection = document.querySelector('#contact');
+    console.log('Delayed contact section found:', !!contactSection);
+    
+    if (contactSection) {
+      console.log('Scrolling to contact section (delayed)...');
+      const header = document.querySelector('.single-page-header');
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetPosition = contactSection.offsetTop - headerHeight - 20;
+      
+      window.scrollTo({
+        top: Math.max(0, targetPosition),
+        behavior: 'smooth'
+      });
+    } else {
+      console.log('Still no contact section, scrolling to bottom...');
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, 1000);
+}
+
+// Also make this available globally
+window.scrollToContactDelayed = scrollToContactDelayed;
+
+// Simple, direct function that will definitely work
+function scrollToContactNow(event) {
+  console.log('Connect link clicked - scrollToContactNow function called!');
+  event.preventDefault();
+  
+  // Try to find the contact section
+  let contactSection = document.querySelector('#contact');
+  console.log('Contact section found:', !!contactSection);
+  
+  if (!contactSection) {
+    // Try alternative selectors
+    contactSection = document.querySelector('.footer-contact-section');
+    console.log('Footer contact section found:', !!contactSection);
+  }
+  
+  if (!contactSection) {
+    // Try any element with contact in the class
+    contactSection = document.querySelector('[class*="contact"]');
+    console.log('Any contact element found:', !!contactSection);
+  }
+  
+  if (contactSection) {
+    console.log('Scrolling to contact section...');
+    const header = document.querySelector('.single-page-header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const targetPosition = contactSection.offsetTop - headerHeight - 20;
+    
+    window.scrollTo({
+      top: Math.max(0, targetPosition),
+      behavior: 'smooth'
+    });
+  } else {
+    console.log('No contact section found, scrolling to bottom of page...');
+    // Just scroll to the bottom of the page
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Make it globally available
+window.scrollToContactNow = scrollToContactNow;
+
+// Initialize scroll effects
+function initializeScrollEffects() {
+  const header = document.querySelector('.single-page-header');
   let lastScrollY = window.scrollY;
   let ticking = false;
 
@@ -587,45 +937,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Mobile menu toggle with animation
+// Initialize mobile menu
+function initializeMobileMenu() {
+  const toggle = document.getElementById('mobile-toggle');
+  const menu = document.getElementById('nav-menu');
+  
   if (toggle && menu) {
-    toggle.addEventListener('click', function() {
-      menu.classList.toggle('active');
-      toggle.classList.toggle('active');
-    });
+    // Remove existing listeners
+    toggle.removeEventListener('click', handleMobileToggle);
+    // Add fresh listener
+    toggle.addEventListener('click', handleMobileToggle);
   }
+}
 
-  // Smooth scroll navigation
-  const navLinks = document.querySelectorAll('.single-page-nav a, .scroll-indicator a');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      const hashIndex = href.indexOf('#');
-      
-      if (hashIndex !== -1) {
-        const targetId = href.substring(hashIndex);
-        const targetElement = document.querySelector(targetId);
-
-        if (targetElement) {
-          e.preventDefault();
-          const headerHeight = header.offsetHeight;
-          const targetPosition = targetElement.offsetTop - headerHeight;
-
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-
-          // Close mobile menu
-          if (menu) {
-            menu.classList.remove('active');
-            toggle.classList.remove('active');
-          }
-        }
-      }
-    });
-  });
+function handleMobileToggle() {
+  const menu = document.getElementById('nav-menu');
+  const toggle = document.getElementById('mobile-toggle');
+  
+  if (menu && toggle) {
+    menu.classList.toggle('active');
+    toggle.classList.toggle('active');
+  }
+}
 
   // Initialize scroll indicators
   updateScrollIndicators();

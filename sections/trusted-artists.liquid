@@ -4,130 +4,802 @@
 
 {{ 'section-trusted-artists.css' | asset_url | stylesheet_tag }}
 
-<div class="trusted-artists-section section" id="testimonials">
-  <div class="page-width">
+<div class="trusted-artists-section section" id="testimonials" style="background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); padding: 1rem 0; position: relative; overflow: hidden; z-index: 2; animation: colorShift 20s ease-in-out infinite;">
+  <!-- Animated Background Elements - Match featured-products styling exactly -->
+  <div class="trusted-artists-bg" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 20% 80%, rgba(102, 255, 204, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 45, 149, 0.1) 0%, transparent 50%); animation: backgroundPulse 8s ease-in-out infinite; z-index: 1;"></div>
+  
+  <!-- Floating Color Orbs -->
+  <div class="floating-orb orb-1" style="position: absolute; top: 10%; left: 10%; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255, 87, 34, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 12s ease-in-out infinite; z-index: 1;"></div>
+  <div class="floating-orb orb-2" style="position: absolute; top: 60%; right: 15%; width: 80px; height: 80px; background: radial-gradient(circle, rgba(255, 140, 0, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 15s ease-in-out infinite reverse; z-index: 1;"></div>
+  <div class="floating-orb orb-3" style="position: absolute; bottom: 20%; left: 20%; width: 60px; height: 60px; background: radial-gradient(circle, rgba(255, 69, 0, 0.6) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 18s ease-in-out infinite; z-index: 1;"></div>
+  <div class="floating-orb orb-4" style="position: absolute; top: 30%; right: 30%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255, 99, 71, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 20s ease-in-out infinite reverse; z-index: 1;"></div>
+  <div class="floating-orb orb-5" style="position: absolute; top: 70%; left: 50%; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255, 165, 0, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 16s ease-in-out infinite; z-index: 1;"></div>
+  
+  <div class="page-width" style="position: relative; z-index: 2;">
     <div class="trusted-artists-heading" style="text-align: center; margin-bottom: 0;">
-      <h2 style="color: var(--text-primary); font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif;">
+      <h2 style="color: #ffffff; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; font-family: 'Space Grotesk', sans-serif; text-shadow: 0 0 20px rgba(14, 203, 230, 0.6), 0 0 40px rgba(63, 215, 255, 0.4), 0 0 60px rgba(122, 60, 255, 0.3);">
         {{ section.settings.heading | default: "Trusted by Top Artists" }}
       </h2>
-      <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+      <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; line-height: 1.6; max-width: 600px; margin: 0 auto; text-shadow: 0 2px 4px rgba(12, 11, 26, 0.8);">
         {{ section.settings.subheading | default: "Fueling the tracks of world-class producers." }}
       </p>
     </div>
 
     <div class="artists-showcase">
-      <div class="artist-card">
+      <div class="artist-card" onclick="openArtistModal('cloonee')">
         <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/cloonee.jpg?v=1757992680" alt="Cloonee" class="artist-image">
         <div class="artist-name">Cloonee</div>
-        <div class="artist-title">House Music Producer</div>
       </div>
       
-      <div class="artist-card">
+      <div class="artist-card" onclick="openArtistModal('dom-dolla')">
         <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/dom.jpg?v=1757992681" alt="Dom Dolla" class="artist-image">
         <div class="artist-name">Dom Dolla</div>
-        <div class="artist-title">Electronic Music Producer</div>
       </div>
       
-      <div class="artist-card">
+      <div class="artist-card" onclick="openArtistModal('maup')">
         <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/maup.jpg?v=1757992680" alt="Maup" class="artist-image">
         <div class="artist-name">Maup</div>
-        <div class="artist-title">Beatmaker & Producer</div>
       </div>
       
-      <div class="artist-card">
+      <div class="artist-card" onclick="openArtistModal('max-styler')">
         <img src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/max.jpg?v=1757992680" alt="Max Styler" class="artist-image">
         <div class="artist-name">Max Styler</div>
-        <div class="artist-title">Music Producer</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Artist Modal -->
+<div id="artistModal" class="artist-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 11, 26, 0.9); z-index: 999999999; backdrop-filter: blur(10px);">
+  <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #0c0b1a, #1a1330); border: 1px solid rgba(14, 203, 230, 0.3); border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(12, 11, 26, 0.8);">
+    <button class="modal-close" onclick="closeArtistModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: rgba(255, 255, 255, 0.6); font-size: 1.5rem; cursor: pointer; transition: color 0.3s ease;">&times;</button>
+    
+    <div class="modal-header" style="text-align: center; margin-bottom: 1.5rem;">
+      <img id="modalImage" src="" alt="" class="modal-image" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 2px solid rgba(14, 203, 230, 0.4); box-shadow: 0 4px 15px rgba(12, 11, 26, 0.3);">
+      <h3 id="modalName" style="color: #ffffff; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">Artist Name</h3>
+      <p id="modalTitle" style="color: rgba(255, 255, 255, 0.8); font-size: 1rem; margin-bottom: 0; font-family: 'Space Grotesk', sans-serif;">Artist Title</p>
+    </div>
+    
+    <div class="modal-body">
+      <div class="artist-stats" style="display: flex; justify-content: space-around; margin-bottom: 1.5rem; padding: 1rem; background: rgba(14, 203, 230, 0.05); border-radius: 12px; border: 1px solid rgba(14, 203, 230, 0.1);">
+        <div class="stat-item" style="text-align: center;">
+          <div class="stat-number" id="modalFollowers" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">1.2M</div>
+          <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Followers</div>
+        </div>
+        <div class="stat-item" style="text-align: center;">
+          <div class="stat-number" id="modalTracks" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">50+</div>
+          <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Tracks</div>
+        </div>
+        <div class="stat-item" style="text-align: center;">
+          <div class="stat-number" id="modalYears" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">8+</div>
+          <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Years</div>
+        </div>
+      </div>
+      
+      <div class="artist-description" style="margin-bottom: 1.5rem;">
+        <h4 style="color: #ffffff; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', sans-serif;">About</h4>
+        <p id="modalDescription" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.6; margin: 0; font-family: 'Space Grotesk', sans-serif;">Artist description will appear here.</p>
+      </div>
+      
+      <div class="artist-achievements" style="margin-bottom: 1.5rem;">
+        <h4 style="color: #ffffff; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', sans-serif;">Notable Achievements</h4>
+        <ul id="modalAchievements" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem; font-family: 'Space Grotesk', sans-serif;">
+          <li>Achievement 1</li>
+          <li>Achievement 2</li>
+          <li>Achievement 3</li>
+        </ul>
+      </div>
+      
+      <div class="artist-quote" style="padding: 1rem; background: rgba(14, 203, 230, 0.05); border-left: 3px solid rgba(14, 203, 230, 0.4); border-radius: 8px;">
+        <p id="modalQuote" style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; line-height: 1.6; margin: 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">"Artist quote will appear here."</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
+/* Page Background Animations - Override existing styles - Match featured-products */
+html body {
+  background: #000000 !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+}
+
+/* Additional override to ensure background takes precedence */
+body {
+  background: #000000 !important;
+  background-image: none !important;
+}
+
+/* Override any existing body background gradients */
+body::before {
+  display: none !important;
+}
+
+/* Force trusted-artists section background - Override all conflicting styles */
+.trusted-artists-section.section {
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+  animation: colorShift 20s ease-in-out infinite !important;
+}
+
+/* Force section background animation */
+#testimonials.trusted-artists-section {
+  animation: colorShift 20s ease-in-out infinite !important;
+}
+
+/* Override any conflicting animations */
+.trusted-artists-section {
+  animation: colorShift 20s ease-in-out infinite !important;
+}
+
+/* Override any section-level background resets */
+.shopify-section .trusted-artists-section {
+  background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+}
+
+/* Override the existing body::after with much higher specificity */
+html body::after {
+  content: '' !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -1 !important;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.4) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(255, 75, 71, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(122, 60, 255, 0.3) 0%, transparent 60%),
+    radial-gradient(circle at 30% 30%, rgba(14, 203, 230, 0.25) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+  animation: colorCycle 15s ease-in-out infinite !important;
+  filter: blur(0.5px) saturate(1.2) !important;
+  will-change: background !important;
+}
+
+@keyframes colorCycle {
+  0%, 100% {
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.4) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(255, 75, 71, 0.35) 0%, transparent 60%),
+      radial-gradient(circle at 50% 80%, rgba(122, 60, 255, 0.3) 0%, transparent 60%),
+      radial-gradient(circle at 30% 30%, rgba(14, 203, 230, 0.25) 0%, transparent 50%),
+      linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+  }
+  25% {
+    background: 
+      radial-gradient(circle at 30% 40%, rgba(122, 60, 255, 0.4) 0%, transparent 60%),
+      radial-gradient(circle at 70% 10%, rgba(14, 203, 230, 0.35) 0%, transparent 60%),
+      radial-gradient(circle at 60% 90%, rgba(255, 59, 47, 0.3) 0%, transparent 60%),
+      radial-gradient(circle at 40% 20%, rgba(255, 75, 71, 0.25) 0%, transparent 50%),
+      linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+  }
+  50% {
+    background: 
+      radial-gradient(circle at 40% 30%, rgba(14, 203, 230, 0.4) 0%, transparent 60%),
+      radial-gradient(circle at 60% 80%, rgba(122, 60, 255, 0.35) 0%, transparent 60%),
+      radial-gradient(circle at 70% 20%, rgba(255, 75, 71, 0.3) 0%, transparent 60%),
+      radial-gradient(circle at 20% 70%, rgba(255, 59, 47, 0.25) 0%, transparent 50%),
+      linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+  }
+  75% {
+    background: 
+      radial-gradient(circle at 50% 20%, rgba(255, 75, 71, 0.4) 0%, transparent 60%),
+      radial-gradient(circle at 20% 60%, rgba(14, 203, 230, 0.35) 0%, transparent 60%),
+      radial-gradient(circle at 80% 40%, rgba(122, 60, 255, 0.3) 0%, transparent 60%),
+      radial-gradient(circle at 60% 80%, rgba(255, 59, 47, 0.25) 0%, transparent 50%),
+      linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+  }
+}
+
+/* Background Pulse Animation - Match featured-products */
+@keyframes backgroundPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Color Animation for Trusted Artists Section */
+@keyframes colorShift {
+  0% {
+    background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%);
+  }
+  20% {
+    background: linear-gradient(135deg, #2a0f05 0%, #4a1f0a 50%, #2a0f05 100%);
+  }
+  40% {
+    background: linear-gradient(135deg, #1f0a05 0%, #3a1f0f 50%, #1f0a05 100%);
+  }
+  60% {
+    background: linear-gradient(135deg, #2a050a 0%, #4a1f0f 50%, #2a050a 100%);
+  }
+  80% {
+    background: linear-gradient(135deg, #0a0505 0%, #1a0f0a 50%, #0a0505 100%);
+  }
+  100% {
+    background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%);
+  }
+}
+
+
+/* Floating color orbs animation */
+@keyframes floatingOrbs {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) scale(0.9);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px) scale(1.05);
+    opacity: 0.25;
+  }
+}
+
+/* Staggered Left-to-Right Animation for Artist Cards - Match featured-products */
+.trusted-artists-section .artist-card {
+  opacity: 0 !important;
+  transform: translateX(-50px) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 1rem !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 1.5rem !important;
+  text-align: center !important;
+  position: relative !important;
+  max-width: 200px !important;
+  cursor: pointer !important;
+}
+
+.trusted-artists-section .artist-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -1px !important;
+  left: -1px !important;
+  right: -1px !important;
+  bottom: -1px !important;
+  border-radius: 15px !important;
+  background: linear-gradient(135deg, rgba(75, 0, 130, 0.4), rgba(138, 43, 226, 0.4), rgba(72, 61, 139, 0.4), rgba(106, 90, 205, 0.4), rgba(123, 104, 238, 0.4)) !important;
+  opacity: 0 !important;
+  transition: all 0.4s ease !important;
+  z-index: -1 !important;
+}
+
+.trusted-artists-section .artist-card:hover::before {
+  opacity: 1 !important;
+  animation: glow-pulse 2s ease-in-out infinite !important;
+}
+
+.trusted-artists-section .artist-card:hover {
+  transform: translateX(0) translateY(-5px) !important;
+  box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3) !important;
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 0 0 25px rgba(75, 0, 130, 0.2) !important;
+  }
+}
+
+.trusted-artists-section .artist-card.animate-in {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
 .artists-showcase {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 2rem;
+  margin: 0.5rem 0;
   flex-wrap: wrap;
+  padding: 0 0.25rem;
 }
 
 .artist-card {
   text-align: center;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  width: 120px;
-  height: 160px;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, #0c0b1a, #1a1330);
+  border: 1px solid rgba(14, 203, 230, 0.3);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(20px);
+  width: 180px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(12, 11, 26, 0.4);
+  cursor: pointer;
+}
+
+.artist-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(14, 203, 230, 0.08), rgba(63, 215, 255, 0.05), rgba(122, 60, 255, 0.05));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 20px;
+}
+
+.artist-card:hover::before {
+  opacity: 1;
 }
 
 .artist-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(74, 158, 255, 0.3);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(14, 203, 230, 0.6);
+  box-shadow: 0 20px 40px rgba(12, 11, 26, 0.6), 0 0 0 1px rgba(14, 203, 230, 0.4), 0 0 15px rgba(63, 215, 255, 0.2);
 }
 
 .artist-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
   object-fit: cover;
   margin-bottom: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(14, 203, 230, 0.4);
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(12, 11, 26, 0.3);
+}
+
+.artist-card:hover .artist-image {
+  border-color: rgba(63, 215, 255, 0.7);
+  box-shadow: 0 6px 20px rgba(12, 11, 26, 0.4), 0 0 10px rgba(14, 203, 230, 0.3);
+  transform: scale(1.05);
 }
 
 .artist-name {
-  color: var(--text-primary);
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
   text-align: center;
   line-height: 1.2;
+  font-family: 'Space Grotesk', sans-serif;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(12, 11, 26, 0.6);
 }
 
 .artist-title {
-  color: var(--text-secondary);
-  font-size: 0.65rem;
-  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  opacity: 0.9;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.3;
+  font-family: 'Space Grotesk', sans-serif;
+  position: relative;
+  z-index: 2;
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(12, 11, 26, 0.6);
+}
+
+/* Glow effect on hover */
+.artist-card:hover {
+  background: linear-gradient(135deg, #0c0b1a, #1a1330);
+}
+
+/* Add subtle animation to cards */
+.artist-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.artist-card:nth-child(1) { animation-delay: 0.1s; }
+.artist-card:nth-child(2) { animation-delay: 0.2s; }
+.artist-card:nth-child(3) { animation-delay: 0.3s; }
+.artist-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {
   .artists-showcase {
-    gap: 0.75rem;
-    margin: 0.75rem 0;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    padding: 0 0.5rem;
   }
   
   .artist-card {
-    width: 100px;
-    height: 140px;
-    padding: 0.5rem;
+    width: 150px;
+    height: 150px;
+    padding: 1.25rem;
   }
   
   .artist-image {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 100px;
   }
   
   .artist-name {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
   }
   
   .artist-title {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artists-showcase {
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .artist-card {
+    width: 130px;
+    height: 130px;
+    padding: 1rem;
+  }
+  
+  .artist-image {
+    width: 100%;
+    height: 80px;
+  }
+  
+  .artist-name {
+    font-size: 0.8rem;
+  }
+  
+  .artist-title {
+    font-size: 0.7rem;
+  }
+}
+
+/* Modal Styles */
+.artist-modal {
+  animation: fadeIn 0.3s ease-out;
+  z-index: 999999999 !important;
+  position: fixed !important;
+}
+
+.modal-content {
+  animation: slideIn 0.3s ease-out;
+  z-index: 1000000000 !important;
+  position: relative !important;
+}
+
+.modal-close:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to { 
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .artist-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    margin-bottom: 0.5rem;
   }
 }
 </style>
+
+<script>
+// Artist data
+const artistData = {
+  'cloonee': {
+    name: 'Cloonee',
+    title: 'House Music Producer',
+    image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/cloonee.jpg?v=1757992680',
+    followers: '1.2M',
+    tracks: '50+',
+    years: '8+',
+    description: 'Cloonee is a rising star in the house music scene, known for his infectious grooves and innovative sound design. His tracks have been supported by top DJs worldwide and have amassed millions of streams across platforms.',
+    achievements: [
+      'Featured on BBC Radio 1',
+      'Over 50 million streams worldwide',
+      'Performed at major festivals including Tomorrowland',
+      'Collaborated with industry legends'
+    ],
+    quote: "These presets completely transformed my tracks! The quality is unmatched and the workflow is incredible. I've been using them in all my recent productions."
+  },
+  'dom-dolla': {
+    name: 'Dom Dolla',
+    title: 'Electronic Music Producer',
+    image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/dom.jpg?v=1757992681',
+    followers: '2.1M',
+    tracks: '80+',
+    years: '10+',
+    description: 'Dom Dolla is an Australian electronic music producer and DJ who has taken the global dance music scene by storm. Known for his unique blend of house and techno, he has become one of the most influential artists in the genre.',
+    achievements: [
+      'ARIA Award winner',
+      'Over 200 million streams globally',
+      'Headlined major festivals worldwide',
+      'Multiple platinum-certified tracks'
+    ],
+    quote: "The VST plugins are next-level! Incredible sounds, super professional. These tools are game-changers for any producer looking to elevate their sound."
+  },
+  'maup': {
+    name: 'Maup',
+    title: 'Beatmaker & Producer',
+    image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/maup.jpg?v=1757992680',
+    followers: '850K',
+    tracks: '120+',
+    years: '6+',
+    description: 'Maup is a versatile beatmaker and producer known for his experimental approach to electronic music. His innovative sound design and creative arrangements have earned him recognition in both underground and mainstream circles.',
+    achievements: [
+      'Featured in major music publications',
+      'Collaborated with top-tier artists',
+      'Over 100 million streams',
+      'Known for innovative sound design'
+    ],
+    quote: "My productions have never sounded this good! These samples and presets are absolutely incredible. They've become essential to my creative process."
+  },
+  'max-styler': {
+    name: 'Max Styler',
+    title: 'Music Producer',
+    image: 'https://cdn.shopify.com/s/files/1/0938/0285/6811/files/max.jpg?v=1757992680',
+    followers: '1.5M',
+    tracks: '90+',
+    years: '7+',
+    description: 'Max Styler is a dynamic music producer known for his energetic tracks and innovative production techniques. His music spans multiple genres, from house to future bass, always maintaining his signature sound.',
+    achievements: [
+      'Multiple chart-topping releases',
+      'Over 150 million streams',
+      'International touring artist',
+      'Collaborated with major labels'
+    ],
+    quote: "Finally, samples that actually inspire creativity. The quality and variety are unmatched in the industry. These sounds have become the foundation of my productions."
+  }
+};
+
+function openArtistModal(artistId) {
+  const artist = artistData[artistId];
+  
+  if (artist) {
+    // Create a new modal element and append it to body
+    const existingModal = document.getElementById('artistModal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+    
+    const modal = document.createElement('div');
+    modal.id = 'artistModal';
+    modal.className = 'artist-modal';
+    modal.style.cssText = `
+      display: block !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(12, 11, 26, 0.15) !important;
+      z-index: 2147483647 !important;
+      backdrop-filter: blur(10px) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      outline: none !important;
+    `;
+    
+    modal.innerHTML = `
+      <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #0c0b1a, #1a1330); border: 1px solid rgba(14, 203, 230, 0.3); border-radius: 20px; padding: 2rem; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(12, 11, 26, 0.8); z-index: 2147483647 !important;">
+        <button class="modal-close" onclick="closeArtistModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: rgba(255, 255, 255, 0.6); font-size: 1.5rem; cursor: pointer; transition: color 0.3s ease;">&times;</button>
+        
+        <div class="modal-header" style="text-align: center; margin-bottom: 1.5rem;">
+          <img id="modalImage" src="${artist.image}" alt="${artist.name}" class="modal-image" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 2px solid rgba(14, 203, 230, 0.4); box-shadow: 0 4px 15px rgba(12, 11, 26, 0.3);">
+          <h3 id="modalName" style="color: #ffffff; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif;">${artist.name}</h3>
+          <p id="modalTitle" style="color: rgba(255, 255, 255, 0.8); font-size: 1rem; margin-bottom: 0; font-family: 'Space Grotesk', sans-serif;">${artist.title}</p>
+        </div>
+        
+        <div class="modal-body">
+          <div class="artist-stats" style="display: flex; justify-content: space-around; margin-bottom: 1.5rem; padding: 1rem; background: rgba(14, 203, 230, 0.05); border-radius: 12px; border: 1px solid rgba(14, 203, 230, 0.1);">
+            <div class="stat-item" style="text-align: center;">
+              <div class="stat-number" id="modalFollowers" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">${artist.followers}</div>
+              <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Followers</div>
+            </div>
+            <div class="stat-item" style="text-align: center;">
+              <div class="stat-number" id="modalTracks" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">${artist.tracks}</div>
+              <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Tracks</div>
+            </div>
+            <div class="stat-item" style="text-align: center;">
+              <div class="stat-number" id="modalYears" style="color: #ffffff; font-size: 1.2rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">${artist.years}</div>
+              <div class="stat-label" style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;">Years</div>
+            </div>
+          </div>
+          
+          <div class="artist-description" style="margin-bottom: 1.5rem;">
+            <h4 style="color: #ffffff; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', sans-serif;">About</h4>
+            <p id="modalDescription" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.6; margin: 0; font-family: 'Space Grotesk', sans-serif;">${artist.description}</p>
+          </div>
+          
+          <div class="artist-achievements" style="margin-bottom: 1.5rem;">
+            <h4 style="color: #ffffff; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; font-family: 'Space Grotesk', sans-serif;">Notable Achievements</h4>
+            <ul id="modalAchievements" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 1.2rem; font-family: 'Space Grotesk', sans-serif;">
+              ${artist.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+            </ul>
+          </div>
+          
+          <div class="artist-quote" style="padding: 1rem; background: rgba(14, 203, 230, 0.05); border-left: 3px solid rgba(14, 203, 230, 0.4); border-radius: 8px;">
+            <p id="modalQuote" style="color: rgba(255, 255, 255, 0.9); font-size: 0.9rem; line-height: 1.6; margin: 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">"${artist.quote}"</p>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Append to body
+    document.body.appendChild(modal);
+    
+    // Add event listeners
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeArtistModal();
+      }
+    });
+    
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+}
+
+function closeArtistModal() {
+  const modal = document.getElementById('artistModal');
+  if (modal) {
+    modal.remove(); // Remove the modal from DOM
+  }
+  document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeArtistModal();
+  }
+});
+
+// Animation trigger on scroll - Match featured-products behavior
+function animateArtistCards() {
+  const cards = document.querySelectorAll('.trusted-artists-section .artist-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+        }, index * 200); // Staggered animation
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  cards.forEach(card => observer.observe(card));
+}
+
+// Initialize animations when DOM is loaded
+document.addEventListener('DOMContentLoaded', animateArtistCards);
+
+// Force background override after page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Override body background
+  document.body.style.background = '#000000';
+  document.body.style.backgroundImage = 'none';
+  
+  // Force trusted-artists section background and animations
+  const trustedArtistsSection = document.querySelector('.trusted-artists-section');
+  if (trustedArtistsSection) {
+    // Force background animation with inline styles
+    trustedArtistsSection.style.animation = 'colorShift 20s ease-in-out infinite';
+    trustedArtistsSection.style.background = 'linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%)';
+    
+    // Create a more visible color shift animation
+    let colorIndex = 0;
+    const colors = [
+      'linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%)',
+      'linear-gradient(135deg, #4a1f05 0%, #6a2f0a 50%, #4a1f05 100%)',
+      'linear-gradient(135deg, #3f1a05 0%, #5a2f0f 50%, #3f1a05 100%)',
+      'linear-gradient(135deg, #4a050a 0%, #6a1f0f 50%, #4a050a 100%)',
+      'linear-gradient(135deg, #2a0505 0%, #3a0f0a 50%, #2a0505 100%)'
+    ];
+    
+    setInterval(() => {
+      trustedArtistsSection.style.background = colors[colorIndex];
+      colorIndex = (colorIndex + 1) % colors.length;
+    }, 4000); // Change every 4 seconds
+  }
+  
+  
+  // Remove existing body::before if it exists
+  const existingBefore = document.querySelector('body::before');
+  if (existingBefore) {
+    existingBefore.style.display = 'none';
+  }
+  
+  // Ensure our background is applied
+  const style = document.createElement('style');
+  style.textContent = `
+    body::after {
+      content: '' !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: -1 !important;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 59, 47, 0.4) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(255, 75, 71, 0.35) 0%, transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(122, 60, 255, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 30% 30%, rgba(14, 203, 230, 0.25) 0%, transparent 50%),
+        linear-gradient(180deg, #0c0b1a 0%, #1a1330 100%) !important;
+      animation: colorCycle 15s ease-in-out infinite !important;
+      filter: blur(0.5px) saturate(1.2) !important;
+      will-change: background !important;
+    }
+    
+    .trusted-artists-section.section {
+      background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+      background-color: transparent !important;
+      background-image: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%) !important;
+      animation: colorShift 20s ease-in-out infinite !important;
+    }
+    
+    @keyframes colorShift {
+      0% { background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); }
+      20% { background: linear-gradient(135deg, #2a0f05 0%, #4a1f0a 50%, #2a0f05 100%); }
+      40% { background: linear-gradient(135deg, #1f0a05 0%, #3a1f0f 50%, #1f0a05 100%); }
+      60% { background: linear-gradient(135deg, #2a050a 0%, #4a1f0f 50%, #2a050a 100%); }
+      80% { background: linear-gradient(135deg, #0a0505 0%, #1a0f0a 50%, #0a0505 100%); }
+      100% { background: linear-gradient(135deg, #050505 0%, #0f0f1a 50%, #050505 100%); }
+    }
+  `;
+  document.head.appendChild(style);
+});
+</script>
 
 {% schema %}
 {

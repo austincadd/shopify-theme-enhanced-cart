@@ -12,12 +12,14 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "heading": "Your Sound, Upgraded—Pro Sounds at Your Fingertips.",
-        "subheading": "Explore premium sample packs and VST presets built for modern producers.",
+        "product_title_line_1": "Liquify",
+        "product_title_line_2": "Vocals",
+        "product_price": "$29.99",
+        "description_highlight": "Punchy, Hypnotic and Floor-Filling",
+        "description_subtitle": "240 vocal samples crafted for the modern tech house movement.",
+        "description": "Dive into the fluid world of Liquify, a vocal sample pack designed for modern producers seeking lush, smooth, and expressive vocal textures. Loaded with professionally recorded phrases, one-shots, and melodic chops, this pack gives your tracks a vocal edge that glides effortlessly over any production.",
         "cta_text": "Shop Now",
-        "cta_url": "#shop",
-        "secondary_cta_text": "Discover Plugins",
-        "secondary_cta_url": "#plugins"
+        "cta_url": "/products/liquify"
       }
     },
     "featured_products": {
@@ -31,24 +33,23 @@
         "view_all_text": "View All Products"
       }
     },
-    "brand_story": {
-      "type": "brand-story",
+    "reviews": {
+      "type": "reviews",
       "settings": {
-        "heading": "Built by Producers, for Producers",
-        "description": "Every sound in our collection is crafted by industry veterans who understand what producers need to create their next hit. We're not just selling samples and plugins – we're sharing the tools that helped us build our own careers in music."
-      }
-    },
-    "featured_packs": {
-      "type": "featured-packs",
-      "settings": {
-        "title": "Explore the Sound",
-        "subtitle": "Experience our premium sound collections with interactive demos",
-        "pack1_name": "Euphoria",
-        "pack1_genre": "Progressive House",
-        "pack2_name": "Paradox",
-        "pack2_genre": "Tech House",
-        "pack3_name": "One",
-        "pack3_genre": "Deep House"
+        "title": "What Producers Are Saying",
+        "subtitle": "Real feedback from producers who've transformed their sound",
+        "review1_text": "These samples are absolutely incredible. The quality is studio-grade and they fit perfectly in my tracks. My latest release got signed because of the sounds I used from this pack!",
+        "review1_author_name": "Marcus Johnson",
+        "review1_author_title": "Electronic Producer",
+        "review1_author_initials": "MJ",
+        "review2_text": "The presets are next level. I've been producing for 10 years and these are some of the best sounds I've ever used. The attention to detail is unmatched.",
+        "review2_author_name": "Sarah Kim",
+        "review2_author_title": "Music Producer",
+        "review2_author_initials": "SK",
+        "review3_text": "Game changer! These sounds have elevated my production quality so much. The variety and quality are exactly what I needed to take my music to the next level.",
+        "review3_author_name": "Alex Rivera",
+        "review3_author_title": "DJ & Producer",
+        "review3_author_initials": "AL"
       }
     },
     "trusted_artists": {
@@ -78,9 +79,8 @@
   "order": [
     "hero",
     "featured_products",
-    "brand_story",
-    "featured_packs",
     "trusted_artists",
+    "reviews",
     "email_capture",
     "footer_contact"
   ]

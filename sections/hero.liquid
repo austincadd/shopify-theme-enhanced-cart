@@ -1,5 +1,15 @@
 {{ 'section-hero.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .primary-cta {
+    text-decoration: none !important;
+  }
+  
+  .primary-cta:hover {
+    text-decoration: none !important;
+  }
+</style>
+
         <!-- Announcement Bar -->
         <div class="announcement-bar">
           <div class="announcement-content">
@@ -36,23 +46,23 @@
         <div class="product-badge">Featured Pack</div>
         
         <h1 class="hero-title">
-          <span class="title-line-1">Liquify</span>
-          <span class="title-line-2">Vocals</span>
+          <span class="title-line-1">{{ section.settings.product_title_line_1 | default: "Liquify" }}</span>
+          <span class="title-line-2">{{ section.settings.product_title_line_2 | default: "Vocals" }}</span>
         </h1>
         
         <div class="price-section">
-          <span class="current-price">$29.99</span>
+          <span class="current-price">{{ section.settings.product_price | default: "$29.99" }}</span>
         </div>
         
         <p class="hero-description">
-          <span class="description-highlight">Punchy, Hypnotic and Floor-Filling</span><br>
-          <span class="description-subtitle">240 vocal samples crafted for the modern tech house movement.</span><br>
+          <span class="description-highlight">{{ section.settings.description_highlight | default: "Punchy, Hypnotic and Floor-Filling" }}</span><br>
+          <span class="description-subtitle">{{ section.settings.description_subtitle | default: "240 vocal samples crafted for the modern tech house movement." }}</span><br>
           
-          Dive into the fluid world of Liquify, a vocal sample pack designed for modern producers seeking lush, smooth, and expressive vocal textures. Loaded with professionally recorded phrases, one-shots, and melodic chops, this pack gives your tracks a vocal edge that glides effortlessly over any production.
+          {{ section.settings.description | default: "Dive into the fluid world of Liquify, a vocal sample pack designed for modern producers seeking lush, smooth, and expressive vocal textures. Loaded with professionally recorded phrases, one-shots, and melodic chops, this pack gives your tracks a vocal edge that glides effortlessly over any production." }}
         </p>
         
         <div class="cta-section">
-          <button class="primary-cta">ADD TO CART · $29.99</button>
+          <a href="{{ section.settings.cta_url | default: '/products/liquify' }}" class="primary-cta">{{ section.settings.cta_text | default: "ADD TO CART" }} · {{ section.settings.product_price | default: "$29.99" }}</a>
         </div>
       </div>
       
@@ -60,8 +70,8 @@
       <div class="product-preview">
         <div class="preview-container">
           <img 
-            src="https://cdn.shopify.com/s/files/1/0938/0285/6811/files/liquifyX.png?v=1758300196"
-            alt="Liquify Vocals" 
+            src="{% if section.settings.product_image %}{{ section.settings.product_image | image_url: width: 400 }}{% else %}https://cdn.shopify.com/s/files/1/0938/0285/6811/files/liquifyX.png?v=1758300196{% endif %}"
+            alt="{{ section.settings.product_title_line_1 | default: 'Liquify' }} {{ section.settings.product_title_line_2 | default: 'Vocals' }}" 
             class="preview-image"
             loading="lazy"
             width="400"
@@ -81,46 +91,55 @@
   "settings": [
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Professional Music Production Tools"
+      "id": "product_title_line_1",
+      "label": "Product Title Line 1",
+      "default": "Liquify"
+    },
+    {
+      "type": "text",
+      "id": "product_title_line_2",
+      "label": "Product Title Line 2",
+      "default": "Vocals"
+    },
+    {
+      "type": "text",
+      "id": "product_price",
+      "label": "Product Price",
+      "default": "$29.99"
+    },
+    {
+      "type": "text",
+      "id": "description_highlight",
+      "label": "Description Highlight",
+      "default": "Punchy, Hypnotic and Floor-Filling"
+    },
+    {
+      "type": "text",
+      "id": "description_subtitle",
+      "label": "Description Subtitle",
+      "default": "240 vocal samples crafted for the modern tech house movement."
     },
     {
       "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Elevate your sound with premium sample packs, cutting-edge plugins, and exclusive producer resources."
+      "id": "description",
+      "label": "Product Description",
+      "default": "Dive into the fluid world of Liquify, a vocal sample pack designed for modern producers seeking lush, smooth, and expressive vocal textures. Loaded with professionally recorded phrases, one-shots, and melodic chops, this pack gives your tracks a vocal edge that glides effortlessly over any production."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
     },
     {
       "type": "text",
       "id": "cta_text",
-      "label": "Primary CTA Text",
-      "default": "Explore Products"
+      "label": "CTA Button Text",
+      "default": "ADD TO CART"
     },
     {
       "type": "url",
       "id": "cta_url",
-      "label": "Primary CTA URL"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_text",
-      "label": "Secondary CTA Text"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_url",
-      "label": "Secondary CTA URL"
-    },
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "featured_image",
-      "label": "Featured Image"
+      "label": "CTA Button URL"
     }
   ],
   "presets": [

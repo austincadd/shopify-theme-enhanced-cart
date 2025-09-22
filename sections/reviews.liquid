@@ -1,0 +1,306 @@
+{% comment %}
+  Customer Reviews Section - Testimonials and social proof
+{% endcomment %}
+
+<style>
+/* Staggered Left-to-Right Animation for Review Cards */
+.reviews-section .review-card {
+  opacity: 0 !important;
+  transform: translateX(-50px) !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.reviews-section .review-card.animate-in {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Staggered delays for left-to-right effect */
+.reviews-section .review-card:nth-child(1) { transition-delay: 0.1s !important; }
+.reviews-section .review-card:nth-child(2) { transition-delay: 0.2s !important; }
+.reviews-section .review-card:nth-child(3) { transition-delay: 0.3s !important; }
+.reviews-section .review-card:nth-child(4) { transition-delay: 0.4s !important; }
+.reviews-section .review-card:nth-child(5) { transition-delay: 0.5s !important; }
+.reviews-section .review-card:nth-child(6) { transition-delay: 0.6s !important; }
+
+/* Override inline styles */
+.reviews-section .review-card[style*="transition"] {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Review Card Hover Effects */
+.review-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(102, 255, 204, 0.2) !important;
+}
+
+/* Star Rating Styles */
+.star-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 1.2rem;
+}
+
+/* Review Author Styles */
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--neon-green));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyber-bg);
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.author-info h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.author-info p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+</style>
+
+<div class="reviews-section section" id="reviews">
+  <div class="page-width">
+    <div class="reviews-header" style="text-align: center; margin-bottom: 3rem; margin-top: 0;">
+      <h2 class="reviews-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; text-shadow: 0 0 20px rgba(102, 255, 204, 0.3);">
+        {{ section.settings.title | default: "What Producers Are Saying" }}
+      </h2>
+      <p class="reviews-subtitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        {{ section.settings.subtitle | default: "Real feedback from producers who've transformed their sound" }}
+      </p>
+    </div>
+
+    <div class="reviews-grid" style="display: flex; flex-direction: row; gap: 2rem; max-width: 100%; width: 100%; margin: 0 auto; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 0 2rem;">
+      
+      <!-- Review Card 1 -->
+      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
+        <div class="star-rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+          "{{ section.settings.review1_text | default: 'These samples are absolutely incredible. The quality is studio-grade and they fit perfectly in my tracks. My latest release got signed because of the sounds I used from this pack!' }}"
+        </blockquote>
+        <div class="review-author">
+          <div class="author-avatar">{{ section.settings.review1_author_initials | default: 'MJ' }}</div>
+          <div class="author-info">
+            <h4>{{ section.settings.review1_author_name | default: 'Marcus Johnson' }}</h4>
+            <p>{{ section.settings.review1_author_title | default: 'Electronic Producer' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Card 2 -->
+      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
+        <div class="star-rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+          "{{ section.settings.review2_text | default: 'The presets are next level. I have been producing for 10 years and these are some of the best sounds I have ever used. The attention to detail is unmatched.' }}"
+        </blockquote>
+        <div class="review-author">
+          <div class="author-avatar">{{ section.settings.review2_author_initials | default: 'SK' }}</div>
+          <div class="author-info">
+            <h4>{{ section.settings.review2_author_name | default: 'Sarah Kim' }}</h4>
+            <p>{{ section.settings.review2_author_title | default: 'Music Producer' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Card 3 -->
+      <div class="review-card" style="flex: 1; min-width: 300px; max-width: 400px; background: var(--cyber-panel); border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; backdrop-filter: blur(20px);">
+        <div class="star-rating">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size: 1rem; line-height: 1.6; margin: 0 0 1.5rem 0; font-style: italic; font-family: 'Space Grotesk', sans-serif;">
+          "{{ section.settings.review3_text | default: 'Game changer! These sounds have elevated my production quality so much. The variety and quality are exactly what I needed to take my music to the next level.' }}"
+        </blockquote>
+        <div class="review-author">
+          <div class="author-avatar">{{ section.settings.review3_author_initials | default: 'AL' }}</div>
+          <div class="author-info">
+            <h4>{{ section.settings.review3_author_name | default: 'Alex Rivera' }}</h4>
+            <p>{{ section.settings.review3_author_title | default: 'DJ & Producer' }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Call to Action -->
+    <div class="reviews-cta" style="text-align: center; margin-top: 3rem;">
+      <p style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">
+        Join thousands of producers who trust our sounds
+      </p>
+      <a href="#shop" class="cta-button" style="display: inline-block; background: linear-gradient(135deg, var(--accent-blue), var(--neon-green)); color: var(--cyber-bg); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; font-family: 'Space Grotesk', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 255, 204, 0.3);">
+        Explore Our Sounds
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Animate review cards on scroll
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  document.querySelectorAll('.review-card').forEach(card => {
+    observer.observe(card);
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Producers Are Saying"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Real feedback from producers who've transformed their sound"
+    },
+    {
+      "type": "header",
+      "content": "Review 1"
+    },
+    {
+      "type": "textarea",
+      "id": "review1_text",
+      "label": "Review Text",
+      "default": "These samples are absolutely incredible. The quality is studio-grade and they fit perfectly in my tracks. My latest release got signed because of the sounds I used from this pack!"
+    },
+    {
+      "type": "text",
+      "id": "review1_author_name",
+      "label": "Author Name",
+      "default": "Marcus Johnson"
+    },
+    {
+      "type": "text",
+      "id": "review1_author_title",
+      "label": "Author Title",
+      "default": "Electronic Producer"
+    },
+    {
+      "type": "text",
+      "id": "review1_author_initials",
+      "label": "Author Initials",
+      "default": "MJ"
+    },
+    {
+      "type": "header",
+      "content": "Review 2"
+    },
+    {
+      "type": "textarea",
+      "id": "review2_text",
+      "label": "Review Text",
+      "default": "The presets are next level. I have been producing for 10 years and these are some of the best sounds I have ever used. The attention to detail is unmatched."
+    },
+    {
+      "type": "text",
+      "id": "review2_author_name",
+      "label": "Author Name",
+      "default": "Sarah Kim"
+    },
+    {
+      "type": "text",
+      "id": "review2_author_title",
+      "label": "Author Title",
+      "default": "Music Producer"
+    },
+    {
+      "type": "text",
+      "id": "review2_author_initials",
+      "label": "Author Initials",
+      "default": "SK"
+    },
+    {
+      "type": "header",
+      "content": "Review 3"
+    },
+    {
+      "type": "textarea",
+      "id": "review3_text",
+      "label": "Review Text",
+      "default": "Game changer! These sounds have elevated my production quality so much. The variety and quality are exactly what I needed to take my music to the next level."
+    },
+    {
+      "type": "text",
+      "id": "review3_author_name",
+      "label": "Author Name",
+      "default": "Alex Rivera"
+    },
+    {
+      "type": "text",
+      "id": "review3_author_title",
+      "label": "Author Title",
+      "default": "DJ & Producer"
+    },
+    {
+      "type": "text",
+      "id": "review3_author_initials",
+      "label": "Author Initials",
+      "default": "AL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews"
+    }
+  ]
+}
+{% endschema %}

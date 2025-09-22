@@ -408,6 +408,8 @@
 </div>
 
 <script>
+// Duplicate class - using the one from snippets/enhanced-cart-drawer.liquid
+/*
 class EnhancedCartDrawer {
   constructor() {
     this.drawer = document.getElementById('enhanced-cart-drawer');
@@ -641,12 +643,13 @@ class EnhancedCartDrawer {
     }).format(cents / 100);
   }
 }
+*/
 
 // Initialize the cart drawer when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Initializing Enhanced Cart Drawer...');
-  window.enhancedCartDrawer = new EnhancedCartDrawer();
-  console.log('Enhanced Cart Drawer initialized:', !!window.enhancedCartDrawer);
+  // window.enhancedCartDrawer = new EnhancedCartDrawer();
+  // console.log('Enhanced Cart Drawer initialized:', !!window.enhancedCartDrawer);
   
   // Prevent any cart icon clicks from navigating to cart page
   const cartIcons = document.querySelectorAll('#cart-icon-bubble, .header__icon--cart, .cart-link, a[href*="cart"]');

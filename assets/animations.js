@@ -1,23 +1,11 @@
-// Def Audio Animations with GSAP and Swup.js
+// Def Audio Animations with GSAP
 // Professional music production theme animations
 
-// Initialize GSAP and Swup
-import { gsap } from "https://cdn.skypack.dev/gsap";
-import { ScrollTrigger } from "https://cdn.skypack.dev/gsap/ScrollTrigger";
-import Swup from "https://cdn.skypack.dev/swup";
+// Initialize GSAP (using global variables instead of imports)
+// GSAP is loaded via script tag in theme.liquid
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
-
-// Initialize Swup for page transitions
-const swup = new Swup({
-  containers: ['#MainContent'],
-  cache: true,
-  animateHistoryBrowsing: true,
-  plugins: [
-    // Add any Swup plugins here if needed
-  ]
-});
+// Swup disabled to prevent navigation conflicts
+let swup = null;
 
 // Def Audio Animation Classes
 class Def AudioAnimations {
@@ -48,8 +36,8 @@ class Def AudioAnimations {
     const heroSubtitle = document.querySelector('.hero-subtitle');
     const heroCTA = document.querySelector('.hero-cta');
 
-    if (heroTitle) {
-      gsap.fromTo(heroTitle, 
+    if (heroTitle && window.gsap) {
+      window.gsap.fromTo(heroTitle, 
         { 
           y: 100, 
           opacity: 0,
@@ -66,8 +54,8 @@ class Def AudioAnimations {
       );
     }
 
-    if (heroSubtitle) {
-      gsap.fromTo(heroSubtitle,
+    if (heroSubtitle && window.gsap) {
+      window.gsap.fromTo(heroSubtitle,
         {
           y: 50,
           opacity: 0
@@ -82,8 +70,8 @@ class Def AudioAnimations {
       );
     }
 
-    if (heroCTA) {
-      gsap.fromTo(heroCTA,
+    if (heroCTA && window.gsap) {
+      window.gsap.fromTo(heroCTA,
         {
           y: 30,
           opacity: 0,
@@ -291,10 +279,12 @@ class Def AudioAnimations {
 // Initialize animations when page loads
 new Def AudioAnimations();
 
-// Re-initialize animations after Swup page transitions
-swup.on('contentReplaced', () => {
-  new Def AudioAnimations();
-});
+// Re-initialize animations after Swup page transitions (only if Swup is available)
+if (swup) {
+  swup.on('contentReplaced', () => {
+    new Def AudioAnimations();
+  });
+}
 
 // Export for use in other scripts
 window.Def AudioAnimations = Def AudioAnimations;
