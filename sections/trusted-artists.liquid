@@ -51,6 +51,13 @@
   <div class="floating-orb orb-4" style="position: absolute; top: 30%; right: 30%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255, 99, 71, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 20s ease-in-out infinite reverse; z-index: 1;"></div>
   <div class="floating-orb orb-5" style="position: absolute; top: 70%; left: 50%; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255, 165, 0, 0.5) 0%, transparent 70%); border-radius: 50%; animation: floatingOrbs 16s ease-in-out infinite; z-index: 1;"></div>
   
+  <!-- Subtle Additional Orbs -->
+  <div class="trusted-subtle-orb trusted-subtle-orb-1" style="position: absolute !important; top: 25% !important; left: 5% !important; width: 40px !important; height: 40px !important; background: radial-gradient(circle, rgba(122, 60, 255, 0.3) 0%, transparent 70%) !important; border-radius: 50% !important; animation: trustedSubtleFloat1 25s ease-in-out infinite !important; z-index: 3 !important; display: block !important; visibility: visible !important; opacity: 0.3 !important;"></div>
+  <div class="trusted-subtle-orb trusted-subtle-orb-2" style="position: absolute !important; top: 45% !important; right: 5% !important; width: 35px !important; height: 35px !important; background: radial-gradient(circle, rgba(14, 203, 230, 0.4) 0%, transparent 70%) !important; border-radius: 50% !important; animation: trustedSubtleFloat2 30s ease-in-out infinite !important; z-index: 3 !important; display: block !important; visibility: visible !important; opacity: 0.4 !important;"></div>
+  <div class="trusted-subtle-orb trusted-subtle-orb-3" style="position: absolute !important; bottom: 40% !important; left: 8% !important; width: 50px !important; height: 50px !important; background: radial-gradient(circle, rgba(255, 37, 102, 0.25) 0%, transparent 70%) !important; border-radius: 50% !important; animation: trustedSubtleFloat3 22s ease-in-out infinite !important; z-index: 3 !important; display: block !important; visibility: visible !important; opacity: 0.25 !important;"></div>
+  <div class="trusted-subtle-orb trusted-subtle-orb-4" style="position: absolute !important; top: 15% !important; right: 45% !important; width: 30px !important; height: 30px !important; background: radial-gradient(circle, rgba(63, 215, 255, 0.35) 0%, transparent 70%) !important; border-radius: 50% !important; animation: trustedSubtleFloat4 28s ease-in-out infinite !important; z-index: 3 !important; display: block !important; visibility: visible !important; opacity: 0.35 !important;"></div>
+  <div class="trusted-subtle-orb trusted-subtle-orb-5" style="position: absolute !important; bottom: 10% !important; right: 25% !important; width: 45px !important; height: 45px !important; background: radial-gradient(circle, rgba(158, 75, 255, 0.3) 0%, transparent 70%) !important; border-radius: 50% !important; animation: trustedSubtleFloat5 26s ease-in-out infinite !important; z-index: 3 !important; display: block !important; visibility: visible !important; opacity: 0.3 !important;"></div>
+  
   <div class="page-width" style="position: relative; z-index: 2;">
     <div class="trusted-artists-heading" style="text-align: center; margin-bottom: 0;">
       <h2 class="trusted-artists-title" style="color: var(--tonedef-neon) !important; font-size: 2.5rem !important; font-weight: 600 !important; margin-bottom: 1rem !important; line-height: 1.2 !important; text-align: center !important; font-family: var(--tonedef-heading-font) !important; text-shadow: 0 0 10px rgba(102, 255, 204, 0.2) !important;">
@@ -279,6 +286,40 @@ html body::after {
     transform: translateY(-30px) translateX(5px) scale(1.05);
     opacity: 0.25;
   }
+}
+
+/* Subtle orb animations for trusted artists */
+@keyframes trustedSubtleFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  25% { transform: translate(15px, -10px) scale(1.1); opacity: 0.3; }
+  50% { transform: translate(-10px, -20px) scale(0.9); opacity: 0.25; }
+  75% { transform: translate(20px, 5px) scale(1.05); opacity: 0.35; }
+}
+
+@keyframes trustedSubtleFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+  33% { transform: translate(-15px, 15px) scale(1.2); opacity: 0.35; }
+  66% { transform: translate(10px, -15px) scale(0.8); opacity: 0.2; }
+}
+
+@keyframes trustedSubtleFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+  20% { transform: translate(20px, 10px) scale(1.15); opacity: 0.25; }
+  40% { transform: translate(-15px, -20px) scale(0.85); opacity: 0.2; }
+  60% { transform: translate(25px, -5px) scale(1.1); opacity: 0.3; }
+  80% { transform: translate(-5px, 15px) scale(0.95); opacity: 0.18; }
+}
+
+@keyframes trustedSubtleFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  50% { transform: translate(-20px, -10px) scale(1.3); opacity: 0.3; }
+}
+
+@keyframes trustedSubtleFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.18; }
+  25% { transform: translate(10px, -15px) scale(0.9); opacity: 0.25; }
+  50% { transform: translate(-20px, 5px) scale(1.25); opacity: 0.3; }
+  75% { transform: translate(15px, 10px) scale(0.95); opacity: 0.22; }
 }
 
 /* Staggered Left-to-Right Animation for Artist Cards - Match featured-products */

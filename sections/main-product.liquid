@@ -5,6 +5,7 @@
   data-product-id="{{ product.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
+  style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important; background-color: #1a1a2e !important; min-height: 100vh !important;"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
   {% endif %}
@@ -26,6 +27,27 @@
   {%- endif -%}
 
   {%- style -%}
+    /* ULTRA HIGH SPECIFICITY OVERRIDES */
+    html body .shopify-section product-info,
+    html body .shopify-section product-info.gradient,
+    html body .shopify-section product-info[class*="color-scheme-"],
+    html body .shopify-section product-info.section-padding,
+    html body .shopify-section product-info[class*="section-"],
+    html body .shopify-section product-info[data-section],
+    html body .shopify-section product-info#MainProduct-{{ section.id }},
+    html body .shopify-section product-info#MainProduct-{{ section.id }}.gradient,
+    html body .shopify-section product-info#MainProduct-{{ section.id }}[class*="color-scheme-"],
+    html body .shopify-section product-info#MainProduct-{{ section.id }}.section-padding {
+      background: linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%) !important;
+      background-color: #ff0000 !important;
+      background-image: linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%) !important;
+      min-height: 100vh !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
     /* Target all sections with the featured-packs background */
     .shopify-section {
       background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
@@ -33,6 +55,47 @@
       padding: 0 !important;
       position: relative !important;
       overflow: hidden !important;
+    }
+    
+    /* Ensure main product section matches MVN section background exactly */
+    product-info {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+      background-color: #1a1a2e !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+      min-height: 100vh !important;
+    }
+    
+    /* Override any gradient or color scheme classes */
+    .gradient,
+    .color-scheme-1,
+    .color-scheme-2,
+    .color-scheme-3,
+    .color-scheme-4,
+    .color-scheme-5,
+    .color-scheme-6,
+    .color-scheme-7,
+    .color-scheme-8,
+    .color-scheme-9,
+    .color-scheme-10 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+      background-color: #1a1a2e !important;
+    }
+    
+    /* Target the specific product-info element with any color scheme */
+    product-info.gradient,
+    product-info[class*="color-scheme-"],
+    product-info.section-padding {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+      background-color: #1a1a2e !important;
+    }
+    
+    /* Override any CSS custom properties */
+    product-info {
+      --color-background: 10, 10, 10 !important;
+      --color-foreground: 255, 255, 255 !important;
     }
     
     /* Target the MVN section (second section on page) - Full width background */
@@ -1220,6 +1283,37 @@
     }
   }
     </script>
+
+  <!-- FORCE BACKGROUND WITH JAVASCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Forcing product-info background...');
+      
+      const productInfo = document.querySelector('product-info');
+      if (productInfo) {
+        console.log('Product-info found, applying background...');
+        productInfo.style.setProperty('background', 'linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%)', 'important');
+        productInfo.style.setProperty('background-color', '#ff0000', 'important');
+        productInfo.style.setProperty('background-image', 'linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%)', 'important');
+        productInfo.style.setProperty('min-height', '100vh', 'important');
+        console.log('Background applied via JavaScript');
+      } else {
+        console.error('Product-info element not found!');
+      }
+      
+      // Also try after a delay in case of dynamic loading
+      setTimeout(function() {
+        const productInfoDelayed = document.querySelector('product-info');
+        if (productInfoDelayed) {
+          productInfoDelayed.style.setProperty('background', 'linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%)', 'important');
+          productInfoDelayed.style.setProperty('background-color', '#ff0000', 'important');
+          productInfoDelayed.style.setProperty('background-image', 'linear-gradient(135deg, #ff0000 0%, #00ff00 50%, #0000ff 100%)', 'important');
+          productInfoDelayed.style.setProperty('min-height', '100vh', 'important');
+          console.log('Background applied via JavaScript (delayed)');
+        }
+      }, 1000);
+    });
+  </script>
 </product-info>
 
 {% render 'enhanced-cart-drawer' %}

@@ -1497,7 +1497,8 @@ a.product__text {
 
 /* Product Info Container */
 product-info {
-  background: rgb(var(--color-background));
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%) !important;
+  background-color: #0a0a0a !important;
   min-height: 100vh;
   position: relative;
 }

@@ -40,6 +40,101 @@
     display: flex;
   }
 
+  /* Mobile Menu Debugging and Fixes */
+  @media screen and (max-width: 989px) {
+    header-drawer {
+      display: block !important;
+    }
+    
+    .header__icon--menu {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+    }
+    
+    .menu-drawer {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 9999 !important;
+      background: rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(10px) !important;
+    }
+    
+    .menu-drawer__inner-container {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 320px !important;
+      height: 100vh !important;
+      background: #1a1a1a !important;
+      transform: translateX(-100%) !important;
+      transition: transform 0.3s ease !important;
+    }
+    
+    details[open] .menu-drawer__inner-container {
+      transform: translateX(0) !important;
+    }
+    
+    .menu-drawer__menu {
+      padding: 2rem 0 !important;
+    }
+    
+    .menu-drawer__menu-item {
+      padding: 1rem 2rem !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important;
+      font-size: 1.1rem !important;
+    }
+    
+    .menu-drawer__menu-item:hover {
+      background: rgba(255, 255, 255, 0.05) !important;
+    }
+  }
+
+  /* Mobile Menu JavaScript Debugging */
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Mobile menu debugging initialized');
+      
+      const headerDrawer = document.querySelector('header-drawer');
+      const menuToggle = document.querySelector('.header__icon--menu');
+      const menuDrawer = document.querySelector('.menu-drawer');
+      
+      if (headerDrawer) {
+        console.log('Header drawer found:', headerDrawer);
+      } else {
+        console.error('Header drawer not found!');
+      }
+      
+      if (menuToggle) {
+        console.log('Menu toggle found:', menuToggle);
+        menuToggle.addEventListener('click', function(e) {
+          console.log('Menu toggle clicked');
+        });
+      } else {
+        console.error('Menu toggle not found!');
+      }
+      
+      if (menuDrawer) {
+        console.log('Menu drawer found:', menuDrawer);
+      } else {
+        console.error('Menu drawer not found!');
+      }
+      
+      // Ensure mobile menu works on touch devices
+      if (menuToggle) {
+        menuToggle.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          console.log('Menu toggle touched');
+        });
+      }
+    });
+  </script>
+
   .list-menu {
     list-style: none;
     padding: 0;

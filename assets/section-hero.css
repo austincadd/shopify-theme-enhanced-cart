@@ -904,7 +904,7 @@ button.secondary-cta:active {
   height: 400px;
   border-radius: 12px;
   overflow: hidden;
-  background: #1c1c1e;
+  background: rgba(255, 255, 255, 0.95);
   transition: transform 0.3s ease;
   box-shadow: 
     0 0 20px rgba(122, 60, 255, 0.15),
