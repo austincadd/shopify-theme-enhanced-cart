@@ -65,12 +65,26 @@
     <div class="hero-content">
       <!-- Clean Typography Focus -->
       <div class="hero-text">
-        <div class="product-badge">Featured Pack</div>
+        <div class="product-badge" style="background: linear-gradient(135deg, #ff3b2f, #ff7f32, #ff2566, #7a3cff, #0ecbe6) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Featured Pack</div>
         
         <h1 class="hero-title">
           <span class="title-line-1">{{ section.settings.product_title_line_1 | default: "Liquify" }}</span>
           <span class="title-line-2">{{ section.settings.product_title_line_2 | default: "Vocals" }}</span>
         </h1>
+        
+        <!-- Mobile Product Image - Only visible on mobile -->
+        <div class="product-preview-mobile">
+          <div class="preview-container">
+            <img 
+              src="{% if section.settings.product_image %}{{ section.settings.product_image | image_url: width: 400 }}{% else %}https://cdn.shopify.com/s/files/1/0938/0285/6811/files/liquifyX.png?v=1758300196{% endif %}"
+              alt="{{ section.settings.product_title_line_1 | default: 'Liquify' }} {{ section.settings.product_title_line_2 | default: 'Vocals' }}" 
+              class="preview-image"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          </div>
+        </div>
         
         <div class="price-section">
           <span class="current-price">{{ section.settings.product_price | default: "$29.99" }}</span>

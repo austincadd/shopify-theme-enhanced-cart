@@ -51,6 +51,20 @@
       align-items: center !important;
       justify-content: center !important;
       cursor: pointer !important;
+      pointer-events: auto !important;
+      position: relative !important;
+      z-index: 10 !important;
+    }
+    
+    .header__icon--menu summary {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 0.5rem !important;
     }
     
     .menu-drawer {
@@ -62,6 +76,14 @@
       z-index: 9999 !important;
       background: rgba(0, 0, 0, 0.8) !important;
       backdrop-filter: blur(10px) !important;
+      transform: translateX(-100%) !important;
+      transition: transform 0.3s ease !important;
+      visibility: hidden !important;
+    }
+    
+    details[open] .menu-drawer {
+      transform: translateX(0) !important;
+      visibility: visible !important;
     }
     
     .menu-drawer__inner-container {
@@ -70,7 +92,7 @@
       left: 0 !important;
       width: 320px !important;
       height: 100vh !important;
-      background: #1a1a1a !important;
+      background: linear-gradient(135deg, #0c0b1a 0%, #1a1330 50%, #0f3460 100%) !important;
       transform: translateX(-100%) !important;
       transition: transform 0.3s ease !important;
     }
@@ -88,49 +110,62 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
       color: #ffffff !important;
       font-size: 1.1rem !important;
+      cursor: pointer !important;
     }
     
     .menu-drawer__menu-item:hover {
       background: rgba(255, 255, 255, 0.05) !important;
     }
+    
+    /* Ensure the details element is properly styled */
+    .menu-drawer-container {
+      position: relative !important;
+    }
+    
+    .menu-drawer-container details {
+      position: relative !important;
+    }
   }
 
-  /* Mobile Menu JavaScript Debugging */
+  /* Mobile Menu Simple Fix */
   <script>
+    // Simple mobile menu fix
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('Mobile menu debugging initialized');
+      console.log('Mobile menu script loaded');
       
-      const headerDrawer = document.querySelector('header-drawer');
-      const menuToggle = document.querySelector('.header__icon--menu');
-      const menuDrawer = document.querySelector('.menu-drawer');
+      // Find the menu details element
+      const menuDetails = document.querySelector('#Details-menu-drawer-container');
       
-      if (headerDrawer) {
-        console.log('Header drawer found:', headerDrawer);
-      } else {
-        console.error('Header drawer not found!');
-      }
-      
-      if (menuToggle) {
-        console.log('Menu toggle found:', menuToggle);
-        menuToggle.addEventListener('click', function(e) {
-          console.log('Menu toggle clicked');
+      if (menuDetails) {
+        console.log('Menu details found, setting up click handler');
+        
+        // Add click handler to the details element itself
+        menuDetails.addEventListener('click', function(e) {
+          console.log('Menu details clicked');
+          
+          // Toggle the open attribute
+          if (this.hasAttribute('open')) {
+            this.removeAttribute('open');
+            document.body.style.overflow = '';
+            console.log('Menu closed');
+          } else {
+            this.setAttribute('open', '');
+            document.body.style.overflow = 'hidden';
+            console.log('Menu opened');
+          }
+        });
+        
+        // Also handle the toggle event
+        menuDetails.addEventListener('toggle', function() {
+          console.log('Menu toggled, open:', this.open);
+          if (this.open) {
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = '';
+          }
         });
       } else {
-        console.error('Menu toggle not found!');
-      }
-      
-      if (menuDrawer) {
-        console.log('Menu drawer found:', menuDrawer);
-      } else {
-        console.error('Menu drawer not found!');
-      }
-      
-      // Ensure mobile menu works on touch devices
-      if (menuToggle) {
-        menuToggle.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          console.log('Menu toggle touched');
-        });
+        console.log('Menu details not found');
       }
     });
   </script>
